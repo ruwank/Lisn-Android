@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+        <!--
+                <string name="home_book_list_url">https://app.lisn.audio/api/1.1/homebooklist.php</string>
+                <string name="top_rated_book_list_url">https://app.lisn.audio/api/1.1/topratedbooklist.php</string>
+                <string name="top_download_book_list_url">https://app.lisn.audio/api/1.1/topdownloadedbooklist.php</string>
+                <string name="user_book_list_url">https://app.lisn.audio/api/1.1/userbooklist.php</string>
+                <string name="book_info_url">https://app.lisn.audio/api/1.1/bookinfo.php</string>
+                <string name="add_user_url">https://app.lisn.audio/api/1.1/adduser.php</string>
+                <string name="forget_password_url">https://app.lisn.audio/api/1.1/forgotpassword.php</string>
+                <string name="user_login_url">https://app.lisn.audio/api/1.1/login.php</string>
+                <string name="user_action_url">https://app.lisn.audio/api/1.1/useract.php</string>
+                <string name="search_book_url">https://app.lisn.audio/api/1.1/searchedbooklist.php</string>
+                <string name="book_category_list_url">https://app.lisn.audio/api/1.1/categorylist.php</string>
+                <string name="book_category_url">https://app.lisn.audio/api/1.1/categorybooklist.php</string>
+                <string name="book_download_url">https://app.lisn.audio/api/1.1/download.php</string>
+                <string name="add_review_url">https://app.lisn.audio/api/1.1/reviewactivity.php</string>
+                <string name="purchase_book_url">https://app.lisn.audio/spgw/1.5.6/payment/init.php</string>
+                <string name="purchase_success_url">https://app.lisn.audio/spgw/1.5.6/payment/success.php</string>
+                <string name="purchase_success_url_http">http://app.lisn.audio/spgw/1.5.6/payment/success.php</string>
+                <string name="purchase_failed_url">https://app.lisn.audio/spgw/1.5.6/payment/failed.php</string>
+                <string name="purchase_failed_url_http">http://app.lisn.audio/spgw/1.5.6/payment/failed.php</string>
+                <string name="purchase_already_url">https://app.lisn.audio/spgw/1.5.6/payment/alreadypaid.php</string>
+                <string name="purchase_already_url_http">http://app.lisn.audio/spgw/1.5.6/payment/alreadypaid.php</string>
+                <string name="play_store_url">https://play.google.com/store/apps/details?id=audio.lisn</string>
+                <string name="mobitel_pay_url">http://app.lisn.audio/cbgw/1.1/mobitel.php</string>
+                <string name="etisalat_pay_url">http://app.lisn.audio/cbgw/1.1/etisalat.php</string>
+                <string name="dialog_pay_url">http://app.lisn.audio/cbgw/1.1/dialog.php</string>
+                <string name="verify_user_url">https://app.lisn.audio/api/1.1/verifyuser.php</string>
+                <string name="user_feedback_url">https://app.lisn.audio/api/1.1/feedbackactivity.php</string>
+                <string name="support_url">info@lisn.audio</string>
+                <string name="update_mobile_no_url">https://app.lisn.audio/api/1.1/updatemobile.php</string>
+                <string name="mconnect_url">https://mconnect.dialog.lk/openidconnect/authorize</string>
+
+         -->
+                    <string name="home_book_list_url">https://app.lisn.audio/api/1.2/homebooklist.php</string>
+                    <string name="top_rated_book_list_url">https://app.lisn.audio/api/1.2/topratedbooklist.php</string>
+                    <string name="top_download_book_list_url">https://app.lisn.audio/api/1.2/topdownloadedbooklist.php</string>
+                    <string name="user_book_list_url">https://app.lisn.audio/api/1.2/userbooklist.php</string>
+                    <string name="book_info_url">https://app.lisn.audio/api/1.2/bookinfo.php</string>
+                    <string name="add_user_url">https://app.lisn.audio/api/1.2/adduser.php</string>
+                    <string name="forget_password_url">https://app.lisn.audio/api/1.2/forgotpassword.php</string>
+                    <string name="user_login_url">https://app.lisn.audio/api/1.2/login.php</string>
+    <!--<string name="user_action_url">https://app.lisn.audio/api/1.2/useract.php</string>-->
+    <string name="user_download_activity_url">http://app.lisn.audio/api/1.1/downloadactivity.php</string>
+                    <string name="search_book_url">https://app.lisn.audio/api/1.2/searchedbooklist.php</string>
+                    <string name="book_category_list_url">https://app.lisn.audio/api/1.2/categorylist.php</string>
+                    <string name="book_category_url">https://app.lisn.audio/api/1.2/categorybooklist.php</string>
+                    <string name="book_download_url">https://app.lisn.audio/api/1.2/download.php</string>
+                    <string name="add_review_url">https://app.lisn.audio/api/1.2/reviewactivity.php</string>
+                    <string name="purchase_book_url">https://app.lisn.audio/spgw/1.5.6/payment/init.php</string>
+                    <string name="purchase_success_url">https://app.lisn.audio/spgw/1.5.6/payment/success.php</string>
+                    <string name="purchase_success_url_http">http://app.lisn.audio/spgw/1.5.6/payment/success.php</string>
+                    <string name="purchase_failed_url">https://app.lisn.audio/spgw/1.5.6/payment/failed.php</string>
+                    <string name="purchase_failed_url_http">http://app.lisn.audio/spgw/1.5.6/payment/failed.php</string>
+                    <string name="purchase_already_url">https://app.lisn.audio/spgw/1.5.6/payment/alreadypaid.php</string>
+                    <string name="purchase_already_url_http">http://app.lisn.audio/spgw/1.5.6/payment/alreadypaid.php</string>
+                    <string name="play_store_url">https://play.google.com/store/apps/details?id=audio.lisn</string>
+                    <string name="mobitel_pay_url">http://app.lisn.audio/cbgw/1.1/mobitel.php</string>
+                    <string name="etisalat_pay_url">http://app.lisn.audio/cbgw/1.1/etisalat.php</string>
+                    <string name="dialog_pay_url">http://app.lisn.audio/cbgw/1.1/dialog.php</string>
+                    <string name="verify_user_url">https://app.lisn.audio/api/1.2/verifyuser.php</string>
+                    <string name="user_feedback_url">https://app.lisn.audio/api/1.2/feedbackactivity.php</string>
+                    <string name="support_url">info@lisn.audio</string>
+                    <string name="update_mobile_no_url">https://app.lisn.audio/api/1.2/updatemobile.php</string>
+                    <string name="mconnect_url">https://mconnect.dialog.lk/openidconnect/authorize</string>
+
+    </resources>
+
+    <!--<string name="book_list_url">http://buddika-001-site1.mywindowshosting.com/booklist.php</string>-->
+<!--<string name="add_user_url">http://buddika-001-site1.mywindowshosting.com/adduser.php</string>-->
+<!--<string name="user_action_url">http://buddika-001-site1.mywindowshosting.com/useract.php</string>-->
+<!--<string name="search_book_url">http://buddika-001-site1.mywindowshosting.com/searchedbooklist.php</string>-->

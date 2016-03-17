@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="audio.lisn"
+    android:versionCode="1102"
+    android:versionName="1.1.2" >
+
+    <uses-sdk
+        android:minSdkVersion="15"
+        android:targetSdkVersion="23" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" /> <!-- Keeps the processor from sleeping when a message is received. -->
+    <uses-permission android:name="android.permission.READ_LOGS" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- for card.io card scanning -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+
+
+    <application
+        android:name=".app.AppController"
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+        <meta-data
+            android:name="android.app.default_searchable"
+            android:value="audio.lisn.activity.SearchResultsActivity" />
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="8dd3c7d2affefb5e1f718950934ea9eb9ba0ca10" />
+
+        <provider
+            android:name="com.facebook.FacebookContentProvider"
+            android:authorities="com.facebook.app.FacebookContentProvider964802780211365"
+            android:exported="true" />
+
+        <service android:name=".util.AudioPlayerService" />
+        <service android:name=".service.DownloadService" />
+        <service android:name=".util.PreviewAudioPlayerService" />
+
+        <receiver android:name=".util.PlayerActionReceiver" />
+        <receiver android:name=".util.ReminderReceiver" />
+
+
+        <activity
+            android:name=".activity.MainActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="lisnaudiobook" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.HomeActivity"
+            android:label="@string/title_home"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".activity.AudioBookDetailActivity"
+            android:label="@string/title_home"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".activity.SettingsActivity"
+            android:label="@string/title_settings"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".activity.LoginActivity"
+            android:label="@string/title_home"
+            android:screenOrientation="portrait"
+            >
+        </activity>
+        <activity
+            android:name=".activity.SearchResultsActivity"
+            android:label="@string/title_activity_search_results"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+        </activity>
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <!-- <activity -->
+        <!-- android:name="com.facebook.LoginActivity" -->
+        <!-- android:label="@string/app_name" -->
+        <!-- android:theme="@android:style/Theme.Translucent.NoTitleBar" /> -->
+
+
+
+        <activity
+            android:name=".activity.PlayerControllerActivity"
+            android:label="@string/title_activity_player_controller"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".activity.PurchaseActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="@string/title_activity_purchase"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".activity.AboutUsActivity"
+            android:label="@string/title_activity_about_us"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".activity.FeedBackActivity"
+            android:label="@string/title_activity_feed_back"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".activity.BookReviewActivity"
+            android:label="@string/title_activity_book_review"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".activity.ContactusActivity"
+            android:label="@string/title_activity_contactus"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".activity.SignupActivity"
+            android:label="@string/title_activity_signup"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".activity.ForgotPasswordActivity"
+            android:label="@string/title_activity_forgot_password"
+            android:screenOrientation="portrait" >
+        </activity>
+    </application>
+
+</manifest>

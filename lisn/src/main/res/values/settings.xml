@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="QUICKBLOX_APP_ID">17617</string>
+    <string name="QUICKBLOX_AUTH_KEY">bqr6c9RY6Qs8Umu</string>
+    <string name="QUICKBLOX_AUTH_SECRET">7SjpRcJxLu8kWzT</string>
+    <string name="GCM_USER_REGISTER_URL">http://rtech.net16.net/gcm/register.php</string>
+    <string name="GCM_APP_ID">913087268486</string>
+    
+</resources>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="4dp"
+    android:paddingBottom="5dp"
+    android:background="@drawable/common_list_item_selector" >
+
+    <!-- Thumbnail Profile Image -->
+    <com.android.volley.toolbox.NetworkImageView
+        android:id="@+id/book_cover_thumbnail"
+        android:layout_width="wrap_content"
+        android:layout_height="80dp"
+        android:layout_margin="5dp"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"/>
+    <!-- Matcher Age ,Height -->
+
+    <TextView
+        android:id="@+id/book_title"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/book_cover_thumbnail"
+        android:layout_toRightOf="@+id/book_cover_thumbnail"
+        android:textColor="@color/textColorCommon"
+        android:textSize="@dimen/common_textSize" />
+
+    <!-- Matcher Mother Tone ,Religion,Caste -->
+
+    <ImageButton
+        android:id="@+id/btnAction"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="5dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:background="@android:color/transparent"
+        />
+
+
+
+    <TextView
+        android:id="@+id/book_author"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/book_title"
+        android:layout_marginTop="1dp"
+        android:layout_toRightOf="@+id/book_cover_thumbnail"
+        android:textColor="@color/textColorCommon"
+        android:textSize="@dimen/common_textSize" />
+
+    <!-- Matcher address -->
+
+    <TextView
+        android:id="@+id/book_price"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/book_author"
+        android:layout_marginTop="1dp"
+        android:layout_toRightOf="@+id/book_cover_thumbnail"
+        android:textColor="@color/textColorCommon"
+        android:textSize="@dimen/common_textSize" />
+    <!--<ImageView-->
+    <!--android:id="@+id/divider"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="1dp"-->
+    <!--android:layout_below="@+id/book_cover_thumbnail"-->
+    <!--android:src="@color/app_base_color" />
+            style="?android:attr/ratingBarStyleSmall"
+-->
+    <RatingBar
+        android:id="@+id/rating_bar"
+        style="@style/bookSmallRatingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/book_price"
+        android:layout_toRightOf="@+id/book_cover_thumbnail"
+        android:layout_alignParentBottom="true"
+        android:isIndicator="true"
+        android:focusable="false"
+        android:numStars="5"
+        android:rating="2.0"
+        android:stepSize="0.5" />
+
+
+    <TextView
+        android:id="@+id/downloaded_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/book_price"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:text="24 downloaded"
+        android:layout_marginRight="20dp"
+        android:textColor="@color/textColorCommon"
+        android:textSize="@dimen/common_textSize" />
+
+</RelativeLayout>

@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/card_view_margin"
+        app:cardElevation="@dimen/spacing_medium"
+        app:cardUseCompatPadding="true">
+        <RelativeLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/layout_margin"
+            >
+
+            <ImageView
+                android:id="@+id/book_cover_thumbnail"
+                android:layout_margin="@dimen/book_item_margin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:layout_centerHorizontal="true"
+                android:transitionName="@string/transition_book"
+                />
+            <ImageView
+                android:id="@+id/award_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_award"
+                android:layout_alignParentRight="true"/>
+            <RelativeLayout
+                android:id="@+id/preview_layout"
+                android:layout_margin="@dimen/book_item_margin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_above="@+id/playButton"
+                android:layout_centerHorizontal="true"
+                android:adjustViewBounds="true"
+                android:orientation="vertical"
+                android:visibility="visible"
+                android:background="@color/color_transparent_alpha_0.8"
+                >
+                <TextView
+                    android:id="@+id/preview_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="Preview"
+                    android:textColor="@color/windowBackground"
+                    android:layout_centerHorizontal="true"
+                    android:textSize="15sp" />
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    style="?android:attr/progressBarStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    />
+
+                <TextView
+                    android:id="@+id/time_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/windowBackground"
+                    android:layout_centerInParent="true"
+                    android:textSize="20sp" />
+            </RelativeLayout>
+
+
+            <ImageButton
+                android:id="@+id/playButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:layout_below="@+id/book_cover_thumbnail"
+                android:layout_marginTop="-24dp"
+                android:src="@drawable/btn_play_preview_start"
+                android:layout_centerHorizontal="true" />
+
+            <!--<TextView-->
+                <!--android:id="@+id/book_title"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:ellipsize="end"-->
+                <!--android:singleLine="true"-->
+                <!--android:layout_alignParentLeft="true"-->
+                <!--android:layout_marginLeft="@dimen/book_item_margin"-->
+                <!--android:layout_below="@+id/playButton"-->
+                <!--android:layout_toLeftOf="@+id/btn_action"-->
+                <!--android:textColor="@color/textColor"-->
+                <!--android:textSize="@dimen/grid_view_textSize"-->
+                <!--/>-->
+
+            <audio.lisn.view.EllipsizingTextView
+                android:id="@+id/book_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:maxLines="1"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="@dimen/book_item_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:layout_below="@+id/playButton"
+                android:textColor="@color/textColor"
+                android:textSize="@dimen/grid_view_textSize"
+                />
+
+            <!--                 android:layout_toLeftOf="@+id/btn_action"
+-->
+            <audio.lisn.view.EllipsizingTextView
+                android:id="@+id/book_author"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/book_title"
+                android:layout_marginLeft="@dimen/book_item_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:textColor="@color/textColor"
+                android:textSize="@dimen/grid_view_textSize" />
+            <ImageButton
+                android:id="@+id/btn_action"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/playButton"
+                android:layout_alignParentRight="true"
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_menu_more_option"/>
+            <!--style="@style/bookSmallRatingBar"-->
+
+            <RatingBar
+                android:id="@+id/rating_bar"
+                style="@style/bookSmallRatingBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/book_item_margin"
+                android:layout_below="@id/btn_action"
+                android:isIndicator="true"
+                android:focusable="false"
+                android:numStars="5"
+                android:stepSize="0.5" />
+            <ImageView
+                android:id="@+id/downloaded_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rating_bar"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/book_item_margin"
+                android:src="@drawable/ic_downloaded"/>
+
+            <TextView
+                android:id="@+id/book_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/book_item_margin"
+                android:layout_below="@+id/rating_bar"
+                android:layout_alignParentRight="true"
+                android:textColor="@color/accent_material_light"
+                android:textSize="@dimen/grid_view_textSize" />
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+</LinearLayout>

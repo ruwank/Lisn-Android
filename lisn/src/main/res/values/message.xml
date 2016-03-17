@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="NO_INTERNET_TITLE">No Internet</string>
+    <string name="NO_INTERNET_MESSAGE">Please check your internet connectivity.</string>
+
+    <string name="no_valid_data">Enter Valid Data</string>
+
+    <string name="USER_UNAUTHORISED_TITLE">Unauthorized</string>
+    <string name="USER_UNAUTHORISED_MESSAGE">You are not authorized to use this service. Please login to the system.</string>
+
+    <string name="SERVER_ERROR_TITLE">Internal Error</string>
+    <string name="SERVER_ERROR_MESSAGE">Server error. Please try again later.</string>
+
+    <string name="DOWNLOAD_COMPLETE_TITLE">Download Completed</string>
+    <string name="DOWNLOAD_COMPLETE_MESSAGE">Download completed. Do you want to start listening?</string>
+
+    <string name="PAYMENT_COMPLETE_TITLE">Payment Successful</string>
+    <string name="PAYMENT_COMPLETE_MESSAGE">Payment successfully completed. Do you want to start downloading?</string>
+
+    <string name="NO_ENOUGH_SPACE_TITLE">No Space</string>
+    <string name="NO_ENOUGH_SPACE_MESSAGE">Not enough space to download this file. Please free up some space and try again.</string>
+
+    <string name="EMPTY_NUMBER_TITLE">Number Error</string>
+    <string name="EMPTY_NUMBER_MESSAGE_MOBITEL">Sorry! We are unable to detect your phone number. Please contact Mobitel.</string>
+    <string name="EMPTY_NUMBER_MESSAGE_DIALOG">Sorry! We are unable to detect your phone number.
+        Please contact Dialog.</string>
+    <string name="EMPTY_NUMBER_MESSAGE_ETISALAT">Sorry! We are unable to detect your phone number.
+        Please contact Etisalat.</string>
+
+    <string name="PAYMENT_FAILED_TITLE">Payment Failed</string>
+    <string name="PAYMENT_FAILED_MESSAGE">Sorry! Charging failed. Please check your account.</string>
+
+    <string name="DELETE_CONFIRMATION_TITLE">Delete</string>
+    <string name="DELETE_CONFIRMATION_MESSAGE">Are you sure you want to delete book from your device?</string>
+
+    <string name="NO_MOBILE_DATA_TITLE">Add to Bill</string>
+    <string name="NO_MOBILE_DATA_MESSAGE">You can use add-to-bill option only with mobile data. Please enable mobile data and try again!</string>
+
+    <string name="ALREADY_PAID_TITLE">Already Paid</string>
+    <string name="ALREADY_PAID_MESSAGE">This book is already in your library. Do you want to start downloading?</string>
+
+    <string name="REVIEW_PUBLISH_SUCCESS">Thank you for sending your review!</string>
+    <string name="FEEDBACK_PUBLISH_SUCCESS">Thank you for sending your feedback!</string>
+
+    <string name="DELETE_BOOK_SUCCESS">Successfully delete </string>
+    <string name="INFO_START_PLAYER">Tap To start play </string>
+
+    <string name="BUTTON_OK">OK</string>
+    <string name="BUTTON_NOW">NOW</string>
+    <string name="BUTTON_LATER">LATER</string>
+    <string name="BUTTON_CANCEL">CANCEL</string>
+    <string name="BUTTON_YES">YES</string>
+    <string name="BUTTON_NO">NO</string>
+
+    <string name="USER_INVALID_TITLE">Invalid User</string>
+    <string name="USER_INVALID_MESSAGE">There is no account under \'%1$s\'. Signup with Lisn with your email address to enjoy audiobooks anywhere! </string>
+
+    <string name="USER_PENDING_TITLE">Inactive Account</string>
+    <string name="USER_PENDING_MESSAGE">Your account is not activated. An email has been sent to your email address. Please open it and click on the link to activate your Lisn account.</string>
+
+    <string name="USER_NOT_EMAIL_TITLE">Use Facebook Log in</string>
+    <string name="USER_NOT_EMAIL_MESSAGE">Please log in with your facebook account to access your library.</string>
+
+    <string name="USER_FAILED_TITLE">User Failed</string>
+    <string name="USER_FAILED_MESSAGE">User Failed.</string>
+
+    <string name="FORGET_PASSWORD_SUCCESS">Please check your email</string>
+
+    <string name="USER_WRONG_PASSWORD_TITLE">Wrong Password</string>
+    <string name="USER_WRONG_PASSWORD_MESSAGE">Password you entered is wrong. Enter the correct password or use \'forgot password\' link to reset the password. </string>
+
+    <string name="USER_EMAIL_SIGNUP_SUCCESS_TITLE">Almost there...</string>
+    <string name="USER_EMAIL_SIGNUP_SUCCESS_MESSAGE">An email has been sent to your email address. Please open it and click on the link to activate your Lisn account.</string>
+
+    <string name="USER_DUPLICATE_TITLE">Duplicate Account</string>
+    <string name="USER_DUPLICATE_MESSAGE">There is an active account under \'%1$s\'. Please log in with your password or use another email address. </string>
+
+    <string name="USER_EXIST_TITLE">Almost there...</string>
+    <string name="USER_EXIST_MESSAGE">An email has been sent to your email address. Please open it and click on the link to activate your Lisn account. </string>
+
+
+    <string name="SHARE_SUCCESS_TITLE">Success</string>
+    <string name="SHARE_SUCCESS_MESSAGE">Post was published successfully!. </string>
+
+    <string name="SHARE_ERROR_TITLE">Error</string>
+    <string name="SHARE_ERROR_MESSAGE">Post was not published. </string>
+
+</resources>

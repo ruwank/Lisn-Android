@@ -1,0 +1,147 @@
+
+<android.support.v4.widget.NestedScrollView
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clipToPadding="false"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    >
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+<LinearLayout
+    android:id="@+id/homeContainer"
+
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_margin="@dimen/layout_margin"
+    android:background="@color/windowBackground"
+
+    >
+    <LinearLayout
+        android:id="@+id/my_book_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/material_grey_300"
+        android:orientation="vertical">
+    <RelativeLayout
+        android:id="@+id/my_book_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/layout_margin"
+
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="My Books"
+            android:textColor="@color/textColor"
+            android:id="@+id/textView"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            />
+        <Button
+            android:id="@+id/more_myBook"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:background="@color/colorPrimary"
+            android:textColor="@android:color/white"
+            android:text="More"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+
+            />
+
+    </RelativeLayout>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/myBookContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+    </LinearLayout>
+    <Button
+        android:id="@+id/more_store"
+        android:layout_width="wrap_content"
+        android:layout_height="32dp"
+        android:layout_margin="@dimen/layout_margin"
+        android:background="@color/colorPrimary"
+        android:paddingLeft="@dimen/layout_margin"
+        android:paddingRight="@dimen/layout_margin"
+        android:textColor="@android:color/white"
+        android:text="Browse Store"
+        android:layout_gravity="right"
+
+        />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/layout_margin"
+        android:layout_marginLeft="@dimen/layout_margin"
+        android:layout_marginRight="@dimen/layout_margin"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="New Releases"
+        android:textColor="@color/textColor"
+        android:id="@+id/textView"
+        />
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/newReleaseBookContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/layout_margin_large"
+
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/layout_margin_large"
+        android:layout_marginLeft="@dimen/layout_margin"
+        android:layout_marginRight="@dimen/layout_margin"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Top Rated"
+        android:textColor="@color/textColor"
+        android:id="@+id/textView"
+        />
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/topRatedBookContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/layout_margin_large"
+
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/layout_margin_large"
+        android:layout_marginLeft="@dimen/layout_margin"
+        android:layout_marginRight="@dimen/layout_margin"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Top Downloads"
+        android:textColor="@color/textColor"
+        android:id="@+id/textView"
+        />
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/topDownloadBookContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/layout_margin_large"
+
+        />
+
+
+
+
+</LinearLayout>
+        </FrameLayout>
+    </android.support.v4.widget.NestedScrollView>
+

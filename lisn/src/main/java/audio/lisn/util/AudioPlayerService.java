@@ -129,7 +129,7 @@ public class AudioPlayerService extends Service implements Runnable, OnCompletio
 
 		        String s = ex.toString();
 		        ex.printStackTrace();
-                Log.v("play Exception",ex.toString());
+                Log.v("play Exception", ex.toString());
 
             }
 		}
@@ -158,7 +158,7 @@ public class AudioPlayerService extends Service implements Runnable, OnCompletio
 				byte[] decodedData = AppUtils.decodeFile(contents);
                 playDecodedAudioFile(decodedData);
 			} catch (Exception e) {
-                Log.v("playAudioBook Exception",e.toString());
+                Log.v("playAudioBook Exception", e.toString());
 				e.printStackTrace();
 			}
 		}
@@ -247,7 +247,7 @@ public class AudioPlayerService extends Service implements Runnable, OnCompletio
             mState = State.Playing;
 
         }else{
-            Log.v("onPrepared","player");
+            Log.v("onPrepared", "player");
         }
         updatePlaybackState();
 
@@ -307,6 +307,20 @@ public class AudioPlayerService extends Service implements Runnable, OnCompletio
     }
     public  void setSeekPosition(int position){
         seekPosition=position;
+
+    }
+
+    public  void seekToForward(boolean forward){
+        Log.v(TAG,"seekToForward start" +mediaPlayer.getCurrentPosition());
+
+        if(forward){
+            mediaPlayer.seekTo(mediaPlayer.getCurrentPosition() + 30000);
+
+        }else{
+            mediaPlayer.seekTo(mediaPlayer.getCurrentPosition() - 30000);
+
+        }
+        Log.v(TAG,"seekToForward end" +mediaPlayer.getCurrentPosition());
 
     }
 

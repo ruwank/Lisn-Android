@@ -397,7 +397,11 @@ public class StoreFragment extends Fragment implements  StoreBookViewAdapter.Sto
                 dialog.show();
 
             }else{
-                mProgressDialog.setMessage("Downloading " + (selectedBook.getDownloadedChapter().size() + 1) + " of " + selectedBook.getAudioFileCount());
+                    int downloadedChapter=selectedBook.getDownloadedChapter().size()+1;
+                    if(downloadedChapter>selectedBook.getAudioFileCount()){
+                        downloadedChapter=selectedBook.getAudioFileCount();
+                    }
+                mProgressDialog.setMessage("Downloading " + (downloadedChapter) + " of " + selectedBook.getAudioFileCount());
             }
 
             }

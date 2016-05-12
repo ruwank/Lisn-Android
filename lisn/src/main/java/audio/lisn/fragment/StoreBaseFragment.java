@@ -506,36 +506,39 @@ public class StoreBaseFragment extends Fragment {
 
     }
     private void downloadCategoryData(final int bookCategory) {
-        downloadCount++;
-        Log.v("bookCategory","bookCategory"+bookCategory);
-        Map<String, String> params = new HashMap<String, String>();
-        params.put("cat", "" + bookCategory);
+        if(isAdded()) {
 
-        String url = getString(R.string.book_category_url);
+            downloadCount++;
+            Log.v("bookCategory", "bookCategory" + bookCategory);
+            Map<String, String> params = new HashMap<String, String>();
+            params.put("cat", "" + bookCategory);
+
+            String url = getString(R.string.book_category_url);
 
 
-        JsonUTF8ArrayRequest bookListReq = new JsonUTF8ArrayRequest(Request.Method.POST,url, params,
-                new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray jsonArray) {
+            JsonUTF8ArrayRequest bookListReq = new JsonUTF8ArrayRequest(Request.Method.POST, url, params,
+                    new Response.Listener<JSONArray>() {
+                        @Override
+                        public void onResponse(JSONArray jsonArray) {
 
-                        AppController.getInstance().setStoreBookForCategory(bookCategory, jsonArray);
-                        completeCount++;
-                        refreshScreen();
+                            AppController.getInstance().setStoreBookForCategory(bookCategory, jsonArray);
+                            completeCount++;
+                            refreshScreen();
 
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                VolleyLog.d(TAG, "Error: " + error.getMessage());
-                completeCount++;
-                refreshScreen();
+                        }
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    VolleyLog.d(TAG, "Error: " + error.getMessage());
+                    completeCount++;
+                    refreshScreen();
 
-            }
-        });
-        bookListReq.setShouldCache(true);
-        // Adding request to request queue
-        AppController.getInstance().addToRequestQueue(bookListReq, "tag_boo_list"+bookCategory);
+                }
+            });
+            bookListReq.setShouldCache(true);
+            // Adding request to request queue
+            AppController.getInstance().addToRequestQueue(bookListReq, "tag_boo_list" + bookCategory);
+        }
         //   showOption();
     }
 }

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="audio.lisn"
-    android:versionCode="1102"
-    android:versionName="1.1.2" >
+    android:versionCode="2030"
+    android:versionName="2.0.3" >
 
     <uses-sdk
         android:minSdkVersion="15"
@@ -68,12 +68,12 @@
         <activity
             android:name=".activity.HomeActivity"
             android:label="@string/title_home"
-            android:screenOrientation="portrait" >
+             >
         </activity>
         <activity
             android:name=".activity.AudioBookDetailActivity"
             android:label="@string/title_home"
-            android:screenOrientation="portrait" >
+             >
         </activity>
         <activity
             android:name=".activity.SettingsActivity"
@@ -83,7 +83,6 @@
         <activity
             android:name=".activity.LoginActivity"
             android:label="@string/title_home"
-            android:screenOrientation="portrait"
             >
         </activity>
         <activity

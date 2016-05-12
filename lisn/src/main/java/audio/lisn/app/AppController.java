@@ -287,6 +287,7 @@ public class AppController extends Application  {
 
         }
     }
+
     public void playPreviousFile(){
         if (mBound && fileList != null) {
             fileIndex--;
@@ -299,6 +300,18 @@ public class AppController extends Application  {
                 fileIndex=-1;
             }
         }
+    }
+    public void seekToForward(){
+        if (mBound){
+            mService.seekToForward(true);
+        }
+
+    }
+    public void seekToBackward(){
+        if (mBound){
+            mService.seekToForward(false);
+        }
+
     }
     public void starPlayer(){
         if (mBound)
@@ -356,6 +369,7 @@ if(currentAudioBook != null){
 
     public AudioBook getCurrentAudioBook() {
         if(currentAudioBook != null) {
+            Log.v("currentAudioBook","currentAudioBook"+currentAudioBook);
             if (fileIndex < 1) {
                 currentAudioBook.setLastPlayFileIndex(0);
             } else {
@@ -517,12 +531,14 @@ if(currentAudioBook != null){
 
     {
 
-        Intent intentAlarm = new Intent(getApplicationContext(), ReminderReceiver.class);
-        alarmManagerRepeat = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
 
         if(alarmManagerRepeat==null) {
+            Intent intentAlarm = new Intent(getApplicationContext(), ReminderReceiver.class);
+
+            alarmManagerRepeat = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+
             alarmManagerRepeat.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
-                    AlarmManager.INTERVAL_DAY*7,
+                    SystemClock.elapsedRealtime()+AlarmManager.INTERVAL_DAY*6,
                     AlarmManager.INTERVAL_DAY*7, PendingIntent.getBroadcast(getApplicationContext(), 1, intentAlarm, PendingIntent.FLAG_UPDATE_CURRENT));
         }
     }

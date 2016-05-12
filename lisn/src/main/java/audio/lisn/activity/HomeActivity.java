@@ -146,7 +146,10 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
     }
     private void showAudioPlayer(){
-        PlayerControllerActivity.navigate(this, playerControllerView, null);
+        if(AppController.getInstance().getCurrentAudioBook() !=null) {
+
+            PlayerControllerActivity.navigate(this, playerControllerView, null);
+        }
 
     }
 

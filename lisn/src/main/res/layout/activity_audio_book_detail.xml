@@ -7,42 +7,51 @@
     android:layout_height="match_parent"
     android:background="@color/whiteColor"
     android:fitsSystemWindows="true">
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/appbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        android:fitsSystemWindows="true">
+    <android.support.design.widget.AppBarLayout android:layout_height="wrap_content"
+        android:layout_width="match_parent" android:theme="@style/AppTheme.AppBarOverlay">
 
-        <android.support.design.widget.CollapsingToolbarLayout
-            android:id="@+id/collapsing_toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            android:fitsSystemWindows="true"
-            app:contentScrim="?attr/colorPrimary"
-            app:expandedTitleMarginStart="48dp"
-            app:expandedTitleMarginEnd="64dp">
-
-            <ImageView
-                android:id="@+id/bookBannerImage"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:scaleType="centerCrop"
-                android:fitsSystemWindows="true"
-                android:adjustViewBounds="true"
-                app:layout_collapseMode="parallax" />
-
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-                app:layout_collapseMode="pin" />
-
-        </android.support.design.widget.CollapsingToolbarLayout>
+        <android.support.v7.widget.Toolbar android:id="@+id/toolbar"
+            android:layout_width="match_parent" android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary" app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </android.support.design.widget.AppBarLayout>
+
+    <!--<android.support.design.widget.AppBarLayout-->
+        <!--android:id="@+id/appbar"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"-->
+        <!--android:fitsSystemWindows="true">-->
+
+        <!--<android.support.design.widget.CollapsingToolbarLayout-->
+            <!--android:id="@+id/collapsing_toolbar"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--app:layout_scrollFlags="scroll|exitUntilCollapsed"-->
+            <!--android:fitsSystemWindows="true"-->
+            <!--app:contentScrim="?attr/colorPrimary"-->
+            <!--app:expandedTitleMarginStart="48dp"-->
+            <!--app:expandedTitleMarginEnd="64dp">-->
+
+            <!--<ImageView-->
+                <!--android:id="@+id/bookBannerImage"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:scaleType="centerCrop"-->
+                <!--android:fitsSystemWindows="true"-->
+                <!--android:adjustViewBounds="true"-->
+                <!--app:layout_collapseMode="parallax" />-->
+
+            <!--<android.support.v7.widget.Toolbar-->
+                <!--android:id="@+id/toolbar"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="?attr/actionBarSize"-->
+                <!--app:popupTheme="@style/ThemeOverlay.AppCompat.Light"-->
+                <!--app:layout_collapseMode="pin" />-->
+
+        <!--</android.support.design.widget.CollapsingToolbarLayout>-->
+
+    <!--</android.support.design.widget.AppBarLayout>-->
 
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/scroll"
@@ -66,91 +75,233 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/layout_margin_large"
                     >
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/top_layout"
+
+                    >
+                    <ImageView
+                        android:id="@+id/bookCoverImageBack"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:adjustViewBounds="true"
+                        android:scaleType="centerCrop"
+
+                        />
+                    <View
+                        android:id="@+id/topOverLayView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/color_transparent_alpha_0.5"
+                        />
+                    <ImageView
+                        android:id="@+id/bookCoverImage"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentTop="true"
+                        android:adjustViewBounds="true"
+                        android:layout_marginTop="@dimen/activity_vertical_margin"
+                        android:layout_centerHorizontal="true"
+                        android:transitionName="@string/transition_book"
+
+                        />
+                    <RatingBar
+                        android:id="@+id/rating_bar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/bookCoverImage"
+                        android:layout_marginTop="@dimen/spacing_medium"
+                        android:isIndicator="true"
+                        android:focusable="false"
+                        android:numStars="5"
+                        android:stepSize="0.5"
+                        android:layout_centerHorizontal="true"
+                        style="@style/bookRatingBarWhite"
+
+                        />
+                    <TextView
+                        android:id="@+id/title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/rating_bar"
+                        android:layout_marginTop="@dimen/spacing_medium"
+                        android:textColor="@color/whiteColor"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:layout_centerHorizontal="true"
+
+                        />
+                    <TextView
+                        android:id="@+id/author"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/whiteColor"
+                        android:layout_below="@+id/title"
+                        android:layout_marginTop="@dimen/spacing_medium"
+                        android:textSize="@dimen/common_textSize_medium"
+                        android:layout_centerHorizontal="true"
+
+                        />
+                    <TextView
+                        android:id="@+id/narrator"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/author"
+                        android:textColor="@color/whiteColor"
+                        android:layout_marginTop="@dimen/spacing_medium"
+                        android:textSize="@dimen/common_textSize_medium"
+                        android:layout_centerHorizontal="true"
+
+                        />
 
                     <LinearLayout
-                        android:id="@+id/top_layout"
+                        android:id="@+id/button_layout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:layout_below="@+id/title"
+                        android:layout_margin="@dimen/spacing_large"
+                        android:orientation="horizontal"
+                        android:layout_alignParentBottom="true"
+                        >
+                        <Button
+                            android:id="@+id/btnDownload"
+                            android:layout_width="wrap_content"
+                            android:layout_height="40dp"
+                            android:layout_marginRight="@dimen/spacing_medium"
+                            android:background="@drawable/button_border"
+                            android:textColor="@android:color/white"
+                            android:text="Buy"
+                            android:layout_weight="1"
+                            android:layout_marginBottom="@dimen/spacing_large"
 
-                        <RelativeLayout
+                            />
+                        <Button
+                            android:id="@+id/btnDownload2"
+                            android:layout_width="wrap_content"
+                            android:layout_marginLeft="@dimen/spacing_medium"
+                            android:layout_marginBottom="@dimen/spacing_large"
+                            android:layout_height="40dp"
+                            android:background="@color/windowBackground"
+                            android:textColor="@color/colorPrimary"
+                            android:text="Buy"
+                            android:layout_weight="1"
+
+                            />
+                        </LinearLayout>
+                    </RelativeLayout>
+                    <audio.lisn.view.ExpandablePanel
+                        android:id="@+id/buy_chapter"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_below="@+id/top_layout"
+
+                        android:orientation="vertical"
+                        app:animationDuration="500"
+                        app:collapsedHeight="100dip"
+                        app:content="@+id/chapter_list"
+                        app:handle="@+id/expand">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" >
+<ListView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@id/chapter_list"
+    android:dividerHeight="0dp"
+    android:divider="@null"
+    >
+
+</ListView>
+
+
+                        <ToggleButton
+                            android:id="@id/expand"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_below="@id/chapter_list"
+                            android:layout_margin="10dp"
+                            android:textOn=""
+                            android:textOff=""
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+                            android:background="@drawable/toggle_expand_selector"
 
-                            >
-                            <ImageView
-                                android:id="@+id/bookCoverImage"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentTop="true"
-                                android:adjustViewBounds="true"
-                                android:layout_centerHorizontal="true"
-                                android:transitionName="@string/transition_book"
+                            />
+                    </RelativeLayout>
+                        <!--android:src="@drawable/ic_expand_holo_light"-->
+                        <!--android:background="@android:color/transparent"-->
+                    </audio.lisn.view.ExpandablePanel>
+                    <LinearLayout
+                        android:id="@+id/top_layout2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/buy_chapter"
+                        android:orientation="horizontal">
 
-                                />
+                        <!--<RelativeLayout-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
 
-                            <RelativeLayout
-                                android:id="@+id/preview_layout"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentTop="true"
-                                android:layout_above="@+id/previewPlayButton"
-                                android:layout_centerHorizontal="true"
-                                android:adjustViewBounds="true"
-                                android:orientation="vertical"
-                                android:visibility="invisible"
-                                android:background="@color/color_transparent_alpha_0.8"
-                                >
-                                <TextView
-                                    android:id="@+id/preview_label"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="20dp"
-                                    android:text="Preview"
-                                    android:textColor="@color/windowBackground"
-                                    android:layout_centerHorizontal="true"
-                                    android:textSize="15sp" />
-                                <ProgressBar
-                                    android:id="@+id/progressBar"
-                                    style="?android:attr/progressBarStyleSmall"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_centerInParent="true"
-                                    />
+                            <!-->-->
 
-                                <TextView
-                                    android:id="@+id/time_label"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:textColor="@color/windowBackground"
-                                    android:layout_centerVertical="true"
-                                    android:textSize="20sp" />
-                            </RelativeLayout>
-                            <ImageButton
-                                android:id="@+id/previewPlayButton"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:background="@android:color/transparent"
-                                android:layout_below="@+id/bookCoverImage"
-                                android:layout_marginTop="-24dp"
-                                android:src="@drawable/btn_play_preview_start"
-                                android:layout_centerHorizontal="true"/>
-                        </RelativeLayout>
+                            <!--<RelativeLayout-->
+                                <!--android:id="@+id/preview_layout"-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:layout_alignParentTop="true"-->
+                                <!--android:layout_above="@+id/previewPlayButton"-->
+                                <!--android:layout_centerHorizontal="true"-->
+                                <!--android:adjustViewBounds="true"-->
+                                <!--android:orientation="vertical"-->
+                                <!--android:visibility="invisible"-->
+                                <!--android:background="@color/color_transparent_alpha_0.8"-->
+                                <!-->-->
+                                <!--<TextView-->
+                                    <!--android:id="@+id/preview_label"-->
+                                    <!--android:layout_width="wrap_content"-->
+                                    <!--android:layout_height="wrap_content"-->
+                                    <!--android:layout_marginTop="20dp"-->
+                                    <!--android:text="Preview"-->
+                                    <!--android:textColor="@color/windowBackground"-->
+                                    <!--android:layout_centerHorizontal="true"-->
+                                    <!--android:textSize="15sp" />-->
+                                <!--<ProgressBar-->
+                                    <!--android:id="@+id/progressBar"-->
+                                    <!--style="?android:attr/progressBarStyleSmall"-->
+                                    <!--android:layout_width="wrap_content"-->
+                                    <!--android:layout_height="wrap_content"-->
+                                    <!--android:layout_centerInParent="true"-->
+                                    <!--/>-->
+
+                                <!--<TextView-->
+                                    <!--android:id="@+id/time_label"-->
+                                    <!--android:layout_width="wrap_content"-->
+                                    <!--android:layout_height="wrap_content"-->
+                                    <!--android:textColor="@color/windowBackground"-->
+                                    <!--android:layout_centerVertical="true"-->
+                                    <!--android:textSize="20sp" />-->
+                            <!--</RelativeLayout>-->
+                            <!--<ImageButton-->
+                                <!--android:id="@+id/previewPlayButton"-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:background="@android:color/transparent"-->
+                                <!--android:layout_below="@+id/bookCoverImage"-->
+                                <!--android:layout_marginTop="-24dp"-->
+                                <!--android:src="@drawable/btn_play_preview_start"-->
+                                <!--android:layout_centerHorizontal="true"/>-->
+                        <!--</RelativeLayout>-->
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical">
-                            <TextView
-                                android:id="@+id/title"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/spacing_large"
-                                android:textColor="@color/textColor"
+                            android:orientation="vertical"
+                            android:visibility="gone">
 
-                                />
                             <TextView
                                 android:id="@+id/category"
                                 android:layout_width="match_parent"
@@ -191,17 +342,7 @@
 
                                 >
 
-                                <RatingBar
-                                    android:id="@+id/rating_bar"
-                                    style="@style/bookSmallRatingBar"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:isIndicator="true"
-                                    android:focusable="false"
-                                    android:numStars="5"
-                                    android:stepSize="0.5"
-                                    android:layout_gravity="center_vertical"
-                                    />
+
 
 
                                 <TextView
@@ -317,7 +458,7 @@
                         android:layout_height="1dp"
                         android:background="@android:color/darker_gray"
                         android:layout_marginTop="@dimen/spacing_large"
-                        android:layout_below="@+id/download_layout"
+                        android:layout_below="@+id/buy_chapter"
 
                         />
 
@@ -372,6 +513,8 @@
                             android:id="@+id/shareLayout"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_below="@+id/top_layout"
+
                             android:orientation="vertical"
                             android:layout_margin="10dp"
                             >

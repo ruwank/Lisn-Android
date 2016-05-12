@@ -93,15 +93,19 @@ public class PlayerControllerActivity extends AppCompatActivity implements FileD
     private PopupWindow pwindo;
     ProgressDialog progressDialog;
     ImageButton commentButton;
-View topOverLayView;
+    View topOverLayView;
     TextView bookTitleView;
     Toast infoToast;
 
 
     public static void navigate(AppCompatActivity activity, View transitionView, AudioBook audioBook) {
         Intent intent = new Intent(activity, PlayerControllerActivity.class);
-        if(audioBook !=null)
-        intent.putExtra("audioBook", audioBook);
+//        if(audioBook == null){
+//            audioBook=AppController.getInstance().getCurrentAudioBook();
+//        }
+        if(audioBook != null) {
+            intent.putExtra("audioBook", audioBook);
+        }
         ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, transitionView, TRANSITION_NAME);
         ActivityCompat.startActivity(activity, intent, options.toBundle());
     }
@@ -134,7 +138,7 @@ View topOverLayView;
 
         bookTitleView= (TextView) findViewById(R.id.book_title);
 
-        if(audioBook.getLanguageCode()== AudioBook.LanguageCode.LAN_SI){
+        if(audioBook.getLanguageCode() == AudioBook.LanguageCode.LAN_SI){
             bookTitleView.setTypeface(CustomTypeFace.getSinhalaTypeFace(this));
         }else{
             bookTitleView.setTypeface(CustomTypeFace.getEnglishTypeFace(this));
@@ -245,14 +249,15 @@ Log.v("position", "position:" + position);
 
             }
         });
-        mCoverFlow.setOnScrollChangeListener(new View.OnScrollChangeListener() {
-            @Override
-            public void onScrollChange(View view, int i, int i1, int i2, int i3) {
-                Log.i("Scrolling", "X from ["+i+"] to ["+i1+"] to ["+i2+"] to ["+i3+"]" );
-              //  super.onScrollChanged(l, t, oldl, oldt);
-            }
 
-        });
+//        mCoverFlow.setOnScrollChangeListener(new View.OnScrollChangeListener() {
+//            @Override
+//            public void onScrollChange(View view, int i, int i1, int i2, int i3) {
+//                Log.i("Scrolling", "X from ["+i+"] to ["+i1+"] to ["+i2+"] to ["+i3+"]" );
+//              //  super.onScrollChanged(l, t, oldl, oldt);
+//            }
+//
+//        });
 
         previousItemPlayButton=(ImageButton)this.findViewById(R.id.previousItemPlayButton);
         playPauseButton=(ImageButton)this.findViewById(R.id.playPauseButton);
@@ -267,7 +272,8 @@ Log.v("position", "position:" + position);
         previousItemPlayButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                AppController.getInstance().playPreviousFile();
+                //AppController.getInstance().playPreviousFile();
+                AppController.getInstance().seekToBackward();
 
             }
 
@@ -284,7 +290,8 @@ Log.v("position", "position:" + position);
         nextItemPlayButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                AppController.getInstance().playNextFile();
+               // AppController.getInstance().playNextFile();
+                AppController.getInstance().seekToForward();
 
 
             }

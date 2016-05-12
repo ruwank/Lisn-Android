@@ -163,7 +163,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:src="@drawable/btn_play_pervious"
+                android:src="@drawable/ic_replay_30_white"
                 android:background="@android:color/transparent" >
             </ImageButton>
             <ImageButton
@@ -189,7 +189,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:src="@drawable/btn_play_next"
+                android:src="@drawable/ic_forward_30_white"
                 android:background="@android:color/transparent" >
             </ImageButton>
 

@@ -49,6 +49,8 @@ import audio.lisn.util.Log;
  */
 public class MediaNotificationManager extends BroadcastReceiver {
 
+    public static final String TAG = MediaNotificationManager.class.getSimpleName();
+
     private static final int NOTIFICATION_ID = 412;
     private static final int REQUEST_CODE = 100;
 
@@ -72,6 +74,7 @@ public class MediaNotificationManager extends BroadcastReceiver {
     private int mNotificationColor;
 
     private boolean mStarted = false;
+    Notification.Builder notificationBuilder;
 
     public MediaNotificationManager(AudioPlayerService service) {
         mService = service;
@@ -145,6 +148,7 @@ public class MediaNotificationManager extends BroadcastReceiver {
                 mNotificationManager.notify(NOTIFICATION_ID, notification);
             }
         }
+        registerBroadcastReceiver();
     }
 
     /**
@@ -162,6 +166,8 @@ public class MediaNotificationManager extends BroadcastReceiver {
                 // ignore if the receiver is not registered.
             }
             mService.stopForeground(true);
+            LocalBroadcastManager.getInstance(mService.getApplicationContext()).unregisterReceiver(mPlayerUpdateReceiver);
+
         }
     }
 
@@ -176,10 +182,18 @@ public class MediaNotificationManager extends BroadcastReceiver {
                 sendStateChange("start");
                 break;
             case ACTION_NEXT:
-                AppController.getInstance().playNextFile();
+                Log.v("addPlayPauseAction", "ACTION_NEXT isPlaying" + AudioPlayerService.mediaPlayer.getCurrentPosition());
+
+                // AppController.getInstance().seekToForward();
+                mService.seekToForward(true);
+                Log.v("addPlayPauseAction", "ACTION_NEXT isPlaying" + AudioPlayerService.mediaPlayer.getCurrentPosition());
+
                 break;
             case ACTION_PREV:
-                AppController.getInstance().playPreviousFile();
+               // AppController.getInstance().seekToBackward();
+                mService.seekToForward(false);
+
+
                 break;
             case ACTION_DELETE:
                 mService.stopForeground(true);
@@ -208,17 +222,17 @@ public class MediaNotificationManager extends BroadcastReceiver {
     private Notification createNotification() {
 
 
-        Notification.Builder notificationBuilder = new Notification.Builder(mService);
+        notificationBuilder = new Notification.Builder(mService);
         int playPauseButtonPosition = 1;
 
         // If skip to previous action is enabled
-        notificationBuilder.addAction(R.drawable.ic_play_skip_previous,
+        notificationBuilder.addAction(R.drawable.ic_replay_30_white,
                 mService.getString(R.string.label_previous), mPreviousIntent);
 
         addPlayPauseAction(notificationBuilder);
 
         // If skip to next action is enabled
-        notificationBuilder.addAction(R.drawable.ic_play_skip_next,
+        notificationBuilder.addAction(R.drawable.ic_forward_30_white,
                 mService.getString(R.string.label_next), mNextIntent);
 
         AudioBook audioBook= AppController.getInstance().getCurrentAudioBook();
@@ -288,7 +302,7 @@ public class MediaNotificationManager extends BroadcastReceiver {
         }
         if (AudioPlayerService.mediaPlayer.isPlaying()
                 && AudioPlayerService.seekPosition >= 0) {
-            Log.v("addPlayPauseAction", "updatePlayPauseAction isPlaying");
+            Log.v("addPlayPauseAction", "updatePlayPauseAction isPlaying" +AudioPlayerService.mediaPlayer.getCurrentPosition());
 
 
             builder
@@ -300,7 +314,7 @@ public class MediaNotificationManager extends BroadcastReceiver {
 
             //  LogHelper.d(TAG, "updateNotificationPlaybackState. hiding playback position");
             builder
-                .setWhen(0)
+                .setWhen(System.currentTimeMillis())
                 .setShowWhen(false)
                 .setUsesChronometer(false);
           //  mService.stopForeground(true);
@@ -311,5 +325,24 @@ public class MediaNotificationManager extends BroadcastReceiver {
         builder.setOngoing(AudioPlayerService.mediaPlayer.isPlaying());
 
     }
+    private void registerBroadcastReceiver(){
+        // Register mMessageReceiver to receive messages.
+        LocalBroadcastManager.getInstance(mService.getApplicationContext()).registerReceiver(mPlayerUpdateReceiver,
+                new IntentFilter("audio-event"));
+    }
+    // handler for received Intents for the "my-event" event
+    private BroadcastReceiver mPlayerUpdateReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            // Extract data included in the Intent
+            if(notificationBuilder !=null) {
+                setNotificationPlaybackState(notificationBuilder);
+                mNotificationManager.notify(NOTIFICATION_ID, notificationBuilder.build());
+
+                Log.v(TAG, "setNotificationPlaybackState");
+            }
+
+        }
+    };
 
 }

@@ -36,6 +36,13 @@
         <item>Top rated</item>
     </string-array>
 
+    <string-array name="temp_chpater">
+        <item>Chapter 1</item>
+        <item>Chapter 2</item>
+        <item>Chapter 3</item>
+        <item>Chapter 4</item>
+        <item>Chapter 5</item>
+    </string-array>
     <string name="transition_book">BookTransition</string>
 
     <string name="search_hint"> Title or Author</string>

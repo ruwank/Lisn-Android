@@ -195,8 +195,6 @@ public class FileDownloadTask extends AsyncTask<String, Integer, String> {
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
         taskListener.onPostExecute(result,file_name);
-
-
     }
 
 }

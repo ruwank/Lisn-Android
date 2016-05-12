@@ -758,7 +758,6 @@ public class HomeFragment extends Fragment implements StoreBookViewAdapter.Store
                 mProgressDialog.dismiss();
                 starAudioPlayer();
 
-
             }else{
                 if(AppUtils.getAvailableMemory() < selectedBook.getFileSize()){
                     stopDownload();
@@ -916,7 +915,11 @@ public class HomeFragment extends Fragment implements StoreBookViewAdapter.Store
             showMessage("NOTFOUND");
 
         }else {
-            mProgressDialog.setMessage("Downloading " + (selectedBook.getDownloadedChapter().size() + 1) + " of " + selectedBook.getAudioFileCount());
+            int downloadedChapter=selectedBook.getDownloadedChapter().size()+1;
+            if(downloadedChapter>selectedBook.getAudioFileCount()){
+                downloadedChapter=selectedBook.getAudioFileCount();
+            }
+            mProgressDialog.setMessage("Downloading " + (downloadedChapter) + " of " + selectedBook.getAudioFileCount());
 
             downloadedFileCount++;
             if (result == null) {

@@ -320,48 +320,53 @@ public class StoreBookViewAdapter extends RecyclerView.Adapter<StoreBookViewAdap
         }
     }
     private void playButtonPressed(AudioBook audioBook){
-        stopPreviewPlayer();
-        if (audioBook.getPreview_audio() !=null && (audioBook.getPreview_audio().length()>0)) {
-            boolean stopPlayer = false;
-            if(selectedAudioBook != null){
-                if((isLoadingPreview || isPlayingPreview ) && (audioBook.getBook_id().equalsIgnoreCase(selectedAudioBook.getBook_id()))){
-                    stopPlayer=true;
-                }
-            }
-            selectedAudioBook=audioBook;
-            if(stopPlayer){
-                if(mediaPlayer.isPlaying()){
-                    mediaPlayer.stop();
-                    if( timerUpdateThread != null ) {
-                        timerUpdateThread.interrupt();
+        try {
+            stopPreviewPlayer();
+            if (audioBook.getPreview_audio() != null && (audioBook.getPreview_audio().length() > 0)) {
+                boolean stopPlayer = false;
+                if (selectedAudioBook != null) {
+                    if ((isLoadingPreview || isPlayingPreview) && (audioBook.getBook_id().equalsIgnoreCase(selectedAudioBook.getBook_id()))) {
+                        stopPlayer = true;
                     }
                 }
-
-                mediaPlayer.reset();
-                isPlayingPreview=false;
-                isLoadingPreview=false;
-
-            }else{
-                playPreview();
-            }
-
-            // AppController.getInstance().playPreviewFile(audioBook.getPreview_audio());
-        }else{
-            if(selectedAudioBook != null && isPlayingPreview){
-                if(mediaPlayer.isPlaying()){
-                    mediaPlayer.stop();
-                    if( timerUpdateThread != null ) {
-                        timerUpdateThread.interrupt();
+                selectedAudioBook = audioBook;
+                if (stopPlayer && mediaPlayer != null) {
+                    if (mediaPlayer.isPlaying()) {
+                        mediaPlayer.stop();
+                        if (timerUpdateThread != null) {
+                            timerUpdateThread.interrupt();
+                        }
                     }
+
+                    mediaPlayer.reset();
+                    isPlayingPreview = false;
+                    isLoadingPreview = false;
+
+                } else {
+                    playPreview();
                 }
 
-                mediaPlayer.reset();
-                isPlayingPreview=false;
-                isLoadingPreview=false;
+                // AppController.getInstance().playPreviewFile(audioBook.getPreview_audio());
+            } else {
+                if (selectedAudioBook != null && isPlayingPreview) {
+                    if (mediaPlayer.isPlaying()) {
+                        mediaPlayer.stop();
+                        if (timerUpdateThread != null) {
+                            timerUpdateThread.interrupt();
+                        }
+                    }
 
+                    mediaPlayer.reset();
+                    isPlayingPreview = false;
+                    isLoadingPreview = false;
+
+                }
             }
+            notifyDataSetChanged();
         }
-        notifyDataSetChanged();
+        catch (Exception e){
+
+        }
     }
     @Override
     public void run() {

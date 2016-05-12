@@ -12,6 +12,7 @@
     <dimen name="navigation_drawer_width">240dp</dimen>
     <dimen name="common_textfield_size">12dip</dimen>
     <dimen name="common_textSize">12sp</dimen>
+    <dimen name="common_textSize_medium">15sp</dimen>
     <dimen name="grid_view_textSize">10sp</dimen>
 
     <dimen name="list_view_horizontal_margin">10dp</dimen>

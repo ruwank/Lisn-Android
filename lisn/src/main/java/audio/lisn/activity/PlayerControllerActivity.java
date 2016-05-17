@@ -557,7 +557,7 @@ private void setBookTitle(int position){
     private void registerBroadcastReceiver(){
         // Register mMessageReceiver to receive messages.
         LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(mPlayerUpdateReceiver,
-                new IntentFilter("audio-event"));
+                new IntentFilter(Constants.PLAYER_STATE_UPDATE));
     }
     // handler for received Intents for the "my-event" event
     private BroadcastReceiver mPlayerUpdateReceiver = new BroadcastReceiver() {

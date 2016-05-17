@@ -47,7 +47,16 @@
         <item name="android:maxHeight">12dip</item>
     </style>
 
-
+    <style name="bookSmallWhiteRatingBar" parent="@android:style/Widget.RatingBar">
+        <item name="android:progressDrawable">@drawable/small_rating_white_stars</item>
+        <item name="android:minHeight">10dip</item>
+        <item name="android:maxHeight">10dip</item>
+    </style>
+    <style name="bookSmallGrayRatingBar" parent="@android:style/Widget.RatingBar">
+        <item name="android:progressDrawable">@drawable/small_rating_gray_stars</item>
+        <item name="android:minHeight">12dip</item>
+        <item name="android:maxHeight">12dip</item>
+    </style>
     <style name="LisnThemeToolbar"
         parent="Theme.AppCompat.NoActionBar">
         <item name="android:textColorPrimary">@color/textColorPrimary</item>

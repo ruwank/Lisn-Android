@@ -10,17 +10,30 @@
         android:id="@+id/chapter_title"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
         android:layout_alignParentLeft="true" />
-
-    <Button
-        android:id="@+id/btn_chapter_action"
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="40dp"
+        android:layout_height="match_parent"
         android:layout_alignParentRight="true"
-        android:layout_centerHorizontal="true"
-        android:textColor="@color/whiteColor"
-        android:background="@color/colorPrimary"
-        android:text="Buy" />
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/chapter_price"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginRight="@dimen/spacing_medium"
+            android:gravity="center_vertical"
+            android:text="Rs:100.00"  />
+        <Button
+            android:id="@+id/btn_chapter_action"
+            android:layout_width="wrap_content"
+            android:layout_height="26dp"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/whiteColor"
+            android:background="@color/colorPrimary"
+            android:text="Buy" />
+    </LinearLayout>
+
+
 
 </RelativeLayout>

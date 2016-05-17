@@ -182,11 +182,9 @@ public class MediaNotificationManager extends BroadcastReceiver {
                 sendStateChange("start");
                 break;
             case ACTION_NEXT:
-                Log.v("addPlayPauseAction", "ACTION_NEXT isPlaying" + AudioPlayerService.mediaPlayer.getCurrentPosition());
 
                 // AppController.getInstance().seekToForward();
                 mService.seekToForward(true);
-                Log.v("addPlayPauseAction", "ACTION_NEXT isPlaying" + AudioPlayerService.mediaPlayer.getCurrentPosition());
 
                 break;
             case ACTION_PREV:
@@ -328,7 +326,7 @@ public class MediaNotificationManager extends BroadcastReceiver {
     private void registerBroadcastReceiver(){
         // Register mMessageReceiver to receive messages.
         LocalBroadcastManager.getInstance(mService.getApplicationContext()).registerReceiver(mPlayerUpdateReceiver,
-                new IntentFilter("audio-event"));
+                new IntentFilter(Constants.PLAYER_STATE_UPDATE));
     }
     // handler for received Intents for the "my-event" event
     private BroadcastReceiver mPlayerUpdateReceiver = new BroadcastReceiver() {

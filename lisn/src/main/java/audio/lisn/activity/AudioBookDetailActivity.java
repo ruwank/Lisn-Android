@@ -14,6 +14,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
@@ -46,7 +47,6 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
@@ -69,7 +69,9 @@ import com.facebook.share.model.ShareOpenGraphAction;
 import com.facebook.share.model.ShareOpenGraphContent;
 import com.facebook.share.model.ShareOpenGraphObject;
 import com.facebook.share.widget.ShareDialog;
-import com.ms.square.android.expandabletextview.ExpandableTextView;
+import com.philjay.valuebar.ValueBar;
+import com.philjay.valuebar.colors.BarColorFormatter;
+import com.philjay.valuebar.colors.RedToGreenFormatter;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
@@ -106,18 +108,22 @@ import audio.lisn.util.Log;
 import audio.lisn.util.OnSwipeTouchListener;
 import audio.lisn.util.WCLinearLayoutManager;
 import audio.lisn.view.ExpandablePanel;
+import audio.lisn.view.ExpandableTextView;
 import audio.lisn.view.PlayerControllerView;
 import audio.lisn.webservice.FileDownloadTask;
 import audio.lisn.webservice.FileDownloadTaskListener;
 import audio.lisn.webservice.JsonUTF8StringRequest;
 
+//import com.ms.square.android.expandabletextview.ExpandableTextView;
+
 public class AudioBookDetailActivity extends  AppCompatActivity implements FileDownloadTaskListener,AuthorizationListener {
 
     private static final String TRANSITION_NAME = "audio.lisn.AudioBookDetailActivity";
-  //  private CollapsingToolbarLayout collapsingToolbarLayout;
+    public static final String TAG = AudioBookDetailActivity.class.getSimpleName();
+
+    //  private CollapsingToolbarLayout collapsingToolbarLayout;
     AudioBook audioBook;
     //ImageButton previewPlayButton;
-    Button btnReview;
     //MediaPlayer mediaPlayer = null;
     ConnectionDetector connectionDetector;
 
@@ -569,8 +575,8 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
         LinearLayout rateLayout=(LinearLayout)findViewById(R.id.app_rate_layout);
 
         View separator_top_description=(View)findViewById(R.id.separator_top_description);
-        View separator_top_rateLayout=(View)findViewById(R.id.separator_top_rateLayout);
-        View separator_top_reviewContainer=(View)findViewById(R.id.separator_top_reviewContainer);
+        //View separator_top_rateLayout=(View)findViewById(R.id.separator_top_rateLayout);
+       // View separator_top_reviewContainer=(View)findViewById(R.id.separator_top_reviewContainer);
 
         Button btnDownload=(Button)findViewById(R.id.btnDownload);
         btnDownload.setOnClickListener(new View.OnClickListener() {
@@ -612,13 +618,64 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
         userRatingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
 
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-                if(fromUser){
+                if (fromUser) {
                     initiatePopupWindow(rating);
                 }
 
             }
 
         });
+
+        ValueBar valueBar5=(ValueBar)findViewById(R.id.valueBar5);
+        setPropertyToValueBar(valueBar5);
+        valueBar5.setValue(100f); // display a value
+        valueBar5.setColorFormatter(new BarColorFormatter() {
+            @Override
+            public int getColor(float v, float v1, float v2) {
+                return Color.rgb(138, 194, 73);
+            }
+        });
+
+        ValueBar valueBar4=(ValueBar)findViewById(R.id.valueBar4);
+        setPropertyToValueBar(valueBar4);
+        valueBar4.setValue(400f); // display a value
+        valueBar4.setColorFormatter(new BarColorFormatter() {
+            @Override
+            public int getColor(float v, float v1, float v2) {
+                return Color.rgb(204, 219, 56);
+            }
+        });
+
+        ValueBar valueBar3=(ValueBar)findViewById(R.id.valueBar3);
+        setPropertyToValueBar(valueBar3);
+        valueBar3.setValue(0f); // display a value
+        valueBar3.setColorFormatter(new BarColorFormatter() {
+            @Override
+            public int getColor(float v, float v1, float v2) {
+                return Color.rgb(255, 234, 58);
+            }
+        });
+
+        ValueBar valueBar2=(ValueBar)findViewById(R.id.valueBar2);
+        setPropertyToValueBar(valueBar2);
+        valueBar2.setValue(800f); // display a value
+        valueBar2.setColorFormatter(new BarColorFormatter() {
+            @Override
+            public int getColor(float v, float v1, float v2) {
+                return Color.rgb(255, 178, 51);
+            }
+        });
+
+        ValueBar valueBar1=(ValueBar)findViewById(R.id.valueBar1);
+        setPropertyToValueBar(valueBar1);
+        valueBar1.setValue(500f); // display a value
+        valueBar1.setColorFormatter(new BarColorFormatter() {
+            @Override
+            public int getColor(float v, float v1, float v2) {
+                return Color.rgb(255, 139, 90);
+            }
+        });
+
 //        previewPlayButton = (ImageButton) findViewById(R.id.previewPlayButton);
 //        previewPlayButton.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -672,6 +729,14 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
         expandablePanel.requestLayout();
         spinner = (ProgressBar)findViewById(R.id.progressBar);
 
+
+        TextView reviewRatingValue=(TextView)findViewById(R.id.reviewRatingValue);
+        RatingBar reviewRatingBar=(RatingBar)findViewById(R.id.reviewRatingBar);
+
+        TextView ratingValue2=(TextView)findViewById(R.id.ratingValue2);
+        RatingBar ratingBar2=(RatingBar)findViewById(R.id.ratingBar2);
+
+
         if(audioBook.getLanguageCode()== AudioBook.LanguageCode.LAN_SI){
             descriptionTextView.setTypeface(CustomTypeFace.getSinhalaTypeFace(getApplicationContext()));
             title.setTypeface(CustomTypeFace.getSinhalaTypeFace(getApplicationContext()));
@@ -702,7 +767,11 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
             ratingBar.setRating(Float.parseFloat(audioBook.getRate()));
             ratingValue.setText(String.format("%.1f", Float.parseFloat(audioBook.getRate())));
 
+            reviewRatingBar.setRating(Float.parseFloat(audioBook.getRate()));
+            reviewRatingValue.setText(String.format("%.1f", Float.parseFloat(audioBook.getRate())));
 
+            ratingBar2.setRating(Float.parseFloat(audioBook.getRate()));
+            ratingValue2.setText(String.format("%.1f", Float.parseFloat(audioBook.getRate())));
         }
 
         narratorText=narratorText+" - "+audioBook.getNarrator();
@@ -721,6 +790,10 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
         }else{
         }
 
+        //int height = descriptionTextView.getMeasuredHeight();
+        //Log.v(TAG,"height :"+height);
+
+
         btnPayFromCard.setText("Pay by Card (" + audioBook.getDiscount() + "% discount)");
 
         if(AppController.getInstance().isUserLogin() && audioBook.isPurchase()){
@@ -731,7 +804,7 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
             if(audioBook.getAudioFileCount() == audioBook.getDownloadedChapter().size()){
                 btnDownload.setText("Play");
             }
-            separator_top_rateLayout.setVisibility(View.VISIBLE);
+           // separator_top_rateLayout.setVisibility(View.VISIBLE);
             rateLayout.setVisibility(View.VISIBLE);
             userRatingBar.setRating(0);
             addToBillButton.setVisibility(View.GONE);
@@ -766,20 +839,21 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
 
         }
 
-        ImageButton  btnShare=(ImageButton)findViewById(R.id.btnShare);
+       // LinearLayout  btnShare=(LinearLayout)findViewById(R.id.shareLayout);
 
-        btnShare.setOnClickListener(new View.OnClickListener() {
+
+       LinearLayout shareLayout=(LinearLayout)findViewById(R.id.shareLayout);
+        shareLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 shareBook();
             }
         });
-       LinearLayout shareLayout=(LinearLayout)findViewById(R.id.shareLayout);
-        if(AppController.getInstance().isUserLogin() && audioBook.isPurchase()) {
-            shareLayout.setVisibility(View.VISIBLE);
-        }else{
-            shareLayout.setVisibility(View.INVISIBLE);
-        }
+//        if(AppController.getInstance().isUserLogin() && audioBook.isPurchase()) {
+//            shareLayout.setVisibility(View.VISIBLE);
+//        }else{
+//            shareLayout.setVisibility(View.INVISIBLE);
+//        }
 
 
 
@@ -789,16 +863,16 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
             reviewsCount=audioBook.getReviews().size();
         final int finalReviewsCount = reviewsCount;
 
-        if(finalReviewsCount>0){
-            separator_top_reviewContainer.setVisibility(View.VISIBLE);
-
-        }
-        btnReview=(Button)findViewById(R.id.btnReview);
-        btnReview.setOnClickListener(new View.OnClickListener() {
+//        if(finalReviewsCount>0){
+//            separator_top_reviewContainer.setVisibility(View.VISIBLE);
+//
+//        }
+        LinearLayout reviewLayout=(LinearLayout)findViewById(R.id.reviewLayout);
+        reviewLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                if(finalReviewsCount >0){
+                if (finalReviewsCount > 0) {
                     showBookReview();
 
                 }
@@ -808,7 +882,7 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
         });
 
 
-        btnReview.setText(""+reviewsCount);
+       // btnReview.setText(""+reviewsCount);
 
 
         TextView allReviews=(TextView)findViewById(R.id.all_reviews);
@@ -884,6 +958,16 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
             downloadTask.cancel(true);
 
         }
+    }
+
+    private ValueBar setPropertyToValueBar(ValueBar valueBar){
+        valueBar.setMinMax(0, 1000);
+        valueBar.setInterval(1f); // interval in which can be selected
+        valueBar.setDrawBorder(false);
+        valueBar.setDrawValueText(false);
+        valueBar.setColorFormatter(new RedToGreenFormatter());
+        return valueBar;
+
     }
 
 

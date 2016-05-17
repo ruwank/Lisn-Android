@@ -331,7 +331,7 @@ public class AudioPlayerService extends Service implements Runnable, OnCompletio
         if(mediaPlayer !=null && hasStartedPlayer) {
             Log.v(TAG, "sendMessage");
 
-            Intent intent = new Intent("audio-event");
+            Intent intent = new Intent(Constants.PLAYER_STATE_UPDATE);
             LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
         }else{
           //  stopForeground(true);

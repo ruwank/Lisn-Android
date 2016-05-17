@@ -1,6 +1,7 @@
 buildscript {
     repositories {
         maven { url 'https://maven.fabric.io/public' }
+
     }
     repositories {
         jcenter()
@@ -65,6 +66,7 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'org.solovyev.android.views:linear-layout-manager:0.5@aar'
     compile files('libs/volley.jar')
+    compile files('libs/valuebarlibrary-1-0-2.jar')
     compile('com.crashlytics.sdk.android:crashlytics:2.2.3@aar') {
         transitive = true;
     }
@@ -78,6 +80,7 @@ dependencies {
     compile 'org.adw.library:discrete-seekbar:1.0.0'
     compile 'com.mani:ThinDownloadManager:1.2.0'
     compile 'com.github.aakira:expandable-layout:1.5.1@aar'
+    compile 'de.hdodenhof:circleimageview:2.0.0'
 
 
 }

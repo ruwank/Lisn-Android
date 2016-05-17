@@ -41,6 +41,9 @@
     <color name="text_white_87">#deFFFFFF</color>
     <color name="color_transparent_alpha_0.5">#80000000</color>
     <color name="color_login_normal_bg">#FFA000</color>
+    <color name="color_review_bg">#ed3b3b</color>
+    <color name="color_type_bg">#ff1643</color>
+    <color name="color_similar_bg">#008f82</color>
 
 
 </resources>

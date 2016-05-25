@@ -922,27 +922,29 @@
                                 <com.philjay.valuebar.ValueBar
                                     android:id="@+id/valueBar5"
                                     android:layout_width="wrap_content"
-                                    android:layout_height="10dp"
+                                    android:layout_height="15dp"
                                     />
                                 <com.philjay.valuebar.ValueBar
                                     android:id="@+id/valueBar4"
                                     android:layout_width="wrap_content"
-                                    android:layout_height="10dp"
+                                    android:layout_height="15dp"
+                                    android:focusableInTouchMode="false"
                                     />
                                 <com.philjay.valuebar.ValueBar
                                     android:id="@+id/valueBar3"
                                     android:layout_width="wrap_content"
-                                    android:layout_height="10dp"
+                                    android:layout_height="15dp"
+
                                     />
                                 <com.philjay.valuebar.ValueBar
                                     android:id="@+id/valueBar2"
                                     android:layout_width="wrap_content"
-                                    android:layout_height="10dp"
+                                    android:layout_height="15dp"
                                     />
                                 <com.philjay.valuebar.ValueBar
                                     android:id="@+id/valueBar1"
                                     android:layout_width="wrap_content"
-                                    android:layout_height="10dp"
+                                    android:layout_height="15dp"
                                     />
 
                             </LinearLayout>

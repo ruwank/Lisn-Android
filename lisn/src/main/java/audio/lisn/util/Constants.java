@@ -8,6 +8,7 @@ public class Constants {
     public static final String PREVIEW_PLAYER_STATE_CHANGE = "audio.lisn.preview_player_state_change";
     public static final String PLAYER_STATE_UPDATE = "audio.lisn.audio.event";
     public static final String MENU_ITEM_SELECT = "audio.lisn.menu_state_update";
+    public static final String BOOK_CATEGORY = "audio.lisn.book_category";
 
     public static final String APP_STATE_FOREGROUND = "foreground_event";
     public static final String APP_STATE_BACKGROUND = "background_event";

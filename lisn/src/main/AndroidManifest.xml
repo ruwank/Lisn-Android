@@ -150,6 +150,11 @@
             android:label="@string/title_activity_forgot_password"
             android:screenOrientation="portrait" >
         </activity>
+        <activity
+            android:name=".activity.CategoryBookActivity"
+            android:label="@string/title_activity_forgot_password"
+            android:screenOrientation="portrait" >
+        </activity>
     </application>
 
 </manifest>

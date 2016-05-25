@@ -85,6 +85,10 @@
     <string name="title_activity_about_us">AboutUsActivity</string>
     <string name="title_activity_feed_back">FeedBackActivity</string>
     <string name="title_activity_book_review">BookReviewActivity</string>
+    <string name="title_activity_signup">SignupActivity</string>
+    <string name="title_activity_forgot_password">ForgotPasswordActivity</string>
+    <string name="title_activity_book_category">BookCategoryActivity</string>
+
     <string name="terms_accept">Accept</string>
     <string name="terms_condition">
         <![CDATA[
@@ -283,7 +287,6 @@
 
 
     </string-array>
-    <string name="title_activity_signup">SignupActivity</string>
-    <string name="title_activity_forgot_password">ForgotPasswordActivity</string>
+
 
 </resources>

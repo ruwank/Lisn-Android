@@ -13,7 +13,6 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.PorterDuff;
@@ -62,13 +61,6 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
-import com.facebook.share.Sharer;
-import com.facebook.share.model.ShareOpenGraphAction;
-import com.facebook.share.model.ShareOpenGraphContent;
-import com.facebook.share.model.ShareOpenGraphObject;
-import com.facebook.share.widget.ShareDialog;
 import com.philjay.valuebar.ValueBar;
 import com.philjay.valuebar.colors.BarColorFormatter;
 import com.philjay.valuebar.colors.RedToGreenFormatter;
@@ -629,6 +621,9 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
         ValueBar valueBar5=(ValueBar)findViewById(R.id.valueBar5);
         setPropertyToValueBar(valueBar5);
         valueBar5.setValue(100f); // display a value
+       // valueBar5.setEnabled(false);
+       // valueBar5.setDrawBorder(false);
+
         valueBar5.setColorFormatter(new BarColorFormatter() {
             @Override
             public int getColor(float v, float v1, float v2) {
@@ -849,6 +844,17 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
                 shareBook();
             }
         });
+
+        LinearLayout similarLayout=(LinearLayout)findViewById(R.id.similarLayout);
+        similarLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showSimilarBook();
+            }
+        });
+
+
+
 //        if(AppController.getInstance().isUserLogin() && audioBook.isPurchase()) {
 //            shareLayout.setVisibility(View.VISIBLE);
 //        }else{
@@ -926,6 +932,13 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
 
 
     }
+    private void showSimilarBook(){
+        Intent intent = new Intent(this,
+                CategoryBookActivity.class);
+        Log.v(TAG,audioBook.getCategory());
+        intent.putExtra(Constants.BOOK_CATEGORY,"1" );
+        startActivity(intent);
+    }
     private int getListViewHeightBasedOnChildren(ListView listView) {
         ListAdapter listAdapter = listView.getAdapter();
         if (listAdapter == null) {
@@ -964,7 +977,9 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
         valueBar.setMinMax(0, 1000);
         valueBar.setInterval(1f); // interval in which can be selected
         valueBar.setDrawBorder(false);
+        valueBar.setTouchEnabled(false);
         valueBar.setDrawValueText(false);
+        valueBar.setDrawMinMaxText(false);
         valueBar.setColorFormatter(new RedToGreenFormatter());
         return valueBar;
 
@@ -1307,6 +1322,16 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
 
     }
     private void shareBook() {
+        String shareUrl=getString(R.string.play_store_url);
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_SEND);
+
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_TEXT,shareUrl );
+        startActivity(Intent.createChooser(intent, "Share"));
+    }
+    /*
+    private void shareBook() {
 
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ui_bg_logo);
 
@@ -1378,6 +1403,8 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
         shareDialog.show(content);
 
     }
+    */
+
 
     private void playGetButtonPressed(){
 

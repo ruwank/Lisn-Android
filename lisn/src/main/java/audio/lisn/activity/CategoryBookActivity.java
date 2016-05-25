@@ -1,7 +1,6 @@
 package audio.lisn.activity;
 
 import android.app.ProgressDialog;
-import android.app.SearchManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -32,10 +31,11 @@ import audio.lisn.app.AppController;
 import audio.lisn.model.AudioBook;
 import audio.lisn.model.DownloadedAudioBook;
 import audio.lisn.util.ConnectionDetector;
+import audio.lisn.util.Constants;
 import audio.lisn.util.Log;
 import audio.lisn.webservice.JsonUTF8ArrayRequest;
 
-public class SearchResultsActivity extends AppCompatActivity implements
+public class CategoryBookActivity extends AppCompatActivity implements
          StoreBookViewAdapter.StoreBookSelectListener {
 
     private ProgressDialog pDialog;
@@ -44,7 +44,7 @@ public class SearchResultsActivity extends AppCompatActivity implements
     TextView noDataTextView;
     private StoreBookViewAdapter storeBookViewAdapter;
     private RecyclerView searchBookView;
-    private static final String TAG = SearchResultsActivity.class.getSimpleName();
+    private static final String TAG = CategoryBookActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +53,7 @@ public class SearchResultsActivity extends AppCompatActivity implements
 
         noDataTextView = (TextView)findViewById(R.id.no_data);
         initToolbar();
-        getSupportActionBar().setTitle("Search Results");
+        getSupportActionBar().setTitle("Similar Book");
         connectionDetector = new ConnectionDetector(getApplicationContext());
         searchBookView=(RecyclerView)findViewById(R.id.searchBookContainer);
         searchBookView.setLayoutManager(new GridLayoutManager(this, 3));
@@ -95,11 +95,10 @@ public class SearchResultsActivity extends AppCompatActivity implements
 
     private void handleIntent(Intent intent) {
 
-        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-            String query = intent.getStringExtra(SearchManager.QUERY);
-            Log.v("query", "query:" + query);
-            downloadSearchResultData(query);
-        }
+       // if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+            String category = intent.getStringExtra(Constants.BOOK_CATEGORY);
+            downloadCategoryData(category);
+       // }
     }
     @Override
     public void onResume() {
@@ -113,16 +112,13 @@ public class SearchResultsActivity extends AppCompatActivity implements
         }
     }
 
-    private void downloadSearchResultData(final String searchQuery) {
+    private void downloadCategoryData(final String bookCategory) {
         storeBookViewAdapter = new StoreBookViewAdapter(this,bookList);
         storeBookViewAdapter.setStoreBookSelectListener(this);
         searchBookView.setAdapter(storeBookViewAdapter);
 
 
-        Map<String, String> params = new HashMap<String, String>();
-        params.put("searchstr", searchQuery);
 
-        Log.v("params", params.toString());
 
         if (connectionDetector.isConnectingToInternet()) {
 
@@ -131,7 +127,10 @@ public class SearchResultsActivity extends AppCompatActivity implements
 
             pDialog.setMessage(getString(R.string.loading_text));
             pDialog.show();
-            String url = getString(R.string.search_book_url);
+            Map<String, String> params = new HashMap<String, String>();
+            params.put("cat", "" + bookCategory);
+
+            String url = getString(R.string.book_category_url);
             JsonUTF8ArrayRequest bookListReq = new JsonUTF8ArrayRequest(Request.Method.POST,url, params,
                     new Response.Listener<JSONArray>() {
                         @Override
@@ -146,7 +145,7 @@ public class SearchResultsActivity extends AppCompatActivity implements
                 }
             });
             bookListReq.setShouldCache(false);
-            AppController.getInstance().addToRequestQueue(bookListReq, "tag_search_book");
+            AppController.getInstance().addToRequestQueue(bookListReq, "tag_similar_book");
         }
     }
     private AudioBook getDownloadedBook(String key){
@@ -167,8 +166,9 @@ Log.v("jsonArray","jsonArray :"+jsonArray);
             for (int i = 0; i < jsonArray.length(); i++) {
                 try {
 
-//                    String book_id = "";
                     JSONObject obj = jsonArray.getJSONObject(i);
+                    //                    String book_id = "";
+
 //
 //                    try {
 //                        book_id = obj.getString("book_id");

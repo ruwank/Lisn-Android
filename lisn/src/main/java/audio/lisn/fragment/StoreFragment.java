@@ -264,13 +264,13 @@ public class StoreFragment extends Fragment implements  StoreBookViewAdapter.Sto
                 try {
 
                     JSONObject obj = jsonArray.getJSONObject(i);
-                    String book_id = "";
-                    try {
-                        book_id = obj.getString("book_id");
-                    } catch (JSONException e) {
-                        book_id = obj.getString("" + i);
-                        e.printStackTrace();
-                    }
+//                    String book_id = "";
+//                    try {
+//                        book_id = obj.getString("book_id");
+//                    } catch (JSONException e) {
+//                        book_id = obj.getString("" + i);
+//                        e.printStackTrace();
+//                    }
                     AudioBook book = new AudioBook(obj, i,getActivity());
 
 

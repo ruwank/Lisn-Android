@@ -16,9 +16,11 @@ import audio.lisn.util.Log;
 public class AudioBook implements Serializable{
 
     private static final long serialVersionUID = -7060210544600464481L;
+    public static final String TAG = AudioBook.class.getSimpleName();
 
     private String ISBN,book_id,duration,narrator,title, description, author, language, price, category,rate,
             cover_image,banner_image, preview_audio,english_title,english_description,downloads;
+    private String content_rate;
     private boolean isPurchase;
     private int lastPlayFileIndex;
     private int lastSeekPoint;
@@ -27,11 +29,13 @@ public class AudioBook implements Serializable{
     private int discount;
     private boolean isAwarded;
     private boolean isDownloaded;
-    private int audioFileCount;
+    private boolean isTotalBookPurchased;
+  //  private int audioFileCount;
     private int fileSize;
 
     private ArrayList<Integer> downloadedChapter = new ArrayList<Integer>();
     private ArrayList<BookReview> reviews=new ArrayList<>();
+    private ArrayList<BookChapter> chapters=new ArrayList<>();
 
 
 
@@ -64,13 +68,13 @@ public class AudioBook implements Serializable{
         this.previewDuration = previewDuration;
     }
 
-    public int getAudioFileCount() {
-        return audioFileCount;
-    }
-
-    public void setAudioFileCount(int audioFileCount) {
-        this.audioFileCount = audioFileCount;
-    }
+//    public int getAudioFileCount() {
+//        return audioFileCount;
+//    }
+//
+//    public void setAudioFileCount(int audioFileCount) {
+//        this.audioFileCount = audioFileCount;
+//    }
 
     public ArrayList<Integer> getDownloadedChapter() {
         return downloadedChapter;
@@ -150,6 +154,30 @@ public class AudioBook implements Serializable{
         this.english_description = english_description;
     }
 
+    public ArrayList<BookChapter> getChapters() {
+        return chapters;
+    }
+
+    public void setChapters(ArrayList<BookChapter> chapters) {
+        this.chapters = chapters;
+    }
+
+    public boolean isTotalBookPurchased() {
+        return isTotalBookPurchased;
+    }
+
+    public void setIsTotalBookPurchased(boolean isTotalBookPurchased) {
+        this.isTotalBookPurchased = isTotalBookPurchased;
+    }
+
+    public String getContent_rate() {
+        return content_rate;
+    }
+
+    public void setContent_rate(String content_rate) {
+        this.content_rate = content_rate;
+    }
+
 
     public enum LanguageCode {
 		LAN_EN, LAN_SI
@@ -157,59 +185,69 @@ public class AudioBook implements Serializable{
     public enum SelectedAction {
         ACTION_MORE, ACTION_PREVIEW,ACTION_DETAIL,ACTION_PURCHASE,ACTION_PLAY,ACTION_DELETE,ACTION_DOWNLOAD
     }
+    public enum ServiceProvider {
+        PROVIDER_NONE, PROVIDER_MOBITEL,PROVIDER_DIALOG,PROVIDER_ETISALAT
+    }
 
+    public enum PaymentOption {
+        OPTION_NONE, OPTION_CARD,OPTION_MOBITEL,OPTION_DIALOG,OPTION_ETISALAT
+    }
     public AudioBook() {
     }
     public AudioBook(JSONObject obj,int position,Context context) {
         String book_id="";
-        Log.v("obj","obj: "+obj.toString());
+       // Log.v("obj","obj: "+obj.toString());
         try{
             book_id=obj.getString("book_id");
-            if(obj.getString("author") !=null)
+            if(obj.has("author") && obj.getString("author") !=null)
                 this.author = obj.getString("author");
-            if(obj.getString("cover_image") !=null)
+            if(obj.has("cover_image") && obj.getString("cover_image") !=null)
                 this.cover_image = obj.getString("cover_image");
-            if(obj.getString("category") !=null)
+            if(obj.has("category") && obj.getString("category") !=null)
                 this.category = obj.getString("category");
-            if(obj.getString("description") !=null)
+            if(obj.has("description") && obj.getString("description") !=null)
                 this.description = obj.getString("description");
-            if(obj.getString("language") !=null)
+            if(obj.has("language") && obj.getString("language") !=null)
                 this.language = obj.getString("language");
-            if(obj.getString("preview_audio") !=null)
+            if(obj.has("preview_audio") && obj.getString("preview_audio") !=null)
                 this.preview_audio = obj.getString("preview_audio");
-            if(obj.getString("price") !=null)
+            if(obj.has("price") && obj.getString("price") !=null)
                 this.price = obj.getString("price");
-            if(obj.getString("title") !=null)
+            if(obj.has("title") && obj.getString("title") !=null)
                 this.title = obj.getString("title");
-            if(obj.getString("english_title") !=null)
+            if(obj.has("english_title") && obj.getString("english_title") !=null)
                 this.english_title = obj.getString("english_title");
-            if(obj.getString("rate") !=null)
+            if(obj.has("rate") && obj.getString("rate") !=null)
                 this.rate = obj.getString("rate");
             if(obj.getString("duration") !=null)
                 this.duration = obj.getString("duration");
-            if(obj.getString("narrator") !=null)
+            if(obj.has("narrator") && obj.getString("narrator") !=null)
                 this.narrator = obj.getString("narrator");
+            if(obj.has("content_rate") && obj.getString("content_rate") !=null) {
+                this.content_rate = obj.getString("content_rate");
+            }
 //            if(obj.getString("downloads") !=null)
 //                this.downloads = obj.getString("downloads");
 //            Log.v("audio_file",""+obj.getString("audio_file"));
-            if(obj.getString("audio_file") !=null){
+            if(obj.has("audio_file") && obj.getString("audio_file") !=null){
                 String audio_file=obj.getString("audio_file");
-                this.audioFileCount=Integer.parseInt(audio_file);
+                //this.audioFileCount=Integer.parseInt(audio_file);
 
             }
-            if(obj.getString("english_description") !=null && !obj.getString("english_description").equalsIgnoreCase("null") ){
+            if(obj.has("english_description") && obj.getString("english_description") !=null && !obj.getString("english_description").equalsIgnoreCase("null") ){
                 this.english_description=obj.getString("english_description");
 
             }else{
                 this.english_description=this.english_title;
 
             }
-            if(obj.getString("size") !=null){
+            Log.v(TAG,"Step 1");
+            if(obj.has("size") && obj.getString("size") !=null){
                 String size=obj.getString("size");
                 this.fileSize=Integer.parseInt(size);
 
             }
-            if(obj.getString("award") !=null){
+            if(obj.has("award") && obj.getString("award") !=null){
                 String award=obj.getString("award");
                 Log.v("award", "award: " + award);
                 if(Integer.parseInt(award) == 1){
@@ -217,14 +255,15 @@ public class AudioBook implements Serializable{
                 }
 
             }
-            if(obj.getString("discount") !=null){
+            if(obj.has("discount") && obj.getString("discount") !=null){
                 String discountValue=obj.getString("discount");
                 this.discount=Integer.parseInt(discountValue);
                 //Log.v("discount","discount "+discount);
             }
 
-            if(obj.getString("banner_image") !=null)
+            if(obj.has("banner_image") && obj.getString("banner_image") !=null) {
                 this.banner_image = obj.getString("banner_image");
+            }
 
 
 //            JSONArray arr = obj.getJSONArray("audio_file");
@@ -236,14 +275,17 @@ public class AudioBook implements Serializable{
 
             this.book_id=book_id;
             this.ISBN=book_id;
-            if (language.equalsIgnoreCase("si")) {
-                this.lanCode = LanguageCode.LAN_SI;
-            } else {
-                this.lanCode = LanguageCode.LAN_EN;
-            }
+//            if (language.equalsIgnoreCase("SI")) {
+//                Log.v("LanguageCode.LAN_SI","LanguageCode.LAN_SI"+language);
+//                this.lanCode = LanguageCode.LAN_SI;
+//            } else {
+//                Log.v("LanguageCode.LAN_SI","LanguageCode.LAN_SI"+language);
+//
+//                this.lanCode = LanguageCode.LAN_EN;
+//            }
 
-
-            if(obj.get("reviews") !=null && (obj.get("reviews") instanceof JSONArray)){
+            Log.v("reviews:","reviews:"+obj.get("reviews"));
+            if(obj.has("reviews") && obj.get("reviews") !=null && (obj.get("reviews") instanceof JSONArray)){
                 JSONArray arr = obj.getJSONArray("reviews");
                 ArrayList<BookReview> reviewArray= new ArrayList<>();
                // Log.v("reviews:","reviews:"+arr);
@@ -255,20 +297,20 @@ public class AudioBook implements Serializable{
 
                     BookReview bookReview=new BookReview();
 
-                    if(dataObject.getString("comment_title") !=null)
+                    if(dataObject.has("comment_title") && dataObject.getString("comment_title") !=null)
                         bookReview.setTitle(dataObject.getString("comment_title"));
-                    if(dataObject.getString("comment") !=null)
+                    if(dataObject.has("comment") && dataObject.getString("comment") !=null)
                         bookReview.setMessage(dataObject.getString("comment"));
-                    if(dataObject.getString("time") !=null)
+                    if(dataObject.has("time") && dataObject.getString("time") !=null)
                         bookReview.setTimeString(dataObject.getString("time"));
-                    if(dataObject.getString("first_name") !=null){
+                    if(dataObject.has("first_name") && dataObject.getString("first_name") !=null){
                         userName=dataObject.getString("first_name");
                     }
-                    if(dataObject.getString("last_name") !=null){
+                    if(dataObject.has("last_name") && dataObject.getString("last_name") !=null){
                         userName=userName+" "+dataObject.getString("last_name");
                     }
                         bookReview.setUserName(userName);
-                    if(dataObject.getString("rate") !=null)
+                    if(dataObject.has("rate") && dataObject.getString("rate") !=null)
                         bookReview.setRateValue(dataObject.getString("rate"));
 
                     reviewArray.add(bookReview);
@@ -276,6 +318,49 @@ public class AudioBook implements Serializable{
                 }
                // Log.v("reviewArray","reviewArray:"+reviewArray.size());
                 this.reviews=reviewArray;
+
+            }
+            Log.v("chapters","chapters"+obj.get("chapters"));
+
+            if(obj.has("chapters") && obj.get("chapters") !=null && (obj.get("chapters") instanceof JSONArray)){
+                JSONArray arr = obj.getJSONArray("chapters");
+                Log.v("chapters","chapters"+arr);
+                ArrayList<BookChapter> chapterArray= new ArrayList<>();
+
+                for(int index = 0; index< arr.length(); index++) {
+
+                    JSONObject dataObject=arr.getJSONObject(index);
+                    BookChapter bookChapter=new BookChapter();
+
+                    if(dataObject.has("chapter_id") && dataObject.getString("chapter_id") !=null) {
+                        bookChapter.setChapter_id(Integer.parseInt(dataObject.getString("chapter_id")));
+                    }
+                    if(dataObject.has("title") && dataObject.getString("title") !=null)
+                        bookChapter.setTitle(dataObject.getString("title"));
+                    if(dataObject.has("english_title") && dataObject.getString("english_title") !=null)
+                        bookChapter.setEnglish_title(dataObject.getString("english_title"));
+                    if(dataObject.has("price") && dataObject.getString("price") !=null) {
+                        bookChapter.setPrice(Float.parseFloat(dataObject.getString("price")));
+                    }
+                    if(dataObject.has("discount") && dataObject.getString("discount") !=null) {
+                        bookChapter.setDiscount(Float.parseFloat(dataObject.getString("discount")));
+                    }
+                    if(dataObject.has("size") && dataObject.getString("size") !=null) {
+                        bookChapter.setSize(Float.parseFloat(dataObject.getString("size")));
+                    }
+                    if(dataObject.has("purchased") && dataObject.getString("purchased") !=null){
+                        String purchased=obj.getString("purchased");
+                        if(Integer.parseInt(purchased) == 1){
+                            bookChapter.setIsPurchased(true);
+                        }
+
+                    }
+
+                    chapterArray.add(bookChapter);
+
+                }
+                // Log.v("reviewArray","reviewArray:"+reviewArray.size());
+                this.chapters=chapterArray;
 
             }
             if(context !=null) {
@@ -302,7 +387,7 @@ public class AudioBook implements Serializable{
         if(returnBook !=null){
             returnBook.setDescription(this.description);
             returnBook.setRate(this.rate);
-            returnBook.setTitle(this.title);
+           // returnBook.setTitle(this.title);
             returnBook.setEnglish_title(this.english_title);
             returnBook.setEnglish_description(this.english_description);
             returnBook.setCategory(this.category);
@@ -310,14 +395,22 @@ public class AudioBook implements Serializable{
             returnBook.setCover_image(this.cover_image);
             returnBook.setBanner_image(this.banner_image);
             returnBook.setPreview_audio(this.preview_audio);
-            returnBook.setAudioFileCount(this.audioFileCount);
+           // returnBook.setAudioFileCount(this.audioFileCount);
             returnBook.setPrice(this.price);
             if(this.reviews.size()>returnBook.reviews.size()){
                 returnBook.setReviews(this.reviews);
             }else{
                 this.reviews=returnBook.getReviews();
             }
+            if(returnBook.getChapters() != null){
+              //  this.chapters=returnBook.getChapters();
+            }
+            if(this.chapters != null){
+                returnBook.chapters=this.chapters;
+            }
+           // this.chapters=returnBook.getChapters();
             returnBook.setIsAwarded(this.isAwarded);
+            //returnBook.setChapters(this.chapters);
 
             this.setDownloadedChapter(returnBook.getDownloadedChapter());
 
@@ -337,7 +430,6 @@ public class AudioBook implements Serializable{
 		this.english_title=english_title;
 		this.description = description;
 		this.author = author;
-		this.language = language;
 		this.language = language;
 		this.price = price;
 		this.category = category;
@@ -398,9 +490,9 @@ public class AudioBook implements Serializable{
 		return title;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
+//	public void setTitle(String title) {
+//		this.title = title;
+//	}
 
 	public String getDescription() {
 		return description;
@@ -466,6 +558,11 @@ public class AudioBook implements Serializable{
 	}
 
 	public LanguageCode getLanguageCode() {
+        if (language.equalsIgnoreCase("si")) {
+            this.lanCode = LanguageCode.LAN_SI;
+        } else {
+            this.lanCode = LanguageCode.LAN_EN;
+        }
 		return lanCode;
 
 	}

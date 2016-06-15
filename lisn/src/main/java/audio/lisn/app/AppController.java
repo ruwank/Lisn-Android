@@ -36,6 +36,7 @@ import com.facebook.login.LoginManager;
 
 import org.json.JSONArray;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,7 +44,9 @@ import java.util.Map;
 import audio.lisn.R;
 import audio.lisn.model.AudioBook;
 import audio.lisn.model.BookCategory;
+import audio.lisn.model.BookChapter;
 import audio.lisn.model.DownloadedAudioBook;
+import audio.lisn.util.AppUtils;
 import audio.lisn.util.AudioPlayerService;
 import audio.lisn.util.AudioPlayerService.AudioPlayerServiceBinder;
 import audio.lisn.util.Constants;
@@ -63,7 +66,7 @@ public class AppController extends Application  {
     private ImageLoader mImageLoader;
     private String userName,password,userId,gcmRegId;
     Intent playbackServiceIntent;
-    private String[] fileList;
+    //private String[] fileList;
     AudioPlayerService mService;
     boolean mBound = false;
     public int fileIndex=-1;
@@ -194,8 +197,8 @@ public class AppController extends Application  {
     public String getPlayerControllerTitle() {
         String title="";
         if(currentAudioBook != null) {
-            if (fileIndex >= 0 && fileIndex < (fileList.length)) {
-                title=  "[ " + (fileIndex + 1) + " / " + fileList.length + " ]";
+            if (fileIndex >= 0 && fileIndex < (currentAudioBook.getChapters().size())) {
+                title=  "[ " + (fileIndex + 1) + " / " + currentAudioBook.getChapters().size() + " ]";
             }
         }
         return title;
@@ -244,26 +247,33 @@ public class AppController extends Application  {
     public void playNextFile(){
         Log.v("playNextFile", "mBound :" + mBound);
 
-        if (mBound && fileList != null) {
+        if (mBound && currentAudioBook.getChapters() != null) {
             retryCount=0;
             fileIndex++;
             Log.v("playNextFile", "fileIndex :" + fileIndex);
 
-            if(fileIndex>=0 && fileIndex<(fileList.length)) {
+            if(fileIndex>=0 && fileIndex<(currentAudioBook.getChapters().size())) {
                 Log.v("playNextFile", "fileIndex :" + fileIndex);
+                BookChapter bookChapter=currentAudioBook.getChapters().get(fileIndex);
+                String dirPath = AppUtils.getDataDirectory(getApplicationContext())
+                        + currentAudioBook.getBook_id()+ File.separator;
+                String fileName=dirPath +(bookChapter.getChapter_id())+".lisn";
 
-                String fileName=fileList[fileIndex];
-                mService.playAudioFile(fileName);
-                if(currentAudioBook.getLastPlayFileIndex() ==fileIndex){
-                    mService.setSeekPosition(currentAudioBook.getLastSeekPoint());
-                }else{
-                    mService.setSeekPosition(0);
+                File file = new File(fileName);
 
+                if(file.exists()) {
+
+                    mService.playAudioFile(fileName);
+                    if (currentAudioBook.getLastPlayFileIndex() == fileIndex) {
+                        mService.setSeekPosition(currentAudioBook.getLastSeekPoint());
+                    } else {
+                        mService.setSeekPosition(0);
+
+                    }
                 }
 
-
             }else{
-                fileIndex=fileList.length;
+                fileIndex=currentAudioBook.getChapters().size();
             }
             currentAudioBook.setLastSeekPoint(0);
             currentAudioBook.setLastPlayFileIndex(0);
@@ -288,19 +298,19 @@ public class AppController extends Application  {
         }
     }
 
-    public void playPreviousFile(){
-        if (mBound && fileList != null) {
-            fileIndex--;
-            if(fileIndex>=0 && fileIndex<(fileList.length)) {
-                Log.v("playPreviousFile", "fileIndex :" + fileIndex);
-
-                String fileName=fileList[fileIndex];
-                mService.playAudioFile(fileName);
-            }else{
-                fileIndex=-1;
-            }
-        }
-    }
+//    public void playPreviousFile(){
+//        if (mBound && fileList != null) {
+//            fileIndex--;
+//            if(fileIndex>=0 && fileIndex<(fileList.length)) {
+//                Log.v("playPreviousFile", "fileIndex :" + fileIndex);
+//
+//                String fileName=fileList[fileIndex];
+//                mService.playAudioFile(fileName);
+//            }else{
+//                fileIndex=-1;
+//            }
+//        }
+//    }
     public void seekToForward(){
         if (mBound){
             mService.seekToForward(true);
@@ -326,13 +336,13 @@ public class AppController extends Application  {
         fileIndex=-1;
     }
 
-    public String[] getFileList() {
-        return fileList;
-    }
-
-    public void setFileList(String[] fileList) {
-        this.fileList = fileList;
-    }
+//    public String[] getFileList() {
+//        return fileList;
+//    }
+//
+//    public void setFileList(String[] fileList) {
+//        this.fileList = fileList;
+//    }
 
     public JSONArray getNewReleaseBookList() {
         return newReleaseBookList;

@@ -31,6 +31,7 @@ public class FileDownloadTask extends AsyncTask<String, Integer, String> {
     private String book_id;
     FileDownloadTaskListener taskListener;
 
+    public static final String TAG = FileDownloadTask.class.getSimpleName();
 
 
     public FileDownloadTask(Context context,FileDownloadTaskListener taskListener,String book_id) {
@@ -45,8 +46,8 @@ public class FileDownloadTask extends AsyncTask<String, Integer, String> {
         String fileName = sUrl[1];
         file_name=fileName;
         String urlString = context.getResources().getString(R.string.book_download_url);
-        String urlParameters  = "userid="+ AppController.getInstance().getUserId()+"&bookid="+book_id+"&part="+fileName;
-        Log.v("urlParameters", "" + urlParameters);
+        String urlParameters  = "userid="+ AppController.getInstance().getUserId()+"&bookid="+book_id+"&chapid="+fileName;
+        Log.v(TAG,"urlParameters" + urlParameters);
         //byte[] postData       = urlParameters.getBytes( StandardCharsets.UTF_8 );
         byte[] postData       = new byte[0];
         try {
@@ -104,11 +105,11 @@ public class FileDownloadTask extends AsyncTask<String, Integer, String> {
                     return "Server returned HTTP "
                             + connection.getResponseCode() + " "
                             + connection.getResponseMessage();
-                Log.v("connection","connection"+connection.getResponseCode());
+                Log.v(TAG,"connection"+connection.getResponseCode());
                 // Log.v("connection","connection"+connection.get);
 
                 int fileLength = connection.getContentLength();
-                Log.v("fileLength",""+fileLength);
+                Log.v(TAG,""+fileLength);
 
                 if(fileLength<20){
                     InputStream is = null;

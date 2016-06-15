@@ -33,8 +33,9 @@ public class DownloadService extends IntentService {
         String book_id=intent.getStringExtra("book_id");
         String dirPath=intent.getStringExtra("dirPath");
 
+
         String urlToDownload = getResources().getString(R.string.book_download_url);
-        String urlParameters  = "userid="+ AppController.getInstance().getUserId()+"&bookid="+book_id+"&part="+filePart;
+        String urlParameters  = "userid="+ AppController.getInstance().getUserId()+"&bookid="+book_id+"&chapid="+filePart;
 
 
         ResultReceiver receiver = (ResultReceiver) intent.getParcelableExtra("receiver");

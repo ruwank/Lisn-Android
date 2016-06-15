@@ -253,7 +253,7 @@ public class MyBookFragment extends Fragment implements MyBookViewAdapter.MyBook
                 break;
 
             case ACTION_PLAY:
-                PlayerControllerActivity.navigate((android.support.v7.app.AppCompatActivity) getActivity(), view.findViewById(R.id.book_cover_thumbnail), audioBook);
+                PlayerControllerActivity.navigate((android.support.v7.app.AppCompatActivity) getActivity(), view.findViewById(R.id.book_cover_thumbnail), audioBook,-1);
                 break;
             case ACTION_DELETE:
                 this.selectedBook=audioBook;
@@ -288,7 +288,7 @@ public class MyBookFragment extends Fragment implements MyBookViewAdapter.MyBook
             totalAudioFileCount=0;
             downloadingList.clear();
 
-            for (int filePart=1; filePart<=(selectedBook.getAudioFileCount()); filePart++){
+            for (int filePart=1; filePart<=(selectedBook.getChapters().size()); filePart++){
                 File file = new File(dirPath +filePart+".lisn");
 
                 if (!file.exists() ||  !(selectedBook.getDownloadedChapter().contains(filePart)) ) {
@@ -320,7 +320,7 @@ public class MyBookFragment extends Fragment implements MyBookViewAdapter.MyBook
                     dialog.show();
 
                 }else {
-                    mProgressDialog.setMessage("Downloading " + (selectedBook.getDownloadedChapter().size() + 1) + " of " + selectedBook.getAudioFileCount());
+                    mProgressDialog.setMessage("Downloading " + (selectedBook.getDownloadedChapter().size() + 1) + " of " + selectedBook.getChapters().size());
                 }
 
             }
@@ -330,7 +330,7 @@ public class MyBookFragment extends Fragment implements MyBookViewAdapter.MyBook
             downloadedFileCount=0;
             totalAudioFileCount=0;
 
-            for (int filePart=1; filePart<=(selectedBook.getAudioFileCount()); filePart++){
+            for (int filePart=1; filePart<=(selectedBook.getChapters().size()); filePart++){
                 File file = new File(dirPath +filePart+".lisn");
                 if (!file.exists()) {
                     totalAudioFileCount++;
@@ -388,7 +388,7 @@ public class MyBookFragment extends Fragment implements MyBookViewAdapter.MyBook
         builder.setTitle(R.string.DOWNLOAD_COMPLETE_TITLE).setMessage(getString(R.string.DOWNLOAD_COMPLETE_MESSAGE)).setPositiveButton(
                 R.string.BUTTON_YES, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        PlayerControllerActivity.navigate((android.support.v7.app.AppCompatActivity) getActivity(), selectedView.findViewById(R.id.book_cover_thumbnail), selectedBook);
+                        PlayerControllerActivity.navigate((android.support.v7.app.AppCompatActivity) getActivity(), selectedView.findViewById(R.id.book_cover_thumbnail), selectedBook,-1);
 
 
                     }
@@ -412,7 +412,7 @@ public class MyBookFragment extends Fragment implements MyBookViewAdapter.MyBook
             showMessage("NOTFOUND");
 
         }else {
-            mProgressDialog.setMessage("Downloading " + (selectedBook.getDownloadedChapter().size() + 1) + " of " + selectedBook.getAudioFileCount());
+            mProgressDialog.setMessage("Downloading " + (selectedBook.getDownloadedChapter().size() + 1) + " of " + selectedBook.getChapters().size());
 
             downloadedFileCount++;
             if (result == null) {

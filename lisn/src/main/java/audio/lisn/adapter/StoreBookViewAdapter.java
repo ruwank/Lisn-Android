@@ -191,7 +191,7 @@ public class StoreBookViewAdapter extends RecyclerView.Adapter<StoreBookViewAdap
 
                 PopupMenu popupMenu = new PopupMenu(v.getContext(), v);
                 if(AppController.getInstance().isUserLogin() && book.isPurchase()){
-                    if(book.getAudioFileCount() == book.getDownloadedChapter().size()){
+                    if(book.getChapters().size() == book.getDownloadedChapter().size()){
                         popupMenu.inflate(R.menu.store_book_menu_downloaded);
 
                     }else{

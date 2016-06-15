@@ -18,6 +18,7 @@ import android.widget.ProgressBar;
 import audio.lisn.R;
 import audio.lisn.app.AppController;
 import audio.lisn.model.AudioBook;
+import audio.lisn.model.BookChapter;
 import audio.lisn.util.ConnectionDetector;
 import audio.lisn.util.Constants;
 import audio.lisn.util.Log;
@@ -46,11 +47,22 @@ public class PurchaseActivity extends AppCompatActivity {
         progressBar.getIndeterminateDrawable().setColorFilter(0xFFee9f1f, android.graphics.PorterDuff.Mode.MULTIPLY);
 
         audioBook = (AudioBook) getIntent().getSerializableExtra("audioBook");
-
-        float amount= (float) ((Float.parseFloat(audioBook.getPrice())) * ((100.0-audioBook.getDiscount())/100.0));
-        // http://app.lisn.audio/spgw/1.5.6/payment/init.php?userid=1&bookid=1&amount=150.00
         String url=getString(R.string.purchase_book_url);
-        url=url+"?userid="+ AppController.getInstance().getUserId()+"&bookid="+audioBook.getBook_id()+"&amount="+amount;
+        url=url+"?userid="+ AppController.getInstance().getUserId()+"&bookid="+audioBook.getBook_id();
+
+        boolean isSelectChapterBuyOption=(boolean)getIntent().getBooleanExtra("isSelectChapterBuyOption",false);
+        if(isSelectChapterBuyOption){
+            BookChapter bookChapter = (BookChapter) getIntent().getSerializableExtra("selectedChapter");
+            float amount= (float) ((bookChapter.getPrice()) * ((100.0-bookChapter.getDiscount())/100.0));
+            url=url+"&amount="+amount+"&chapid="+bookChapter.getChapter_id();
+        }else{
+            float amount= (float) ((Float.parseFloat(audioBook.getPrice())) * ((100.0-audioBook.getDiscount())/100.0));
+            url=url+"&amount="+amount;
+
+        }
+        // http://app.lisn.audio/spgw/1.5.6/payment/init.php?userid=1&bookid=1&amount=150.00
+        //String url=getString(R.string.purchase_book_url);
+        //url=url+"?userid="+ AppController.getInstance().getUserId()+"&bookid="+audioBook.getBook_id()+"&amount="+amount;
         webView = (WebView) findViewById(R.id.webview);
         webView.loadUrl(url);
         webView.setWebViewClient(new LisnWebViewClient());

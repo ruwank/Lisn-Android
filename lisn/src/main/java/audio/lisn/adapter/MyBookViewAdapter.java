@@ -110,7 +110,7 @@ public class MyBookViewAdapter extends RecyclerView.Adapter<MyBookViewAdapter.Vi
             holder.title.setEllipsized("...");
             holder.author.setEllipsized("...");
         }
-        if(book.getAudioFileCount() == book.getDownloadedChapter().size()){
+        if(book.getChapters().size() == book.getDownloadedChapter().size()){
             holder.downloadIcon.setVisibility(View.GONE);
 
         }else{
@@ -179,7 +179,7 @@ public class MyBookViewAdapter extends RecyclerView.Adapter<MyBookViewAdapter.Vi
             public void onClick(View v) {
 
                 PopupMenu popupMenu = new PopupMenu(v.getContext(), v);
-                if(book.getAudioFileCount() == book.getDownloadedChapter().size()){
+                if(book.getChapters().size() == book.getDownloadedChapter().size()){
                     popupMenu.inflate(R.menu.my_book_menu);
 
                 }else{

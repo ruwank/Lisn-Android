@@ -230,7 +230,7 @@ Log.v("jsonArray","jsonArray :"+jsonArray);
                 break;
 
             case ACTION_PLAY:
-                PlayerControllerActivity.navigate(this, view.findViewById(R.id.book_cover_thumbnail), audioBook);
+                PlayerControllerActivity.navigate(this, view.findViewById(R.id.book_cover_thumbnail), audioBook,-1);
                 break;
 
             default:

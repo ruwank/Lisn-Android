@@ -151,6 +151,7 @@
                             android:layout_below="@+id/author"
                             android:textColor="@color/whiteColor"
                             android:layout_marginTop="@dimen/spacing_medium"
+
                             android:textSize="@dimen/common_textSize_medium"
                             android:layout_centerHorizontal="true"
 
@@ -164,31 +165,53 @@
                             android:layout_margin="@dimen/spacing_large"
                             android:orientation="horizontal"
                             android:layout_alignParentBottom="true"
+                            android:weightSum="2"
                             >
-                            <Button
-                                android:id="@+id/btnDownload"
-                                android:layout_width="wrap_content"
+                            <RelativeLayout
+                                android:layout_width="match_parent"
                                 android:layout_height="40dp"
                                 android:layout_marginRight="@dimen/spacing_medium"
-                                android:background="@drawable/button_border"
-                                android:textColor="@android:color/white"
-                                android:text="Buy"
                                 android:layout_weight="1"
                                 android:layout_marginBottom="@dimen/spacing_large"
 
+                                >
+                                <Button
+                                    android:id="@+id/buyFromCardButton"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="@color/colorPrimary"
+                                    android:textColor="@android:color/white"
+                                    android:text="Pay by Card"
+                                    android:visibility="gone"
+                                    />
+                            </RelativeLayout>
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:layout_marginLeft="@dimen/spacing_medium"
+                            android:layout_weight="1"
+                            android:layout_marginBottom="@dimen/spacing_large"
+
+                            >
+                            <Button
+                                android:id="@+id/addToBillButton"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@color/colorPrimary"
+                                android:textColor="@android:color/white"
+                                android:text="Add to bill"
+                                android:visibility="gone"
                                 />
                             <Button
-                                android:id="@+id/btnDownload2"
-                                android:layout_width="wrap_content"
-                                android:layout_marginLeft="@dimen/spacing_medium"
-                                android:layout_marginBottom="@dimen/spacing_large"
-                                android:layout_height="40dp"
-                                android:background="@color/windowBackground"
-                                android:textColor="@color/colorPrimary"
+                                android:id="@+id/btnDownload"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@color/colorPrimary"
+                                android:textColor="@android:color/white"
                                 android:text="Buy"
-                                android:layout_weight="1"
-
+                                android:visibility="gone"
                                 />
+                            </RelativeLayout>
                         </LinearLayout>
                     </RelativeLayout>
                     <audio.lisn.view.ExpandablePanel
@@ -242,12 +265,12 @@
                         android:layout_below="@+id/buy_chapter"
 
                         />
-                    <LinearLayout
-                        android:id="@+id/top_layout2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/separator_1"
-                        android:orientation="horizontal">
+                    <!--<LinearLayout-->
+                        <!--android:id="@+id/top_layout2"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_below="@+id/separator_1"-->
+                        <!--android:orientation="horizontal">-->
 
                         <!--<RelativeLayout-->
                         <!--android:layout_width="wrap_content"-->
@@ -303,168 +326,140 @@
                         <!--android:layout_centerHorizontal="true"/>-->
                         <!--</RelativeLayout>-->
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:visibility="gone">
+                        <!--<LinearLayout-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:orientation="vertical"-->
+                            <!--android:visibility="gone">-->
 
-                            <TextView
-                                android:id="@+id/category"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/spacing_large"
-                                android:layout_marginTop="@dimen/spacing_xsmall"
-                                android:textColor="@color/textColor"
+                            <!--<TextView-->
+                                <!--android:id="@+id/category"-->
+                                <!--android:layout_width="match_parent"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:layout_marginLeft="@dimen/spacing_large"-->
+                                <!--android:layout_marginTop="@dimen/spacing_xsmall"-->
+                                <!--android:textColor="@color/textColor"-->
 
-                                />
-
-
-                            <TextView
-                                android:id="@+id/duration"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/spacing_large"
-                                android:layout_marginTop="@dimen/spacing_xsmall"
-                                android:textColor="@color/textColor"
-                                android:textSize="@dimen/common_textSize"
-
-                                />
-                            <TextView
-                                android:id="@+id/fileSize"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/spacing_large"
-                                android:layout_marginTop="@dimen/spacing_xsmall"
-                                android:textColor="@color/textColor"
-                                android:textSize="@dimen/common_textSize"
-
-                                />
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal"
-                                android:layout_marginLeft="@dimen/spacing_large"
-                                android:layout_marginTop="@dimen/spacing_xsmall"
-
-                                >
-
-                                <TextView
-                                    android:id="@+id/rating_value"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:textColor="@color/textColor"
-                                    android:layout_marginLeft="@dimen/spacing_medium"
-                                    android:layout_gravity="center_vertical"
-                                    android:textSize="@dimen/common_textSize"
-
-                                    />
-                            </LinearLayout>
-
-                            <TextView
-                                android:id="@+id/price"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/spacing_xlarge"
-                                android:layout_marginLeft="@dimen/spacing_large"
-                                android:paddingLeft="5dp"
-                                android:paddingRight="5dp"
-                                android:textColor="@android:color/white"
-                                android:background="@android:color/holo_green_dark"
-                                android:gravity="bottom"
-                                android:textSize="@dimen/common_textSize"
+                                <!--/>-->
 
 
-                                />
-                            <TextView
-                                android:id="@+id/actual_price"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/spacing_large"
-                                android:layout_marginTop="@dimen/spacing_xsmall"
-                                android:textColor="@color/textColor"
-                                android:textSize="@dimen/common_textSize"
+                            <!--<TextView-->
+                                <!--android:id="@+id/duration"-->
+                                <!--android:layout_width="match_parent"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:layout_marginLeft="@dimen/spacing_large"-->
+                                <!--android:layout_marginTop="@dimen/spacing_xsmall"-->
+                                <!--android:textColor="@color/textColor"-->
+                                <!--android:textSize="@dimen/common_textSize"-->
+
+                                <!--/>-->
+                            <!--<TextView-->
+                                <!--android:id="@+id/fileSize"-->
+                                <!--android:layout_width="match_parent"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:layout_marginLeft="@dimen/spacing_large"-->
+                                <!--android:layout_marginTop="@dimen/spacing_xsmall"-->
+                                <!--android:textColor="@color/textColor"-->
+                                <!--android:textSize="@dimen/common_textSize"-->
+
+                                <!--/>-->
+                            <!--<LinearLayout-->
+                                <!--android:layout_width="match_parent"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:orientation="horizontal"-->
+                                <!--android:layout_marginLeft="@dimen/spacing_large"-->
+                                <!--android:layout_marginTop="@dimen/spacing_xsmall"-->
+
+                                <!-->-->
+
+                                <!--<TextView-->
+                                    <!--android:id="@+id/rating_value"-->
+                                    <!--android:layout_width="wrap_content"-->
+                                    <!--android:layout_height="wrap_content"-->
+                                    <!--android:textColor="@color/textColor"-->
+                                    <!--android:layout_marginLeft="@dimen/spacing_medium"-->
+                                    <!--android:layout_gravity="center_vertical"-->
+                                    <!--android:textSize="@dimen/common_textSize"-->
+
+                                    <!--/>-->
+                            <!--</LinearLayout>-->
+
+                            <!--<TextView-->
+                                <!--android:id="@+id/price"-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:layout_marginTop="@dimen/spacing_xlarge"-->
+                                <!--android:layout_marginLeft="@dimen/spacing_large"-->
+                                <!--android:paddingLeft="5dp"-->
+                                <!--android:paddingRight="5dp"-->
+                                <!--android:textColor="@android:color/white"-->
+                                <!--android:background="@android:color/holo_green_dark"-->
+                                <!--android:gravity="bottom"-->
+                                <!--android:textSize="@dimen/common_textSize"-->
 
 
-                                />
-
-                        </LinearLayout>
-                    </LinearLayout>
-                    <TextView
-                        android:id="@+id/author"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/textColor"
-
-                        android:layout_below="@+id/top_layout"
-                        android:layout_marginTop="@dimen/spacing_large"
-                        android:textSize="@dimen/common_textSize"
-
-                        />
-                    <TextView
-                        android:id="@+id/narrator"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/author"
-                        android:textColor="@color/textColor"
-                        android:layout_marginTop="@dimen/spacing_xsmall"
-                        android:layout_marginBottom="@dimen/spacing_large"
-                        android:textSize="@dimen/common_textSize"
-
-                        />
-                    <LinearLayout
-                        android:id="@+id/download_layout"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/narrator"
-                        android:orientation="vertical">
+                                <!--/>-->
+                            <!--<TextView-->
+                                <!--android:id="@+id/actual_price"-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:layout_marginLeft="@dimen/spacing_large"-->
+                                <!--android:layout_marginTop="@dimen/spacing_xsmall"-->
+                                <!--android:textColor="@color/textColor"-->
+                                <!--android:textSize="@dimen/common_textSize"-->
 
 
-                        <Button
-                            android:id="@+id/btnDownload"
-                            android:layout_width="match_parent"
-                            android:layout_height="40dp"
-                            android:background="@color/colorPrimary"
-                            android:textColor="@android:color/white"
-                            android:text="Buy"
-                            android:layout_centerVertical="true"
-                            android:visibility="gone"
-                            />
-                        <Button
-                            android:id="@+id/addToBillButton"
-                            android:layout_width="match_parent"
-                            android:layout_height="40dp"
-                            android:background="@color/colorPrimary"
-                            android:textColor="@android:color/white"
-                            android:text="Add to bill"
-                            android:layout_centerVertical="true"
-                            android:visibility="gone"
-                            />
+                                <!--/>-->
 
-                        <Button
-                            android:id="@+id/buyFromCardButton"
-                            android:layout_width="match_parent"
-                            android:layout_height="40dp"
-                            android:layout_marginTop="@dimen/layout_margin_large"
-                            android:background="@color/colorPrimary"
-                            android:textColor="@android:color/white"
-                            android:text="Pay by Card"
-                            android:layout_centerVertical="true"
-                            android:visibility="gone"
-                            />
+                        <!--</LinearLayout>-->
+                    <!--</LinearLayout>-->
+                    <!--<TextView-->
+                        <!--android:id="@+id/author"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:textColor="@color/textColor"-->
+
+                        <!--android:layout_below="@+id/top_layout"-->
+                        <!--android:layout_marginTop="@dimen/spacing_large"-->
+                        <!--android:textSize="@dimen/common_textSize"-->
+
+                        <!--/>-->
+                    <!--<TextView-->
+                        <!--android:id="@+id/narrator"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_below="@+id/author"-->
+                        <!--android:textColor="@color/textColor"-->
+                        <!--android:layout_marginTop="@dimen/spacing_xsmall"-->
+                        <!--android:layout_marginBottom="@dimen/spacing_large"-->
+                        <!--android:textSize="@dimen/common_textSize"-->
+
+                        <!--/>-->
+                    <!--<LinearLayout-->
+                        <!--android:id="@+id/download_layout"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_below="@+id/narrator"-->
+                        <!--android:orientation="vertical">-->
 
 
-                    </LinearLayout>
 
-                    <View
-                        android:id="@+id/separator_1"
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@android:color/darker_gray"
-                        android:layout_marginTop="@dimen/spacing_large"
-                        android:layout_below="@+id/buy_chapter"
 
-                        />
+
+
+
+
+                    <!--</LinearLayout>-->
+
+                    <!--<View-->
+                        <!--android:id="@+id/separator_1"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="1dp"-->
+                        <!--android:background="@android:color/darker_gray"-->
+                        <!--android:layout_marginTop="@dimen/spacing_large"-->
+                        <!--android:layout_below="@+id/buy_chapter"-->
+
+                        <!--/>-->
                     <HorizontalScrollView
                         android:id="@+id/action_show_layout"
                         android:layout_width="wrap_content"

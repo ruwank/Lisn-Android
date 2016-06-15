@@ -33,23 +33,23 @@
                 <string name="mconnect_url">https://mconnect.dialog.lk/openidconnect/authorize</string>
 
          -->
-                    <string name="home_book_list_url">https://app.lisn.audio/api/1.2/homebooklist.php</string>
-                    <string name="top_rated_book_list_url">https://app.lisn.audio/api/1.2/topratedbooklist.php</string>
-                    <string name="top_download_book_list_url">https://app.lisn.audio/api/1.2/topdownloadedbooklist.php</string>
-                    <string name="user_book_list_url">https://app.lisn.audio/api/1.2/userbooklist.php</string>
-                    <string name="book_info_url">https://app.lisn.audio/api/1.2/bookinfo.php</string>
-                    <string name="add_user_url">https://app.lisn.audio/api/1.2/adduser.php</string>
-                    <string name="forget_password_url">https://app.lisn.audio/api/1.2/forgotpassword.php</string>
-                    <string name="user_login_url">https://app.lisn.audio/api/1.2/login.php</string>
-                    <string name="user_download_activity_url">http://app.lisn.audio/api/1.2/downloadactivity.php</string>
-                    <string name="search_book_url">https://app.lisn.audio/api/1.2/searchedbooklist.php</string>
-                    <string name="book_category_list_url">https://app.lisn.audio/api/1.2/categorylist.php</string>
-                    <string name="book_category_url">https://app.lisn.audio/api/1.2/categorybooklist.php</string>
-                    <string name="book_download_url">https://app.lisn.audio/api/1.2/download.php</string>
-                    <string name="add_review_url">https://app.lisn.audio/api/1.2/reviewactivity.php</string>
-                    <string name="verify_user_url">https://app.lisn.audio/api/1.2/verifyuser.php</string>
-                    <string name="user_feedback_url">https://app.lisn.audio/api/1.2/feedbackactivity.php</string>
-                    <string name="update_mobile_no_url">https://app.lisn.audio/api/1.2/updatemobile.php</string>
+                    <string name="home_book_list_url">https://app.lisn.audio/api/1.4/homebooklist.php</string>
+                    <string name="top_rated_book_list_url">https://app.lisn.audio/api/1.4/topratedbooklist.php</string>
+                    <string name="top_download_book_list_url">https://app.lisn.audio/api/1.4/topdownloadedbooklist.php</string>
+                    <string name="user_book_list_url">https://app.lisn.audio/api/1.4/userbooklist.php</string>
+                    <string name="book_info_url">https://app.lisn.audio/api/1.4/bookinfo.php</string>
+                    <string name="add_user_url">https://app.lisn.audio/api/1.4/adduser.php</string>
+                    <string name="forget_password_url">https://app.lisn.audio/api/1.4/forgotpassword.php</string>
+                    <string name="user_login_url">https://app.lisn.audio/api/1.4/login.php</string>
+                    <string name="user_download_activity_url">http://app.lisn.audio/api/1.4/downloadactivity.php</string>
+                    <string name="search_book_url">https://app.lisn.audio/api/1.4/searchedbooklist.php</string>
+                    <string name="book_category_list_url">https://app.lisn.audio/api/1.4/categorylist.php</string>
+                    <string name="book_category_url">https://app.lisn.audio/api/1.4/categorybooklist.php</string>
+                    <string name="book_download_url">https://app.lisn.audio/api/1.4/download.php</string>
+                    <string name="add_review_url">https://app.lisn.audio/api/1.4/reviewactivity.php</string>
+                    <string name="verify_user_url">https://app.lisn.audio/api/1.4/verifyuser.php</string>
+                    <string name="user_feedback_url">https://app.lisn.audio/api/1.4/feedbackactivity.php</string>
+                    <string name="update_mobile_no_url">https://app.lisn.audio/api/1.4/updatemobile.php</string>
 
                     <string name="purchase_book_url">https://app.lisn.audio/spgw/1.5.6/payment/init.php</string>
                     <string name="purchase_success_url">https://app.lisn.audio/spgw/1.5.6/payment/success.php</string>

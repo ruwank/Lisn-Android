@@ -60,10 +60,7 @@ public class CategoryBookActivity extends AppCompatActivity implements
         handleIntent(getIntent());
         noDataTextView.setVisibility(View.GONE);
 
-
     }
-
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -96,7 +93,7 @@ public class CategoryBookActivity extends AppCompatActivity implements
     private void handleIntent(Intent intent) {
 
        // if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-            String category = intent.getStringExtra(Constants.BOOK_CATEGORY);
+            String category = intent.getStringExtra(Constants.BOOK_ID);
             downloadCategoryData(category);
        // }
     }
@@ -128,18 +125,21 @@ public class CategoryBookActivity extends AppCompatActivity implements
             pDialog.setMessage(getString(R.string.loading_text));
             pDialog.show();
             Map<String, String> params = new HashMap<String, String>();
-            params.put("cat", "" + bookCategory);
+            params.put("bookid", "" + bookCategory);
 
-            String url = getString(R.string.book_category_url);
+            String url = getString(R.string.similar_book_url);
             JsonUTF8ArrayRequest bookListReq = new JsonUTF8ArrayRequest(Request.Method.POST,url, params,
                     new Response.Listener<JSONArray>() {
                         @Override
                         public void onResponse(JSONArray jsonArray) {
+                            Log.v(TAG,""+jsonArray.length());
                             setData(jsonArray);
                         }
                     }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
+                    Log.v(TAG,""+error.getMessage());
+
                     hidePDialog();
 
                 }
@@ -159,7 +159,7 @@ public class CategoryBookActivity extends AppCompatActivity implements
 
     private void setData(JSONArray jsonArray){
         hidePDialog();
-Log.v("jsonArray","jsonArray :"+jsonArray);
+Log.v(TAG,"jsonArray :"+jsonArray.length());
         bookList.clear();
         // Parsing json
         if(jsonArray.length() >0) {
@@ -167,36 +167,6 @@ Log.v("jsonArray","jsonArray :"+jsonArray);
                 try {
 
                     JSONObject obj = jsonArray.getJSONObject(i);
-                    //                    String book_id = "";
-
-//
-//                    try {
-//                        book_id = obj.getString("book_id");
-//                    } catch (JSONException e) {
-//                        book_id = obj.getString("" + i);
-//                        e.printStackTrace();
-//                    }
-//
-//                    AudioBook book = getDownloadedBook(book_id);
-//
-//                    if (book == null) {
-//                        book = new AudioBook();
-//                    }
-//                    book.setBook_id(book_id);
-//                    book.setISBN(book_id);
-//
-//                    book.setAuthor(obj.getString("author"));
-//                    book.setCategory(obj.getString("category"));
-//                    book.setCover_image(obj.getString("cover_image"));
-//                    book.setDescription(obj.getString("description"));
-//                    book.setLanguage(obj.getString("language"));
-//                    book.setPreview_audio(obj.getString("preview_audio"));
-//                    book.setPrice(obj.getString("price"));
-//                    book.setTitle(obj.getString("title"));
-//                    book.setEnglish_title(obj.getString("english_title"));
-//                    book.setRate(obj.getString("rate"));
-//                    book.setDuration(obj.getString("duration"));
-//                    book.setNarrator(obj.getString("narrator"));
 
                     AudioBook book = new AudioBook(obj, i,this);
 

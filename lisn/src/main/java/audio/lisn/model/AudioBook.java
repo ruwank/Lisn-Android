@@ -196,7 +196,7 @@ public class AudioBook implements Serializable{
     }
     public AudioBook(JSONObject obj,int position,Context context) {
         String book_id="";
-       // Log.v("obj","obj: "+obj.toString());
+        Log.v(TAG,"obj: "+obj.toString());
         try{
             book_id=obj.getString("book_id");
             if(obj.has("author") && obj.getString("author") !=null)

@@ -50,6 +50,7 @@
                     <string name="verify_user_url">https://app.lisn.audio/api/1.4/verifyuser.php</string>
                     <string name="user_feedback_url">https://app.lisn.audio/api/1.4/feedbackactivity.php</string>
                     <string name="update_mobile_no_url">https://app.lisn.audio/api/1.4/updatemobile.php</string>
+                    <string name="similar_book_url">http://app.lisn.audio/api/1.4/similarbooks.php</string>
 
                     <string name="purchase_book_url">https://app.lisn.audio/spgw/1.5.6/payment/init.php</string>
                     <string name="purchase_success_url">https://app.lisn.audio/spgw/1.5.6/payment/success.php</string>

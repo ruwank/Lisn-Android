@@ -607,9 +607,20 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
             }
         });
 
+        TextView rateValue1=(TextView)findViewById(R.id.rateValue1);
+        TextView rateValue2=(TextView)findViewById(R.id.rateValue2);
+        if(audioBook.getReviews() != null) {
+            rateValue1.setText(""+audioBook.getReviews().size());
+            rateValue2.setText(""+audioBook.getReviews().size());
+
+            //  rateValue1.setText(audioBook.getReviews().size());
+         //   rateValue2.setText(audioBook.getReviews().size());
+
+        }
+
 
         RatingBar ratingBar = (RatingBar) findViewById(R.id.rating_bar);
-        LayerDrawable stars1 = (LayerDrawable) ratingBar.getProgressDrawable();
+       // LayerDrawable stars1 = (LayerDrawable) ratingBar.getProgressDrawable();
         //stars1.getDrawable(2).setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary), PorterDuff.Mode.SRC_ATOP);
 
 
@@ -778,6 +789,9 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
             //previewPlayButton.setVisibility(View.GONE);
             btnDownload.setText("Download");
             btnDownload.setVisibility(View.VISIBLE);
+            if(audioBook.getChapters().size() == audioBook.getDownloadedChapter().size()){
+                btnDownload.setText("Play");
+            }
 //To do
 //            if(audioBook.getAudioFileCount() == audioBook.getDownloadedChapter().size()){
 //                btnDownload.setText("Play");
@@ -919,7 +933,7 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
         Intent intent = new Intent(this,
                 CategoryBookActivity.class);
         Log.v(TAG,audioBook.getCategory());
-        intent.putExtra(Constants.BOOK_CATEGORY,"1" );
+        intent.putExtra(Constants.BOOK_ID,audioBook.getBook_id() );
         startActivity(intent);
     }
     private int getListViewHeightBasedOnChildren(ListView listView) {

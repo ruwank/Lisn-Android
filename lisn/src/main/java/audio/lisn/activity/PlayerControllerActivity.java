@@ -286,16 +286,22 @@ public class PlayerControllerActivity extends AppCompatActivity implements FileD
                // audioBook = bookList.get(position);
                 chapterIndex=position;
                 stopAudioPlayer();
-
+Log.v(TAG,"chapterIndex"+chapterIndex);
                 BookChapter selectedChapter=audioBook.getChapters().get(chapterIndex);
                 if(selectedChapter.isPurchased() || audioBook.isTotalBookPurchased()){
                     if (selectedChapter.getPrice() > 0) {
+                        Log.v(TAG,"showPaymentOptionPopupWindow"+chapterIndex);
+
                         showPaymentOptionPopupWindow();
 
                     }else{
+                        Log.v(TAG,"logUserDownload"+chapterIndex);
+
                         logUserDownload();
                     }
                 }else{
+                    Log.v(TAG,"downloadAudioFile"+chapterIndex);
+
                     downloadAudioFile();
 
                 }
@@ -573,6 +579,11 @@ private void setBookTitle(){
                                 }
 
                             } else {
+                                if(bookChapter.getPrice()>0){
+                                    showPaymentOptionPopupWindow();
+                                }else{
+                                    logUserDownload();
+                                }
 //show  payment option
                             }
                         }
@@ -714,16 +725,16 @@ private void setBookTitle(){
             showMessage("NOTFOUND");
 
         } else {
-            mProgressDialog.setMessage("Downloading " + (audioBook.getDownloadedChapter().size() + 1) + " of " + audioBook.getChapters().size());
+           // mProgressDialog.setMessage("Downloading " + (audioBook.getDownloadedChapter().size() + 1) + " of " + audioBook.getChapters().size());
 
-            downloadedFileCount++;
+            //downloadedFileCount++;
             if (result == null) {
                 updateAudioBook(Integer.parseInt(file_name));
-
-                if (totalAudioFileCount == downloadedFileCount) {
-                    mProgressDialog.dismiss();
+                mAdapter.notifyDataSetChanged();
+               // if (totalAudioFileCount == downloadedFileCount) {
+                 //   mProgressDialog.dismiss();
                     downloadAudioFile();
-                }
+                //}
             }
 
 
@@ -1164,13 +1175,13 @@ private void setBookTitle(){
                                     setMessage(getString(R.string.PAYMENT_COMPLETE_MESSAGE)).setPositiveButton(
                                     getString(R.string.BUTTON_NOW), new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int id) {
-                                            setupData();
+                                           // setupData();
                                             downloadAudioFile();
                                         }
                                     })
                                     .setNegativeButton(getString(R.string.BUTTON_LATER), new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int id) {
-                                            setupData();
+                                           // setupData();
                                         }
                                     });
                             AlertDialog dialog = builder.create();
@@ -1187,13 +1198,13 @@ private void setBookTitle(){
                                     setMessage(getString(R.string.ALREADY_PAID_MESSAGE)).setPositiveButton(
                                     getString(R.string.BUTTON_NOW), new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int id) {
-                                            setupData();
+                                           // setupData();
                                             downloadAudioFile();
                                         }
                                     })
                                     .setNegativeButton(getString(R.string.BUTTON_LATER), new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int id) {
-                                            setupData();
+                                           // setupData();
 
                                         }
                                     });
@@ -1492,7 +1503,7 @@ private void setBookTitle(){
                 builder.setTitle(R.string.PAYMENT_COMPLETE_TITLE).setMessage(getString(R.string.PAYMENT_COMPLETE_MESSAGE)).setPositiveButton(
                         R.string.BUTTON_NOW, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                setupData();
+                               // setupData();
                                 downloadAudioFile();
                             }
                         })
@@ -1515,7 +1526,7 @@ private void setBookTitle(){
                         setMessage(getString(R.string.ALREADY_PAID_MESSAGE)).setPositiveButton(
                         getString(R.string.BUTTON_NOW), new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                setupData();
+                               // setupData();
                                 downloadAudioFile();
                             }
                         })
@@ -1549,7 +1560,7 @@ private void setBookTitle(){
             params.put("bookid", audioBook.getBook_id());
 
             params.put("chapid", ""+selectedChapter.getChapter_id());
-
+Log.v(TAG,""+params);
 
             String url = getResources().getString(R.string.user_download_activity_url);
 
@@ -1558,12 +1569,13 @@ private void setBookTitle(){
                         @Override
                         public void onResponse(String response) {
                             Log.v(TAG, " downloader response:" + response);
+                            audioBook.getChapters().get(chapterIndex).setIsPurchased(true);
 
                             audioBook.setPurchase(true);
                             selectedChapter.setIsPurchased(true);
                             updateAudioBook(0);
                             progressDialog.dismiss();
-                            setupData();
+                           // setupData();
                             downloadAudioFile();
                         }
                     }, new Response.ErrorListener() {

@@ -522,10 +522,11 @@
 
 
                                     <TextView
+                                        android:id="@+id/rateValue1"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:textColor="@color/textColor"
-                                        android:text="4"
+                                        android:text="0"
                                         android:textSize="@dimen/grid_view_textSize"/>
                                     <ImageView
                                         android:layout_width="10dp"
@@ -892,10 +893,11 @@
 
 
                                         <TextView
+                                            android:id="@+id/rateValue2"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:textColor="@color/textColor"
-                                            android:text="4"
+                                            android:text="0"
                                             android:textSize="@dimen/grid_view_textSize"/>
                                         <ImageView
                                             android:layout_width="10dp"

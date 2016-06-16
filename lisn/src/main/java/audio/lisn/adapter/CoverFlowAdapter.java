@@ -91,11 +91,25 @@ public class CoverFlowAdapter extends FancyCoverFlowAdapter {
         File file = new File(dirPath +(bookChapter.getChapter_id())+".lisn");
 
 
-        if(file.exists()){
+        String buyButtonText="Get";
+
+        if (file.exists()) {
             customViewGroup.getButton().setVisibility(View.GONE);
+
         }else{
             customViewGroup.getButton().setVisibility(View.VISIBLE);
+
+            if( bookChapter.getPrice()>0 ){
+
+                if(!bookChapter.isPurchased()){
+                    buyButtonText="Buy";
+                }
+
+            }
+            customViewGroup.getButton().setText(buyButtonText);
         }
+
+
        // customViewGroup.getImageView().setImageBitmap(null);
 
 //        String img_path = AppUtils.getDataDirectory(customViewGroup.getImageView().getContext())

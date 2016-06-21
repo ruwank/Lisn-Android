@@ -17,6 +17,7 @@ public class BookReview implements Serializable {
     private String message;
     private String timeString;
     private String rateValue;
+    private String fbId;
 
     public String getTitle() {
         return title;
@@ -75,5 +76,13 @@ public class BookReview implements Serializable {
 
     public void setRateValue(String rateValue) {
         this.rateValue = rateValue;
+    }
+
+    public String getFbId() {
+        return fbId;
+    }
+
+    public void setFbId(String fbId) {
+        this.fbId = fbId;
     }
 }

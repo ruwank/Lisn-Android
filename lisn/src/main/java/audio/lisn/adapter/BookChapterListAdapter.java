@@ -76,7 +76,7 @@ public class BookChapterListAdapter extends BaseAdapter {
         final BookChapter bookChapter = bookChapters.get(position);
 
         String priceText="Free";
-        String buyButtonText="Get";
+        String buyButtonText="Download";
         SelectedAction action=SelectedAction.ACTION_DOWNLOAD;
         String dirPath = AppUtils.getDataDirectory(context)
                 + audioBook.getBook_id()+File.separator;

@@ -64,7 +64,7 @@ public class AppController extends Application  {
 
     private RequestQueue mRequestQueue;
     private ImageLoader mImageLoader;
-    private String userName,password,userId,gcmRegId;
+    private String userName,password,userId,gcmRegId,fbId;
     Intent playbackServiceIntent;
     //private String[] fileList;
     AudioPlayerService mService;
@@ -666,6 +666,11 @@ if(currentAudioBook != null){
     }
 
 
+    public String getFbId() {
+        return fbId;
+    }
 
-
+    public void setFbId(String fbId) {
+        this.fbId = fbId;
+    }
 }

@@ -346,8 +346,10 @@ Log.v("jsonArray",jsonArray.toString());
 
             String loginId = sharedPref.getString(getString(R.string.user_login_id), "");
             String userName = sharedPref.getString(getString(R.string.user_login_name), "");
+            String fbId = sharedPref.getString(getString(R.string.user_fb_id), "");
             AppController.getInstance().setUserId(loginId);
             AppController.getInstance().setUserName(userName);
+            AppController.getInstance().setFbId(fbId);
         }
 
 

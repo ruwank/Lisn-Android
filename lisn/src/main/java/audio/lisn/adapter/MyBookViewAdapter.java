@@ -124,6 +124,7 @@ public class MyBookViewAdapter extends RecyclerView.Adapter<MyBookViewAdapter.Vi
         }
         holder.title.setText(book.getTitle());
         holder.author.setText(book.getAuthor());
+        holder.title.setContentDescription(book.getEnglish_title());
 
 
         holder.thumbNail.setImageBitmap(null);
@@ -133,8 +134,6 @@ public class MyBookViewAdapter extends RecyclerView.Adapter<MyBookViewAdapter.Vi
 
 
         File imgFile = new  File(img_path);
-
-
 
 
         if(imgFile.exists()){

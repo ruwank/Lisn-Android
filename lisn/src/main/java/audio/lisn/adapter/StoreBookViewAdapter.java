@@ -154,6 +154,7 @@ public class StoreBookViewAdapter extends RecyclerView.Adapter<StoreBookViewAdap
             holder.awardIcon.setVisibility(View.GONE);
         }
         holder.title.setText(book.getTitle());
+        holder.title.setContentDescription(book.getEnglish_title());
         holder.author.setText(book.getAuthor());
         String priceText="Free";
         if( Float.parseFloat(book.getPrice())>0 ){

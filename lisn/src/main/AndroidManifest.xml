@@ -68,11 +68,13 @@
         <activity
             android:name=".activity.HomeActivity"
             android:label="@string/title_home"
+            android:screenOrientation="portrait"
              >
         </activity>
         <activity
             android:name=".activity.AudioBookDetailActivity"
             android:label="@string/title_home"
+            android:screenOrientation="portrait"
              >
         </activity>
         <activity
@@ -83,6 +85,7 @@
         <activity
             android:name=".activity.LoginActivity"
             android:label="@string/title_home"
+            android:screenOrientation="portrait"
             >
         </activity>
         <activity

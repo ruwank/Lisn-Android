@@ -133,6 +133,10 @@ public class PlayerControllerActivity extends AppCompatActivity implements FileD
         supportStartPostponedEnterTransition();
         getSupportActionBar().setTitle(R.string.app_name);
 
+        progressDialog = new ProgressDialog(PlayerControllerActivity.this);
+        progressDialog.setIndeterminate(true);
+        progressDialog.setMessage("Publishing...");
+
         bgImageView=(ImageView)findViewById(R.id.bgImageView);
         topOverLayView= findViewById(R.id.topOverLayView);
 
@@ -150,7 +154,7 @@ public class PlayerControllerActivity extends AppCompatActivity implements FileD
 
         }
         chapterIndex=getIntent().getIntExtra("chapterIndex",0);
-        Log.v(TAG,"chapterIndex "+chapterIndex);
+        Log.v(TAG, "chapterIndex " + chapterIndex);
         setupData();
         updateAudioBook();
         downloadAudioFile();
@@ -166,9 +170,7 @@ public class PlayerControllerActivity extends AppCompatActivity implements FileD
         setBookTitle();
         bookTitleView.setText(audioBook.getTitle());
         setCoverFlowPosition();
-        progressDialog = new ProgressDialog(PlayerControllerActivity.this);
-        progressDialog.setIndeterminate(true);
-        progressDialog.setMessage("Publishing...");
+
 
 
 
@@ -1572,7 +1574,7 @@ Log.v(TAG,""+params);
                             audioBook.getChapters().get(chapterIndex).setIsPurchased(true);
 
                             audioBook.setPurchase(true);
-                            selectedChapter.setIsPurchased(true);
+                           // selectedChapter.setIsPurchased(true);
                             updateAudioBook(0);
                             progressDialog.dismiss();
                            // setupData();

@@ -65,7 +65,8 @@
                     <string name="dialog_pay_url">http://app.lisn.audio/cbgw/1.1/dialog.php</string>
                     <string name="support_url">info@lisn.audio</string>
                     <string name="mconnect_url">https://mconnect.dialog.lk/openidconnect/authorize</string>
-                    <string name="play_store_url">https://play.google.com/store/apps/details?id=audio.lisn</string>
+    <string name="play_store_url">https://play.google.com/store/apps/details?id=audio.lisn</string>
+    <string name="fb_profile_picture_url">https://graph.facebook.com/</string>
 
     </resources>
 

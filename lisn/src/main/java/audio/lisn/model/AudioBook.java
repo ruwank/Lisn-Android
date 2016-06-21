@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import audio.lisn.util.AppUtils;
 import audio.lisn.util.Log;
@@ -36,6 +37,7 @@ public class AudioBook implements Serializable{
     private ArrayList<Integer> downloadedChapter = new ArrayList<Integer>();
     private ArrayList<BookReview> reviews=new ArrayList<>();
     private ArrayList<BookChapter> chapters=new ArrayList<>();
+    private Map<Integer,Integer> ratingMap = new HashMap<Integer,Integer>();
 
 
 
@@ -79,7 +81,9 @@ public class AudioBook implements Serializable{
     public ArrayList<Integer> getDownloadedChapter() {
         return downloadedChapter;
     }
-
+public Map<Integer,Integer> getRatingMap(){
+    return this.ratingMap;
+}
     public void setDownloadedChapter(ArrayList<Integer> downloadedChapter) {
         this.downloadedChapter = downloadedChapter;
     }
@@ -301,10 +305,20 @@ public class AudioBook implements Serializable{
                         bookReview.setTitle(dataObject.getString("comment_title"));
                     if(dataObject.has("comment") && dataObject.getString("comment") !=null)
                         bookReview.setMessage(dataObject.getString("comment"));
-                    if(dataObject.has("time") && dataObject.getString("time") !=null)
+                    if(dataObject.has("time") && dataObject.getString("time") !=null) {
                         bookReview.setTimeString(dataObject.getString("time"));
+                    }
+                    if(dataObject.has("fb_id") && dataObject.getString("fb_id") !=null){
+                        bookReview.setFbId(dataObject.getString("fb_id"));
+
+                        Log.v(TAG,bookReview.getFbId());
+                    }
                     if(dataObject.has("first_name") && dataObject.getString("first_name") !=null){
                         userName=dataObject.getString("first_name");
+                    }
+
+                    if(dataObject.has("middle_name") && dataObject.getString("middle_name") !=null){
+                        userName=userName+" "+dataObject.getString("middle_name");
                     }
                     if(dataObject.has("last_name") && dataObject.getString("last_name") !=null){
                         userName=userName+" "+dataObject.getString("last_name");
@@ -363,7 +377,17 @@ public class AudioBook implements Serializable{
                 this.chapters=chapterArray;
 
             }
-            if(context !=null) {
+            if(obj.has("rating_count") && obj.get("rating_count") !=null && (obj.get("rating_count") instanceof JSONObject)) {
+                JSONObject dataObject=obj.getJSONObject("rating_count");
+                Log.v(TAG,"rating_count"+dataObject.toString());
+                this.ratingMap.put(1, dataObject.getInt("1"));
+                this.ratingMap.put(2,dataObject.getInt("2"));
+                this.ratingMap.put(3,dataObject.getInt("3"));
+                this.ratingMap.put(4,dataObject.getInt("4"));
+                this.ratingMap.put(5,dataObject.getInt("5"));
+
+            }
+                if(context !=null) {
                 this.isPurchase = isBookDownloaded(book_id, context);
             }
 
@@ -395,16 +419,19 @@ public class AudioBook implements Serializable{
             returnBook.setCover_image(this.cover_image);
             returnBook.setBanner_image(this.banner_image);
             returnBook.setPreview_audio(this.preview_audio);
+            returnBook.ratingMap=this.ratingMap;
            // returnBook.setAudioFileCount(this.audioFileCount);
             returnBook.setPrice(this.price);
-            if(this.reviews.size()>returnBook.reviews.size()){
-                returnBook.setReviews(this.reviews);
-            }else{
-                this.reviews=returnBook.getReviews();
-            }
-            if(returnBook.getChapters() != null){
-              //  this.chapters=returnBook.getChapters();
-            }
+            if(this.reviews != null)
+            returnBook.setReviews(this.reviews);
+//            if(this.reviews.size()>returnBook.reviews.size()){
+//                returnBook.setReviews(this.reviews);
+//            }else{
+//                this.reviews=returnBook.getReviews();
+//            }
+//            if(returnBook.getChapters() != null){
+//              //  this.chapters=returnBook.getChapters();
+//            }
             if(this.chapters != null){
                 returnBook.chapters=this.chapters;
             }
@@ -541,6 +568,7 @@ public class AudioBook implements Serializable{
 	public void setPreview_audio(String preview_audio) {
 		this.preview_audio = preview_audio;
 	}
+
 
 
 	public String getLanguage() {

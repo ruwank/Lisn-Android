@@ -71,6 +71,7 @@ public class LoginActivity extends AppCompatActivity {
     Button _loginButton;
     TextView _signupLink,_forgetPasswordLink;
     ConnectionDetector connectionDetector;
+    public static final String TAG = LoginActivity.class.getSimpleName();
 
 
 
@@ -210,15 +211,30 @@ public class LoginActivity extends AppCompatActivity {
                                     if (separated[1] != null) {
                                         String uid = "0";
                                         String userName = "";
-                                        String[] separated2 = separated[1].split("=");
-                                        if (separated2[1] != null) {
-                                            uid = separated2[1].trim();
+                                        String fbId = "";
+                                        for(int index=1; index<(separated.length); index++){
+                                            Log.v(TAG,"length"+separated.length);
+                                            String[] separated2 = separated[index].split("=");
+                                            if (separated2[0] != null && separated2[0].toUpperCase() =="UID") {
+                                                uid = separated2[1].trim();
+                                            }
+                                            if (separated2[0] != null && separated2[0].toUpperCase() =="USERNAME") {
+                                                userName = separated2[1].trim();
+                                            }
+                                            if (separated2[0] != null && separated2[0].toUpperCase() =="FBID") {
+                                                fbId = separated2[1].trim();
+                                            }
                                         }
-                                        String[] separated3 = separated[2].split("=");
-                                        if (separated3[1] != null) {
-                                            userName = separated3[1].trim();
-                                        }
-                                        loginSuccess(uid, userName,Constants.user_type_email);
+
+//                                        String[] separated2 = separated[1].split("=");
+//                                        if (separated2[1] != null) {
+//                                            uid = separated2[1].trim();
+//                                        }
+//                                        String[] separated3 = separated[2].split("=");
+//                                        if (separated3[1] != null) {
+//                                            userName = separated3[1].trim();
+//                                        }
+                                        loginSuccess(uid, userName,fbId,Constants.user_type_email);
                                         userLoginId = uid;
 
                                         downloadUserBook();
@@ -497,14 +513,28 @@ public class LoginActivity extends AppCompatActivity {
 
                             String[] separated = response.split(":");
                             if ((separated[0].trim().equalsIgnoreCase("SUCCESS")) || (separated[0].trim().equalsIgnoreCase("EXIST"))) {
+                                //respondString :EXIST: UID=6:USERNAME=Shanaka Mendis:STATUS=pending:TYPE=fb:FBID=990283831022937[Ljava.lang.Object;@431387b0
 
                                 if (separated[1] != null) {
-                                    String uid = "0";
-                                    String[] separated2 = separated[1].split("=");
-                                    if (separated2[1] != null) {
-                                        uid = separated2[1].trim();
+                                    String uid = "";
+                                    String fbId = "";
+                                    String userName = finalUserName;
+                                    for(int index=1; index<(separated.length); index++){
+                                        Log.v(TAG,"length"+separated.length);
+                                        String[] separated2 = separated[index].split("=");
+                                        if (separated2[0] != null && separated2[0] =="UID") {
+                                            uid = separated2[1].trim();
+                                        }
+                                        if (separated2[0] != null && separated2[0] =="USERNAME") {
+                                            userName = separated2[1].trim();
+                                        }
+                                        if (separated2[0] != null && separated2[0] =="FBID") {
+                                            fbId = separated2[1].trim();
+                                        }
                                     }
-                                    loginSuccess(uid, finalUserName,Constants.user_type_fb);
+
+
+                                    loginSuccess(uid, userName,fbId,Constants.user_type_fb);
                                     userLoginId = uid;
 
                                     downloadUserBook();
@@ -575,16 +605,18 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    private void loginSuccess(String user_id,String userName,String type) {
+    private void loginSuccess(String user_id,String userName,String fbId,String type) {
         SharedPreferences sharedPref =getApplicationContext().getSharedPreferences(
                 getString(R.string.preference_file_key), Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putString(getString(R.string.user_login_id),user_id);
         editor.putString(getString(R.string.user_login_name),userName);
+        editor.putString(getString(R.string.user_fb_id),fbId);
         editor.putString(getString(R.string.user_type),type);
         editor.putBoolean(getString(R.string.user_login_status), true);
         editor.commit();
         AppController.getInstance().setUserId(user_id);
+        AppController.getInstance().setFbId(fbId);
         AppController.getInstance().setUserName(userName);
         sendLoginSuccessMessage();
 

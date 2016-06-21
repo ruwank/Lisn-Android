@@ -16,43 +16,6 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <!--<android.support.design.widget.AppBarLayout-->
-    <!--android:id="@+id/appbar"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"-->
-    <!--android:fitsSystemWindows="true">-->
-
-    <!--<android.support.design.widget.CollapsingToolbarLayout-->
-    <!--android:id="@+id/collapsing_toolbar"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent"-->
-    <!--app:layout_scrollFlags="scroll|exitUntilCollapsed"-->
-    <!--android:fitsSystemWindows="true"-->
-    <!--app:contentScrim="?attr/colorPrimary"-->
-    <!--app:expandedTitleMarginStart="48dp"-->
-    <!--app:expandedTitleMarginEnd="64dp">-->
-
-    <!--<ImageView-->
-    <!--android:id="@+id/bookBannerImage"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:scaleType="centerCrop"-->
-    <!--android:fitsSystemWindows="true"-->
-    <!--android:adjustViewBounds="true"-->
-    <!--app:layout_collapseMode="parallax" />-->
-
-    <!--<android.support.v7.widget.Toolbar-->
-    <!--android:id="@+id/toolbar"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="?attr/actionBarSize"-->
-    <!--app:popupTheme="@style/ThemeOverlay.AppCompat.Light"-->
-    <!--app:layout_collapseMode="pin" />-->
-
-    <!--</android.support.design.widget.CollapsingToolbarLayout>-->
-
-    <!--</android.support.design.widget.AppBarLayout>-->
-
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/scroll"
         android:layout_width="match_parent"
@@ -66,11 +29,9 @@
             android:orientation="vertical"
             android:descendantFocusability="blocksDescendants"
             >
-
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
                 >
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -80,7 +41,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/top_layout"
-
                         >
                         <ImageView
                             android:id="@+id/bookCoverImageBack"
@@ -88,7 +48,6 @@
                             android:layout_height="match_parent"
                             android:adjustViewBounds="true"
                             android:scaleType="centerCrop"
-
                             />
                         <View
                             android:id="@+id/topOverLayView"
@@ -105,7 +64,6 @@
                             android:layout_marginTop="@dimen/activity_vertical_margin"
                             android:layout_centerHorizontal="true"
                             android:transitionName="@string/transition_book"
-
                             />
                         <RatingBar
                             android:id="@+id/rating_bar"
@@ -119,7 +77,6 @@
                             android:stepSize="0.5"
                             android:layout_centerHorizontal="true"
                             style="@style/bookRatingBarWhite"
-
                             />
                         <TextView
                             android:id="@+id/title"
@@ -131,7 +88,6 @@
                             android:textSize="20sp"
                             android:textStyle="bold"
                             android:layout_centerHorizontal="true"
-
                             />
                         <TextView
                             android:id="@+id/author"
@@ -142,7 +98,6 @@
                             android:layout_marginTop="@dimen/spacing_medium"
                             android:textSize="@dimen/common_textSize_medium"
                             android:layout_centerHorizontal="true"
-
                             />
                         <TextView
                             android:id="@+id/narrator"
@@ -151,10 +106,8 @@
                             android:layout_below="@+id/author"
                             android:textColor="@color/whiteColor"
                             android:layout_marginTop="@dimen/spacing_medium"
-
                             android:textSize="@dimen/common_textSize_medium"
                             android:layout_centerHorizontal="true"
-
                             />
 
                         <LinearLayout
@@ -173,7 +126,23 @@
                                 android:layout_marginRight="@dimen/spacing_medium"
                                 android:layout_weight="1"
                                 android:layout_marginBottom="@dimen/spacing_large"
-
+                                >
+                                <Button
+                                    android:id="@+id/addToBillButton"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="@drawable/button_border"
+                                    android:textColor="@android:color/white"
+                                    android:text="Add to bill"
+                                    android:visibility="gone"
+                                    />
+                            </RelativeLayout>
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="40dp"
+                                android:layout_marginLeft="@dimen/spacing_medium"
+                                android:layout_weight="1"
+                                android:layout_marginBottom="@dimen/spacing_large"
                                 >
                                 <Button
                                     android:id="@+id/buyFromCardButton"
@@ -184,33 +153,16 @@
                                     android:text="Pay by Card"
                                     android:visibility="gone"
                                     />
-                            </RelativeLayout>
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="40dp"
-                            android:layout_marginLeft="@dimen/spacing_medium"
-                            android:layout_weight="1"
-                            android:layout_marginBottom="@dimen/spacing_large"
 
-                            >
-                            <Button
-                                android:id="@+id/addToBillButton"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:background="@color/colorPrimary"
-                                android:textColor="@android:color/white"
-                                android:text="Add to bill"
-                                android:visibility="gone"
-                                />
-                            <Button
-                                android:id="@+id/btnDownload"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:background="@color/colorPrimary"
-                                android:textColor="@android:color/white"
-                                android:text="Buy"
-                                android:visibility="gone"
-                                />
+                                <Button
+                                    android:id="@+id/btnDownload"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="@color/colorPrimary"
+                                    android:textColor="@android:color/white"
+                                    android:text="Buy"
+                                    android:visibility="gone"
+                                    />
                             </RelativeLayout>
                         </LinearLayout>
                     </RelativeLayout>
@@ -219,7 +171,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_below="@+id/top_layout"
-
                         android:orientation="vertical"
                         app:animationDuration="500"
                         app:collapsedHeight="120dip"
@@ -249,11 +200,8 @@
                                 android:focusableInTouchMode="false"
                                 android:textColor="@color/colorPrimary"
                                 android:background="@android:color/transparent"
-
                                 />
                         </RelativeLayout>
-                        <!--android:src="@drawable/ic_expand_holo_light"-->
-                        <!--android:background="@android:color/transparent"-->
                     </audio.lisn.view.ExpandablePanel>
 
                     <View
@@ -263,203 +211,8 @@
                         android:background="@android:color/darker_gray"
                         android:layout_marginTop="@dimen/spacing_large"
                         android:layout_below="@+id/buy_chapter"
-
                         />
-                    <!--<LinearLayout-->
-                        <!--android:id="@+id/top_layout2"-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_below="@+id/separator_1"-->
-                        <!--android:orientation="horizontal">-->
 
-                        <!--<RelativeLayout-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-
-                        <!-->-->
-
-                        <!--<RelativeLayout-->
-                        <!--android:id="@+id/preview_layout"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_alignParentTop="true"-->
-                        <!--android:layout_above="@+id/previewPlayButton"-->
-                        <!--android:layout_centerHorizontal="true"-->
-                        <!--android:adjustViewBounds="true"-->
-                        <!--android:orientation="vertical"-->
-                        <!--android:visibility="invisible"-->
-                        <!--android:background="@color/color_transparent_alpha_0.8"-->
-                        <!-->-->
-                        <!--<TextView-->
-                        <!--android:id="@+id/preview_label"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_marginTop="20dp"-->
-                        <!--android:text="Preview"-->
-                        <!--android:textColor="@color/windowBackground"-->
-                        <!--android:layout_centerHorizontal="true"-->
-                        <!--android:textSize="15sp" />-->
-                        <!--<ProgressBar-->
-                        <!--android:id="@+id/progressBar"-->
-                        <!--style="?android:attr/progressBarStyleSmall"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_centerInParent="true"-->
-                        <!--/>-->
-
-                        <!--<TextView-->
-                        <!--android:id="@+id/time_label"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:textColor="@color/windowBackground"-->
-                        <!--android:layout_centerVertical="true"-->
-                        <!--android:textSize="20sp" />-->
-                        <!--</RelativeLayout>-->
-                        <!--<ImageButton-->
-                        <!--android:id="@+id/previewPlayButton"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:background="@android:color/transparent"-->
-                        <!--android:layout_below="@+id/bookCoverImage"-->
-                        <!--android:layout_marginTop="-24dp"-->
-                        <!--android:src="@drawable/btn_play_preview_start"-->
-                        <!--android:layout_centerHorizontal="true"/>-->
-                        <!--</RelativeLayout>-->
-
-                        <!--<LinearLayout-->
-                            <!--android:layout_width="match_parent"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:orientation="vertical"-->
-                            <!--android:visibility="gone">-->
-
-                            <!--<TextView-->
-                                <!--android:id="@+id/category"-->
-                                <!--android:layout_width="match_parent"-->
-                                <!--android:layout_height="wrap_content"-->
-                                <!--android:layout_marginLeft="@dimen/spacing_large"-->
-                                <!--android:layout_marginTop="@dimen/spacing_xsmall"-->
-                                <!--android:textColor="@color/textColor"-->
-
-                                <!--/>-->
-
-
-                            <!--<TextView-->
-                                <!--android:id="@+id/duration"-->
-                                <!--android:layout_width="match_parent"-->
-                                <!--android:layout_height="wrap_content"-->
-                                <!--android:layout_marginLeft="@dimen/spacing_large"-->
-                                <!--android:layout_marginTop="@dimen/spacing_xsmall"-->
-                                <!--android:textColor="@color/textColor"-->
-                                <!--android:textSize="@dimen/common_textSize"-->
-
-                                <!--/>-->
-                            <!--<TextView-->
-                                <!--android:id="@+id/fileSize"-->
-                                <!--android:layout_width="match_parent"-->
-                                <!--android:layout_height="wrap_content"-->
-                                <!--android:layout_marginLeft="@dimen/spacing_large"-->
-                                <!--android:layout_marginTop="@dimen/spacing_xsmall"-->
-                                <!--android:textColor="@color/textColor"-->
-                                <!--android:textSize="@dimen/common_textSize"-->
-
-                                <!--/>-->
-                            <!--<LinearLayout-->
-                                <!--android:layout_width="match_parent"-->
-                                <!--android:layout_height="wrap_content"-->
-                                <!--android:orientation="horizontal"-->
-                                <!--android:layout_marginLeft="@dimen/spacing_large"-->
-                                <!--android:layout_marginTop="@dimen/spacing_xsmall"-->
-
-                                <!-->-->
-
-                                <!--<TextView-->
-                                    <!--android:id="@+id/rating_value"-->
-                                    <!--android:layout_width="wrap_content"-->
-                                    <!--android:layout_height="wrap_content"-->
-                                    <!--android:textColor="@color/textColor"-->
-                                    <!--android:layout_marginLeft="@dimen/spacing_medium"-->
-                                    <!--android:layout_gravity="center_vertical"-->
-                                    <!--android:textSize="@dimen/common_textSize"-->
-
-                                    <!--/>-->
-                            <!--</LinearLayout>-->
-
-                            <!--<TextView-->
-                                <!--android:id="@+id/price"-->
-                                <!--android:layout_width="wrap_content"-->
-                                <!--android:layout_height="wrap_content"-->
-                                <!--android:layout_marginTop="@dimen/spacing_xlarge"-->
-                                <!--android:layout_marginLeft="@dimen/spacing_large"-->
-                                <!--android:paddingLeft="5dp"-->
-                                <!--android:paddingRight="5dp"-->
-                                <!--android:textColor="@android:color/white"-->
-                                <!--android:background="@android:color/holo_green_dark"-->
-                                <!--android:gravity="bottom"-->
-                                <!--android:textSize="@dimen/common_textSize"-->
-
-
-                                <!--/>-->
-                            <!--<TextView-->
-                                <!--android:id="@+id/actual_price"-->
-                                <!--android:layout_width="wrap_content"-->
-                                <!--android:layout_height="wrap_content"-->
-                                <!--android:layout_marginLeft="@dimen/spacing_large"-->
-                                <!--android:layout_marginTop="@dimen/spacing_xsmall"-->
-                                <!--android:textColor="@color/textColor"-->
-                                <!--android:textSize="@dimen/common_textSize"-->
-
-
-                                <!--/>-->
-
-                        <!--</LinearLayout>-->
-                    <!--</LinearLayout>-->
-                    <!--<TextView-->
-                        <!--android:id="@+id/author"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:textColor="@color/textColor"-->
-
-                        <!--android:layout_below="@+id/top_layout"-->
-                        <!--android:layout_marginTop="@dimen/spacing_large"-->
-                        <!--android:textSize="@dimen/common_textSize"-->
-
-                        <!--/>-->
-                    <!--<TextView-->
-                        <!--android:id="@+id/narrator"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_below="@+id/author"-->
-                        <!--android:textColor="@color/textColor"-->
-                        <!--android:layout_marginTop="@dimen/spacing_xsmall"-->
-                        <!--android:layout_marginBottom="@dimen/spacing_large"-->
-                        <!--android:textSize="@dimen/common_textSize"-->
-
-                        <!--/>-->
-                    <!--<LinearLayout-->
-                        <!--android:id="@+id/download_layout"-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_below="@+id/narrator"-->
-                        <!--android:orientation="vertical">-->
-
-
-
-
-
-
-
-
-                    <!--</LinearLayout>-->
-
-                    <!--<View-->
-                        <!--android:id="@+id/separator_1"-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="1dp"-->
-                        <!--android:background="@android:color/darker_gray"-->
-                        <!--android:layout_marginTop="@dimen/spacing_large"-->
-                        <!--android:layout_below="@+id/buy_chapter"-->
-
-                        <!--/>-->
                     <HorizontalScrollView
                         android:id="@+id/action_show_layout"
                         android:layout_width="wrap_content"
@@ -519,8 +272,6 @@
                                     android:layout_marginTop="@dimen/spacing_xsmall"
                                     android:layout_gravity="center_horizontal"
                                     >
-
-
                                     <TextView
                                         android:id="@+id/rateValue1"
                                         android:layout_width="wrap_content"
@@ -534,13 +285,9 @@
                                         android:layout_marginLeft="@dimen/layout_margin"
                                         android:src="@drawable/ic_account_gray"
                                         android:layout_gravity="center_vertical"
-
                                         />
-
                                 </LinearLayout>
-
                             </LinearLayout>
-
 
                             <LinearLayout
                                 android:id="@+id/typeLayout"
@@ -566,31 +313,20 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:textColor="@color/textColor"
-                                    android:text="Drama"
+                                    android:text="Content rating"
                                     android:textSize="@dimen/grid_view_textSize"
                                     android:layout_marginTop="@dimen/spacing_xsmall"
                                     android:layout_gravity="center_horizontal"
 
-
                                     />
                             </LinearLayout>
-                            <!--<com.facebook.share.widget.ShareButton-->
-                            <!--android:id="@+id/btnShare"-->
-                            <!--android:layout_width="wrap_content"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:layout_margin="@dimen/layout_margin_large"-->
-                            <!--android:paddingLeft="@dimen/layout_margin_large"-->
-                            <!--android:paddingRight="@dimen/layout_margin_large"-->
-                            <!--android:paddingTop="@dimen/layout_margin"-->
-                            <!--android:paddingBottom="@dimen/layout_margin"-->
-                            <!--/>-->
+
                             <LinearLayout
                                 android:id="@+id/shareLayout"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_below="@+id/top_layout"
                                 android:layout_weight="1"
-
                                 android:orientation="vertical"
                                 android:layout_margin="10dp"
                                 >
@@ -603,13 +339,7 @@
                                         android:layout_height="wrap_content"
                                         android:src="@drawable/ic_share_white"
                                         android:layout_centerInParent="true"/>
-                                    <!--<ImageButton-->
-                                    <!--android:id="@+id/btnShare"-->
-                                    <!--android:layout_width="wrap_content"-->
-                                    <!--android:layout_height="wrap_content"-->
-                                    <!--android:background="@drawable/ic_share_facebook"-->
-                                    <!--android:visibility="invisible"-->
-                                    <!--/>-->
+
                                 </RelativeLayout>
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -628,7 +358,6 @@
                                 android:layout_height="wrap_content"
                                 android:layout_below="@+id/top_layout"
                                 android:layout_weight="1"
-
                                 android:orientation="vertical"
                                 android:layout_margin="10dp"
                                 >
@@ -672,58 +401,6 @@
 
                             />
 
-                        <!--<audio.lisn.view.ExpandablePanel-->
-                        <!--android:id="@+id/descriptionLayout"-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="match_parent"-->
-                        <!--android:layout_below="@+id/separator_top_description"-->
-
-                        <!--android:orientation="vertical"-->
-                        <!--app:animationDuration="500"-->
-                        <!--app:collapsedHeight="120dip"-->
-                        <!--app:content="@+id/description"-->
-                        <!--app:handle="@+id/expand_description">-->
-
-                        <!--<RelativeLayout-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="match_parent" >-->
-                        <!--<TextView-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:id="@id/description"-->
-                        <!--android:dividerHeight="0dp"-->
-                        <!--android:divider="@null"-->
-                        <!-->-->
-
-                        <!--</TextView>-->
-
-
-                        <!--<ToggleButton-->
-                        <!--android:id="@id/expand_description"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_centerHorizontal="true"-->
-                        <!--android:layout_below="@id/chapter_list"-->
-                        <!--android:textOn="View Less"-->
-                        <!--android:textOff="View All"-->
-                        <!--android:focusable="false"-->
-                        <!--android:focusableInTouchMode="false"-->
-                        <!--android:textColor="@color/colorPrimary"-->
-                        <!--android:background="@android:color/transparent"-->
-
-                        <!--/>-->
-                        <!--</RelativeLayout>-->
-                        <!--</audio.lisn.view.ExpandablePanel>-->
-
-                        <!--<TextView-->
-                        <!--android:id="@+id/description"-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_marginTop="@dimen/spacing_large"-->
-                        <!--android:textColor="@color/textColor"-->
-                        <!--android:layout_marginBottom="@dimen/layout_margin"-->
-                        <!--android:visibility="gone"-->
-                        <!--/>-->
                         <audio.lisn.view.ExpandableTextView
                             xmlns:android="http://schemas.android.com/apk/res/android"
                             xmlns:expandableTextView="http://schemas.android.com/apk/res-auto"
@@ -734,14 +411,7 @@
                             android:layout_margin="@dimen/spacing_large"
 
                             expandableTextView:animDuration="200">
-                            <!--<com.ms.square.android.expandabletextview.ExpandableTextView-->
-                            <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
-                            <!--xmlns:expandableTextView="http://schemas.android.com/apk/res-auto"-->
-                            <!--android:id="@+id/description"-->
-                            <!--android:layout_width="match_parent"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--expandableTextView:maxCollapsedLines="3"-->
-                            <!--expandableTextView:animDuration="200">-->
+
                             <TextView
                                 android:id="@id/expandable_text"
                                 android:layout_width="match_parent"
@@ -761,18 +431,7 @@
                                 android:textColor="@color/colorPrimary"
                                 android:background="@android:color/transparent"/>
                         </audio.lisn.view.ExpandableTextView>
-                        <!--</com.ms.square.android.expandabletextview.ExpandableTextView>-->
 
-                        <!--<View-->
-                        <!--android:id="@+id/separator_top_rateLayout"-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="1dp"-->
-                        <!--android:layout_marginTop="@dimen/spacing_medium"-->
-                        <!--android:layout_marginBottom="@dimen/spacing_medium"-->
-                        <!--android:background="@android:color/darker_gray"-->
-                        <!--android:visibility="gone"-->
-
-                        <!--/>-->
                         <LinearLayout
                             android:id="@+id/app_rate_layout"
                             android:layout_width="match_parent"
@@ -783,14 +442,7 @@
                             android:layout_margin="@dimen/spacing_large"
 
                             android:visibility="gone">
-                            <!--<View-->
-                            <!--android:id="@+id/separator_3"-->
-                            <!--android:layout_width="match_parent"-->
-                            <!--android:layout_height="1dp"-->
-                            <!--android:background="@android:color/darker_gray"-->
-                            <!--android:layout_marginBottom="@dimen/spacing_large"-->
 
-                            <!--/>-->
                             <de.hdodenhof.circleimageview.CircleImageView
                                 xmlns:app="http://schemas.android.com/apk/res-auto"
                                 android:id="@+id/profile_image"
@@ -802,6 +454,7 @@
                                 app:civ_border_color="@color/colorPrimary"
                                 app:civ_fill_color="@color/colorPrimary"/>
                             <TextView
+                                android:id="@+id/user_name"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="center_horizontal"
@@ -824,8 +477,7 @@
                                 android:layout_gravity="center_horizontal"
 
                                 />
-                            <!--android:scaleX="0.8"-->
-                            <!--android:scaleY="0.8"-->
+
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -920,28 +572,37 @@
                                     android:id="@+id/valueBar5"
                                     android:layout_width="wrap_content"
                                     android:layout_height="15dp"
+                                    android:visibility="invisible"
                                     />
                                 <com.philjay.valuebar.ValueBar
                                     android:id="@+id/valueBar4"
                                     android:layout_width="wrap_content"
                                     android:layout_height="15dp"
                                     android:focusableInTouchMode="false"
+                                    android:visibility="invisible"
+
                                     />
                                 <com.philjay.valuebar.ValueBar
                                     android:id="@+id/valueBar3"
                                     android:layout_width="wrap_content"
                                     android:layout_height="15dp"
+                                    android:visibility="invisible"
+
 
                                     />
                                 <com.philjay.valuebar.ValueBar
                                     android:id="@+id/valueBar2"
                                     android:layout_width="wrap_content"
                                     android:layout_height="15dp"
+                                    android:visibility="invisible"
+
                                     />
                                 <com.philjay.valuebar.ValueBar
                                     android:id="@+id/valueBar1"
                                     android:layout_width="wrap_content"
                                     android:layout_height="15dp"
+                                    android:visibility="invisible"
+
                                     />
 
                             </LinearLayout>

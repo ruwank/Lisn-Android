@@ -13,6 +13,7 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.PorterDuff;
@@ -70,6 +71,7 @@ import java.io.OutputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -105,6 +107,7 @@ import audio.lisn.view.PlayerControllerView;
 import audio.lisn.webservice.FileDownloadTask;
 import audio.lisn.webservice.FileDownloadTaskListener;
 import audio.lisn.webservice.JsonUTF8StringRequest;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 //import com.ms.square.android.expandabletextview.ExpandableTextView;
 
@@ -147,6 +150,7 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
     Thread timerUpdateThread;
     String subscriberId;
     ListView chapterListView ;
+    int selectedChapterIndex ;
 
     @Override
     public void onBookChapterSelect(BookChapter bookChapter, int index,AudioBook.SelectedAction action) {
@@ -154,15 +158,32 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
        // onBookChapterSelect
         isSelectChapterBuyOption=true;
         selectedChapter=bookChapter;
+        selectedChapterIndex=index;
 
         if(action == AudioBook.SelectedAction.ACTION_PURCHASE){
-            showPaymentOptionPopupWindow();
+            playGetButtonPressed();
         }else if(action == AudioBook.SelectedAction.ACTION_PLAY){
             PlayerControllerActivity.navigate(AudioBookDetailActivity.this, bookCoverImage, audioBook,index);
 
         }else if(action == AudioBook.SelectedAction.ACTION_DOWNLOAD){
             paymentOption = PaymentOption.OPTION_NONE;
             playGetButtonPressed();
+            /*
+            if(selectedChapter.isPurchased()){
+                logUserDownload();
+            }else{
+                if(AppController.getInstance().isUserLogin()){
+                    downloadAudioFile();
+
+                }else{
+                    Intent intent = new Intent(getApplicationContext(),
+                            LoginActivity.class);
+                    startActivityForResult(intent, 1);
+
+                }
+
+            }
+            */
            // downloadAudioFileFromUrl(index+1);
         }
 
@@ -506,34 +527,54 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
         bookCoverImageBack.setLayoutParams(bookCoverImageBackLayoutParams);
         topOverLayView.setLayoutParams(bookCoverImageBackLayoutParams);
 
+        String img_path = AppUtils.getDataDirectory(this)
+                + audioBook.getBook_id()+File.separator+"book_cover.jpg";
 
-        Picasso.with(this)
-                .load(audioBook.getCover_image())
-                .into(new Target() {
-                    @Override
-                    public void onBitmapLoaded(final Bitmap bitmap, Picasso.LoadedFrom from) {
+
+        File imgFile = new  File(img_path);
+
+
+        if(imgFile.exists()){
+            BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+            Bitmap bitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath(), bmOptions);
+
+            bookCoverImageBack.setImageBitmap(bitmap);
+            bookCoverImage.setImageBitmap(bitmap);
+            if (Build.VERSION.SDK_INT >= 18) {
+                Bitmap blurred = AppUtils.blurRenderScript(bitmap, 5, getApplicationContext());//second parametre is radius
+                bookCoverImageBack.setImageBitmap(blurred);
+            }
+
+        }else {
+
+            Picasso.with(this)
+                    .load(audioBook.getCover_image())
+                    .into(new Target() {
+                        @Override
+                        public void onBitmapLoaded(final Bitmap bitmap, Picasso.LoadedFrom from) {
             /* Save the bitmap or do something with it here */
 
-                        //Set it in the ImageView
-                        bookCoverImageBack.setImageBitmap(bitmap);
-                        bookCoverImage.setImageBitmap(bitmap);
-                        if (Build.VERSION.SDK_INT >= 18) {
+                            //Set it in the ImageView
+                            bookCoverImageBack.setImageBitmap(bitmap);
+                            bookCoverImage.setImageBitmap(bitmap);
+                            if (Build.VERSION.SDK_INT >= 18) {
 
-                            Bitmap blurred = AppUtils.blurRenderScript(bitmap, 5, getApplicationContext());//second parametre is radius
-                            bookCoverImageBack.setImageBitmap(blurred);
+                                Bitmap blurred = AppUtils.blurRenderScript(bitmap, 5, getApplicationContext());//second parametre is radius
+                                bookCoverImageBack.setImageBitmap(blurred);
+                            }
                         }
-                    }
 
-                    @Override
-                    public void onBitmapFailed(Drawable errorDrawable) {
+                        @Override
+                        public void onBitmapFailed(Drawable errorDrawable) {
 
-                    }
+                        }
 
-                    @Override
-                    public void onPrepareLoad(Drawable placeHolderDrawable) {
+                        @Override
+                        public void onPrepareLoad(Drawable placeHolderDrawable) {
 
-                    }
-                });
+                        }
+                    });
+        }
 
 //        if(imgFile.exists()) {
 //            BitmapFactory.Options bmOptions = new BitmapFactory.Options();
@@ -639,60 +680,69 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
 
         });
 
-        ValueBar valueBar5 = (ValueBar) findViewById(R.id.valueBar5);
-        setPropertyToValueBar(valueBar5);
-        valueBar5.setValue(100f); // display a value
-        // valueBar5.setEnabled(false);
-        // valueBar5.setDrawBorder(false);
-
-        valueBar5.setColorFormatter(new BarColorFormatter() {
-            @Override
-            public int getColor(float v, float v1, float v2) {
-                return Color.rgb(138, 194, 73);
-            }
-        });
-
-        ValueBar valueBar4 = (ValueBar) findViewById(R.id.valueBar4);
-        setPropertyToValueBar(valueBar4);
-        valueBar4.setValue(400f); // display a value
-        valueBar4.setColorFormatter(new BarColorFormatter() {
-            @Override
-            public int getColor(float v, float v1, float v2) {
-                return Color.rgb(204, 219, 56);
-            }
-        });
-
-        ValueBar valueBar3 = (ValueBar) findViewById(R.id.valueBar3);
-        setPropertyToValueBar(valueBar3);
-        valueBar3.setValue(0f); // display a value
-        valueBar3.setColorFormatter(new BarColorFormatter() {
-            @Override
-            public int getColor(float v, float v1, float v2) {
-                return Color.rgb(255, 234, 58);
-            }
-        });
-
-        ValueBar valueBar2 = (ValueBar) findViewById(R.id.valueBar2);
-        setPropertyToValueBar(valueBar2);
-        valueBar2.setValue(800f); // display a value
-        valueBar2.setColorFormatter(new BarColorFormatter() {
-            @Override
-            public int getColor(float v, float v1, float v2) {
-                return Color.rgb(255, 178, 51);
-            }
-        });
-
-        ValueBar valueBar1 = (ValueBar) findViewById(R.id.valueBar1);
-        setPropertyToValueBar(valueBar1);
-        valueBar1.setValue(500f); // display a value
-        valueBar1.setColorFormatter(new BarColorFormatter() {
-            @Override
-            public int getColor(float v, float v1, float v2) {
-                return Color.rgb(255, 139, 90);
-            }
-        });
+        if(audioBook.getRatingMap() != null && audioBook.getRatingMap().size()>0) {
 
 
+            ValueBar valueBar5 = (ValueBar) findViewById(R.id.valueBar5);
+            ValueBar valueBar4 = (ValueBar) findViewById(R.id.valueBar4);
+            ValueBar valueBar3 = (ValueBar) findViewById(R.id.valueBar3);
+            ValueBar valueBar2 = (ValueBar) findViewById(R.id.valueBar2);
+            ValueBar valueBar1 = (ValueBar) findViewById(R.id.valueBar1);
+            valueBar5.setVisibility(View.VISIBLE);
+            valueBar4.setVisibility(View.VISIBLE);
+            valueBar3.setVisibility(View.VISIBLE);
+            valueBar2.setVisibility(View.VISIBLE);
+            valueBar1.setVisibility(View.VISIBLE);
+
+            setPropertyToValueBar(valueBar5);
+            valueBar5.setValue(audioBook.getRatingMap().get(5)); // display a value
+            // valueBar5.setEnabled(false);
+            // valueBar5.setDrawBorder(false);
+
+            valueBar5.setColorFormatter(new BarColorFormatter() {
+                @Override
+                public int getColor(float v, float v1, float v2) {
+                    return Color.rgb(138, 194, 73);
+                }
+            });
+
+            setPropertyToValueBar(valueBar4);
+            valueBar4.setValue(audioBook.getRatingMap().get(4)); // display a value
+            valueBar4.setColorFormatter(new BarColorFormatter() {
+                @Override
+                public int getColor(float v, float v1, float v2) {
+                    return Color.rgb(204, 219, 56);
+                }
+            });
+
+            setPropertyToValueBar(valueBar3);
+            valueBar3.setValue(audioBook.getRatingMap().get(3)); // display a value
+            valueBar3.setColorFormatter(new BarColorFormatter() {
+                @Override
+                public int getColor(float v, float v1, float v2) {
+                    return Color.rgb(255, 234, 58);
+                }
+            });
+
+            setPropertyToValueBar(valueBar2);
+            valueBar2.setValue(audioBook.getRatingMap().get(2)); // display a value
+            valueBar2.setColorFormatter(new BarColorFormatter() {
+                @Override
+                public int getColor(float v, float v1, float v2) {
+                    return Color.rgb(255, 178, 51);
+                }
+            });
+
+            setPropertyToValueBar(valueBar1);
+            valueBar1.setValue(audioBook.getRatingMap().get(1)); // display a value
+            valueBar1.setColorFormatter(new BarColorFormatter() {
+                @Override
+                public int getColor(float v, float v1, float v2) {
+                    return Color.rgb(255, 139, 90);
+                }
+            });
+
+        }
 
         // Get ListView object from xml
         chapterListView = (ListView) findViewById(R.id.chapter_list);
@@ -776,8 +826,11 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
             description.setText(audioBook.getDescription());
             description.setVisibility(View.VISIBLE);
             separator_top_description.setVisibility(View.VISIBLE);
-        }else{
         }
+
+        //Set Content description
+        title.setContentDescription(audioBook.getEnglish_title());
+        description.setContentDescription(audioBook.getEnglish_description());
 
         //int height = descriptionTextView.getMeasuredHeight();
         //Log.v(TAG,"height :"+height);
@@ -798,9 +851,32 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
 //            }
            // separator_top_rateLayout.setVisibility(View.VISIBLE);
             rateLayout.setVisibility(View.VISIBLE);
+           // AppController.getInstance().
             userRatingBar.setRating(0);
             addToBillButton.setVisibility(View.GONE);
             btnPayFromCard.setVisibility(View.GONE);
+            TextView user_name=(TextView)findViewById(R.id.user_name);
+            user_name.setText(AppController.getInstance().getUserName());
+
+            CircleImageView profileImage=(CircleImageView)findViewById(R.id.profile_image);
+
+
+            Log.v("profileImageUrl", "fb id :" + AppController.getInstance().getFbId());
+
+            if(AppController.getInstance().getFbId() != null && AppController.getInstance().getFbId().length()>2){
+
+                String profileImageUrl=getString(R.string.fb_profile_picture_url);
+                profileImageUrl=profileImageUrl+AppController.getInstance().getFbId()+"/picture";
+                Log.v("profileImageUrl", "profileImageUrl :" + profileImageUrl);
+                Log.v("profileImageUrl", "fb id :" + AppController.getInstance().getFbId());
+
+                Picasso.with(profileImage.getContext())
+                        .load(profileImageUrl)
+                        .placeholder(R.drawable.ic_profile_default)
+                        .into(profileImage);
+            }
+
+
         }else{
             if(Float.parseFloat(audioBook.getPrice())>0) {
                 btnDownload.setVisibility(View.GONE);
@@ -971,7 +1047,10 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
     }
 
     private ValueBar setPropertyToValueBar(ValueBar valueBar){
-        valueBar.setMinMax(0, 1000);
+
+        int maxValue =Collections.max(audioBook.getRatingMap().values());
+Log.v(TAG,"maxValue :"+maxValue);
+        valueBar.setMinMax(0, maxValue);
         valueBar.setInterval(1f); // interval in which can be selected
         valueBar.setDrawBorder(false);
         valueBar.setTouchEnabled(false);
@@ -1448,18 +1527,33 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
 
         if(AppController.getInstance().isUserLogin()){
 
-            if (audioBook.isPurchase()) {
-                downloadAudioFile();
 
-            } else {
-                if (Float.parseFloat(audioBook.getPrice()) > 0) {
-                    Intent intent = new Intent(this,
-                            PurchaseActivity.class);
-                    intent.putExtra("audioBook", audioBook);
-                    startActivityForResult(intent, 2);
+            if(isSelectChapterBuyOption){
+                if(selectedChapter.isPurchased()){
+                    downloadAudioFile();
 
                 }else{
-                    logUserDownload();
+                    if(selectedChapter.getPrice()>0){
+                        showPaymentOptionPopupWindow();
+                    }else{
+                        logUserDownload();
+                    }
+                }
+
+            }else {
+                if (audioBook.isPurchase()) {
+                    downloadAudioFile();
+
+                } else {
+                    if (Float.parseFloat(audioBook.getPrice()) > 0) {
+                        Intent intent = new Intent(this,
+                                PurchaseActivity.class);
+                        intent.putExtra("audioBook", audioBook);
+                        startActivityForResult(intent, 2);
+
+                    } else {
+                        logUserDownload();
+                    }
                 }
             }
         }else{
@@ -2047,6 +2141,7 @@ if(subscriberId != null) {
 
             } else {
                 if(isSelectChapterBuyOption){
+                    selectedChapter.setIsPurchased(true);
                     updateAudioBook(Integer.parseInt(file_name));
                     if ( mProgressDialog!=null && mProgressDialog.isShowing() ){
                         mProgressDialog.dismiss();
@@ -2055,8 +2150,7 @@ if(subscriberId != null) {
                     builder.setTitle(R.string.DOWNLOAD_COMPLETE_TITLE).setMessage(getString(R.string.DOWNLOAD_COMPLETE_MESSAGE)).setPositiveButton(
                             R.string.BUTTON_YES, new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
-
-                                    PlayerControllerActivity.navigate(AudioBookDetailActivity.this, bookCoverImage, audioBook,selectedChapter.getChapter_id());
+                                    PlayerControllerActivity.navigate(AudioBookDetailActivity.this, bookCoverImage, audioBook,selectedChapterIndex);
 
                                 }
                             })

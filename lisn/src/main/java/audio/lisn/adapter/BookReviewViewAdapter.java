@@ -9,11 +9,14 @@ import android.view.ViewGroup;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 import audio.lisn.R;
 import audio.lisn.model.BookReview;
 import audio.lisn.util.Log;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by Rasika on 10/19/15.
@@ -48,8 +51,19 @@ public class BookReviewViewAdapter extends RecyclerView.Adapter<BookReviewViewAd
         if(Float.parseFloat(bookReview.getRateValue())>-1){
             holder.ratingBar.setRating(Float.parseFloat(bookReview.getRateValue()));
         }
-        Log.v("bookReview.getTitle()", "bookReview.getTitle() :" + bookReview.getTitle());
+        Log.v("profileImageUrl", "profileImageUrl :" + bookReview.getFbId());
 
+        if(bookReview.getFbId() != null && bookReview.getFbId().length()>0){
+
+            String profileImageUrl=holder.profileImage.getContext().getString(R.string.fb_profile_picture_url);
+            profileImageUrl=profileImageUrl+bookReview.getFbId()+"/picture";
+            Log.v("profileImageUrl", "profileImageUrl :" + profileImageUrl);
+
+            Picasso.with(holder.profileImage.getContext())
+                    .load(profileImageUrl)
+                    .placeholder(R.drawable.ic_profile_default)
+                    .into(holder.profileImage);
+        }
 
     }
 
@@ -63,7 +77,7 @@ public class BookReviewViewAdapter extends RecyclerView.Adapter<BookReviewViewAd
 
         public TextView user,time, title,message;
         public RatingBar ratingBar;
-
+        CircleImageView profileImage;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -73,6 +87,7 @@ public class BookReviewViewAdapter extends RecyclerView.Adapter<BookReviewViewAd
             title= (TextView) itemView.findViewById(R.id.title);
             message= (TextView) itemView.findViewById(R.id.message);
             ratingBar=(RatingBar)itemView.findViewById(R.id.rating_bar);
+            profileImage=(CircleImageView)itemView.findViewById(R.id.profile_image);
 
         }
     }

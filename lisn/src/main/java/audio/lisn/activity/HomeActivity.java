@@ -315,6 +315,7 @@ private void setLayoutMargin(boolean setMargin){
         if (fragment != null) {
 
             final Fragment finalFragment = fragment;
+
             new Handler().post(new Runnable() {
                 public void run() {
                     FragmentManager fragmentManager = getSupportFragmentManager();

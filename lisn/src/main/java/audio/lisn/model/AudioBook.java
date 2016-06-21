@@ -313,14 +313,14 @@ public Map<Integer,Integer> getRatingMap(){
 
                         Log.v(TAG,bookReview.getFbId());
                     }
-                    if(dataObject.has("first_name") && dataObject.getString("first_name") !=null){
+                    if(dataObject.has("first_name") && dataObject.getString("first_name") !=null && !dataObject.getString("first_name").equalsIgnoreCase("NULL")){
                         userName=dataObject.getString("first_name");
                     }
 
-                    if(dataObject.has("middle_name") && dataObject.getString("middle_name") !=null){
+                    if(dataObject.has("middle_name") && dataObject.getString("middle_name") !=null && !dataObject.getString("middle_name").equalsIgnoreCase("NULL")){
                         userName=userName+" "+dataObject.getString("middle_name");
                     }
-                    if(dataObject.has("last_name") && dataObject.getString("last_name") !=null){
+                    if(dataObject.has("last_name") && dataObject.getString("last_name") !=null && !dataObject.getString("last_name").equalsIgnoreCase("NULL")){
                         userName=userName+" "+dataObject.getString("last_name");
                     }
                         bookReview.setUserName(userName);

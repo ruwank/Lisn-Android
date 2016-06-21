@@ -215,13 +215,13 @@ public class LoginActivity extends AppCompatActivity {
                                         for(int index=1; index<(separated.length); index++){
                                             Log.v(TAG,"length"+separated.length);
                                             String[] separated2 = separated[index].split("=");
-                                            if (separated2[0] != null && separated2[0].toUpperCase() =="UID") {
+                                            if (separated2[0] != null && separated2[0].trim().equalsIgnoreCase("UID")) {
                                                 uid = separated2[1].trim();
                                             }
-                                            if (separated2[0] != null && separated2[0].toUpperCase() =="USERNAME") {
+                                            if (separated2[0] != null && separated2[0].trim().equalsIgnoreCase("USERNAME")) {
                                                 userName = separated2[1].trim();
                                             }
-                                            if (separated2[0] != null && separated2[0].toUpperCase() =="FBID") {
+                                            if (separated2[0] != null && separated2[0].trim().equalsIgnoreCase("FBID")) {
                                                 fbId = separated2[1].trim();
                                             }
                                         }
@@ -234,7 +234,8 @@ public class LoginActivity extends AppCompatActivity {
 //                                        if (separated3[1] != null) {
 //                                            userName = separated3[1].trim();
 //                                        }
-                                        loginSuccess(uid, userName,fbId,Constants.user_type_email);
+                                        Log.v(TAG,"uid :"+uid +"userName :"+userName +"fbId :"+fbId);
+                                        loginSuccess(uid, userName, fbId, Constants.user_type_email);
                                         userLoginId = uid;
 
                                         downloadUserBook();
@@ -509,7 +510,7 @@ public class LoginActivity extends AppCompatActivity {
                             Log.v("response", "response :" + response);
 
                             //SUCCESS: UID=5
-                            Log.v("response", "respondString :" + response);
+                            Log.v(TAG, "respondString :" + response);
 
                             String[] separated = response.split(":");
                             if ((separated[0].trim().equalsIgnoreCase("SUCCESS")) || (separated[0].trim().equalsIgnoreCase("EXIST"))) {
@@ -518,21 +519,22 @@ public class LoginActivity extends AppCompatActivity {
                                 if (separated[1] != null) {
                                     String uid = "";
                                     String fbId = "";
-                                    String userName = finalUserName;
+                                    String userName = "";
                                     for(int index=1; index<(separated.length); index++){
                                         Log.v(TAG,"length"+separated.length);
                                         String[] separated2 = separated[index].split("=");
-                                        if (separated2[0] != null && separated2[0] =="UID") {
+                                        if (separated2[0] != null && separated2[0].trim().equalsIgnoreCase("UID")) {
                                             uid = separated2[1].trim();
                                         }
-                                        if (separated2[0] != null && separated2[0] =="USERNAME") {
+                                        if (separated2[0] != null && separated2[0].trim().equalsIgnoreCase("USERNAME")) {
                                             userName = separated2[1].trim();
                                         }
-                                        if (separated2[0] != null && separated2[0] =="FBID") {
+                                        if (separated2[0] != null && separated2[0].trim().equalsIgnoreCase("FBID")) {
                                             fbId = separated2[1].trim();
                                         }
                                     }
 
+                                    Log.v(TAG,"uid :"+uid +"userName :"+userName +"fbId :"+fbId);
 
                                     loginSuccess(uid, userName,fbId,Constants.user_type_fb);
                                     userLoginId = uid;

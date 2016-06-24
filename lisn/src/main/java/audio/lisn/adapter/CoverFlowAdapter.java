@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
+import android.graphics.drawable.GradientDrawable;
 import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.Gravity;
@@ -209,6 +210,10 @@ public class CoverFlowAdapter extends FancyCoverFlowAdapter {
 
        // this.setOrientation(VERTICAL);
         //   this.setWeightSum(5);
+        GradientDrawable gd = new GradientDrawable();
+        gd.setColor(0xFF00FF00); // Changes this drawbale to use a single color instead of a gradient
+        gd.setCornerRadius(5);
+        gd.setStroke(1, 0xFF000000);
 
         this.imageView = new ImageView(context);
         this.button = new Button(context);
@@ -238,6 +243,8 @@ public class CoverFlowAdapter extends FancyCoverFlowAdapter {
         textViewLayoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
         this.textView.setLayoutParams(textViewLayoutParams);
 
+        this.textView.setBackground(gd);
+        
         this.addView(this.imageView);
         this.addView(this.button);
         this.addView(this.textView);

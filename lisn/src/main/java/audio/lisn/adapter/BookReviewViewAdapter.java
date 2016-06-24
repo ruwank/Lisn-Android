@@ -52,7 +52,7 @@ public class BookReviewViewAdapter extends RecyclerView.Adapter<BookReviewViewAd
             holder.ratingBar.setRating(Float.parseFloat(bookReview.getRateValue()));
         }
         Log.v("profileImageUrl", "profileImageUrl :" + bookReview.getFbId());
-
+        holder.profileImage.setImageResource(R.drawable.ic_profile_default);
         if(bookReview.getFbId() != null && bookReview.getFbId().length()>0){
 
             String profileImageUrl=holder.profileImage.getContext().getString(R.string.fb_profile_picture_url);

@@ -1608,7 +1608,7 @@ Log.v(TAG,"maxValue :"+maxValue);
 
             SharedPreferences sharedPref =getApplicationContext().getSharedPreferences(
             getString(R.string.preference_file_key), Context.MODE_PRIVATE);
-            String provider = sharedPref.getString(getString(R.string.service_provider),"");
+            String provider = sharedPref.getString(getString(R.string.service_provider), "");
 
             if(provider.equalsIgnoreCase(subscriberId)) {
                 if (serviceProvider == ServiceProvider.PROVIDER_MOBITEL ) {
@@ -1686,7 +1686,7 @@ if(subscriberId != null) {
         Map<String, String> params = new HashMap<String, String>();
         params.put("userid", AppController.getInstance().getUserId());
         params.put("bookid", audioBook.getBook_id());
-        params.put("amount", audioBook.getPrice());
+
         if(paymentOption==PaymentOption.OPTION_DIALOG){
             params.put("number", dialogNo);
         }else{
@@ -1695,6 +1695,9 @@ if(subscriberId != null) {
         if(isSelectChapterBuyOption){
             params.put("chapid", ""+selectedChapter.getChapter_id());
             params.put("amount", ""+selectedChapter.getPrice());
+        }else {
+            params.put("amount", audioBook.getPrice());
+
         }
 
 
@@ -1838,9 +1841,13 @@ if(subscriberId != null) {
                 SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
                 if(prefs.getBoolean(KEY_TERMS_ACCEPTED_FOR_MOBITEL, false)) {
                     Log.v("addToMobitelBill","addToMobitelBill 4");
+                    String price= audioBook.getPrice();
+                    if(isSelectChapterBuyOption){
+                        price=""+selectedChapter.getPrice();
+                    }
 
                     AlertDialog.Builder builder = new AlertDialog.Builder(AudioBookDetailActivity.this);
-                    builder.setTitle("Confirm Payment").setMessage("Rs." + audioBook.getPrice() + " will be added to your Mobitel bill. Continue?").setPositiveButton(
+                    builder.setTitle("Confirm Payment").setMessage("Rs." + price + " will be added to your Mobitel bill. Continue?").setPositiveButton(
                             getString(R.string.BUTTON_OK), new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
                                     addToBillServerConnect();
@@ -1886,8 +1893,11 @@ if(subscriberId != null) {
                 if(prefs.getBoolean(KEY_TERMS_ACCEPTED_FOR_ETISALAT, false)) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(AudioBookDetailActivity.this);
                     //Confirm Payment
-
-                    builder.setTitle("Confirm Payment").setMessage("Rs." + audioBook.getPrice() + " will be added to your Etisalat bill. Continue?").setPositiveButton(
+                    String price= audioBook.getPrice();
+                    if(isSelectChapterBuyOption){
+                        price=""+selectedChapter.getPrice();
+                    }
+                    builder.setTitle("Confirm Payment").setMessage("Rs." + price + " will be added to your Etisalat bill. Continue?").setPositiveButton(
                             getString(R.string.BUTTON_OK), new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
                                     addToBillServerConnect();
@@ -1936,8 +1946,11 @@ if(subscriberId != null) {
 
                     AlertDialog.Builder builder = new AlertDialog.Builder(AudioBookDetailActivity.this);
                     //Confirm Payment
-
-                    builder.setTitle("Confirm Payment").setMessage("Rs." + audioBook.getPrice() + " will be added to your Dialog bill. Continue?").setPositiveButton(
+                    String price= audioBook.getPrice();
+                    if(isSelectChapterBuyOption){
+                        price=""+selectedChapter.getPrice();
+                    }
+                    builder.setTitle("Confirm Payment").setMessage("Rs." + price + " will be added to your Dialog bill. Continue?").setPositiveButton(
                             getString(R.string.BUTTON_OK), new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
                                     SharedPreferences sharedPref =getApplicationContext().getSharedPreferences(

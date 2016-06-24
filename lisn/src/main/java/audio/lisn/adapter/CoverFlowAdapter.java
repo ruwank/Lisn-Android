@@ -87,6 +87,22 @@ public class CoverFlowAdapter extends FancyCoverFlowAdapter {
         String chapterName="Chapter "+(bookChapter.getChapter_id());
         customViewGroup.getTextView().setText(chapterName);
 
+         customViewGroup.getImageView().setImageBitmap(null);
+
+        String img_path = AppUtils.getDataDirectory(customViewGroup.getImageView().getContext())
+                + bookId+ File.separator+"book_cover.jpg";
+
+
+        File imgFile = new  File(img_path);
+
+        if(imgFile.exists()){
+            Bitmap bitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+            Bitmap resized = Bitmap.createScaledBitmap(bitmap, coverFlowWidth, coverFlowHeight, true);
+
+            customViewGroup.getImageView().setImageBitmap(resized);
+
+
+        }
         String dirPath = AppUtils.getDataDirectory(mContext)
                 + bookId+ File.separator;
         File file = new File(dirPath +(bookChapter.getChapter_id())+".lisn");
@@ -211,9 +227,10 @@ public class CoverFlowAdapter extends FancyCoverFlowAdapter {
        // this.setOrientation(VERTICAL);
         //   this.setWeightSum(5);
         GradientDrawable gd = new GradientDrawable();
-        gd.setColor(0xFF00FF00); // Changes this drawbale to use a single color instead of a gradient
+       // gd.setColor(0xFF00FF00); // Changes this drawbale to use a single color instead of a gradient
+        gd.setColor(0xff888888);
         gd.setCornerRadius(5);
-        gd.setStroke(1, 0xFF000000);
+        gd.setStroke(1, 0xff888888);
 
         this.imageView = new ImageView(context);
         this.button = new Button(context);
@@ -240,11 +257,14 @@ public class CoverFlowAdapter extends FancyCoverFlowAdapter {
         button.setPadding(0, 0, 0, 0);
 
         RelativeLayout.LayoutParams textViewLayoutParams = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        textViewLayoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
+//        textViewLayoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
+        textViewLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+        textViewLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
         this.textView.setLayoutParams(textViewLayoutParams);
 
         this.textView.setBackground(gd);
-        
+        this.textView.setTextColor(getContext().getResources().getColor(R.color.whiteColor));
+
         this.addView(this.imageView);
         this.addView(this.button);
         this.addView(this.textView);

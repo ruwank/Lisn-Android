@@ -48,6 +48,7 @@ import java.util.List;
 import audio.lisn.R;
 import audio.lisn.app.AppController;
 import audio.lisn.model.AudioBook;
+import audio.lisn.util.Analytic;
 import audio.lisn.util.AppUtils;
 import audio.lisn.util.ConnectionDetector;
 import audio.lisn.util.Constants;
@@ -413,6 +414,8 @@ public class StoreBookViewAdapter extends RecyclerView.Adapter<StoreBookViewAdap
         notifyDataSetChanged();
 
         if (connectionDetector.isConnectingToInternet()) {
+//Analytic activity
+            new Analytic().analyticEvent(2, selectedAudioBook.getBook_id(), "");
 
             //((Activity)context).getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 

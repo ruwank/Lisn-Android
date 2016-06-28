@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
@@ -40,12 +41,14 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import audio.lisn.R;
 import audio.lisn.model.AudioBook;
 import audio.lisn.model.BookCategory;
 import audio.lisn.model.BookChapter;
 import audio.lisn.model.DownloadedAudioBook;
+import audio.lisn.util.Analytic;
 import audio.lisn.util.AppUtils;
 import audio.lisn.util.AudioPlayerService;
 import audio.lisn.util.AudioPlayerService.AudioPlayerServiceBinder;
@@ -84,6 +87,9 @@ public class AppController extends Application  {
     AlarmManager alarmManager = null;
     AlarmManager alarmManagerRepeat = null;
     private BookCategory[] bookCategories;
+    private String sessionId;
+    private Location lastLocation;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -95,6 +101,10 @@ public class AppController extends Application  {
         mInstance = this;
         registerAppStateChangeBroadcastReceiver();
         showQuotesEveryWeek();
+        sessionId = String.valueOf(UUID.randomUUID());
+
+        //Analytic activity 1
+        new Analytic().analyticEvent(1,"","");
 
     }
 
@@ -487,6 +497,7 @@ if(currentAudioBook != null){
 
 
             }
+            sessionId = String.valueOf(UUID.randomUUID());
             if (alarmManager != null) {
                 Intent intentAlarm = new Intent(getApplicationContext(), ReminderReceiver.class);
 
@@ -672,5 +683,17 @@ if(currentAudioBook != null){
 
     public void setFbId(String fbId) {
         this.fbId = fbId;
+    }
+
+    public String getSessionId() {
+        return sessionId;
+    }
+
+    public Location getLastLocation() {
+        return lastLocation;
+    }
+
+    public void setLastLocation(Location mLastLocation) {
+        this.lastLocation = mLastLocation;
     }
 }

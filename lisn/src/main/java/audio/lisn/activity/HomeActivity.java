@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
@@ -39,6 +40,9 @@ import android.widget.TextView;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationServices;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -70,7 +74,7 @@ import audio.lisn.webservice.JsonUTF8StringRequest;
 
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
         HomeFragment.OnHomeItemSelectedListener,StoreFragment.OnStoreBookSelectedListener,
-        AuthorizationListener {
+        AuthorizationListener,GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
     private static final String TAG = HomeActivity.class.getSimpleName();
 
@@ -81,6 +85,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     PlayerControllerView playerControllerView;
     FrameLayout containerLayout;
     String subscriberId;
+    private GoogleApiClient mGoogleApiClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -144,6 +149,14 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         LocalBroadcastManager.getInstance(this).registerReceiver(menuUpdateReceiver,
                 new IntentFilter(Constants.MENU_ITEM_SELECT));
 
+        // Create an instance of GoogleAPIClient.
+        if (mGoogleApiClient == null) {
+            mGoogleApiClient = new GoogleApiClient.Builder(this)
+                    .addConnectionCallbacks(this)
+                    .addOnConnectionFailedListener(this)
+                    .addApi(LocationServices.API)
+                    .build();
+        }
     }
     private void showAudioPlayer(){
         if(AppController.getInstance().getCurrentAudioBook() !=null) {
@@ -201,7 +214,10 @@ private void setLayoutMargin(boolean setMargin){
 
     containerLayout.setLayoutParams(params);
 }
-
+    protected void onStart() {
+        mGoogleApiClient.connect();
+        super.onStart();
+    }
     @Override
     protected void onResume() {
         super.onResume();
@@ -232,6 +248,8 @@ private void setLayoutMargin(boolean setMargin){
     @Override
     protected void onStop() {
         super.onStop();
+        mGoogleApiClient.disconnect();
+
         LocalBroadcastManager.getInstance(this).unregisterReceiver(mPlayerUpdateReceiver);
 
     }
@@ -663,6 +681,26 @@ Log.v(TAG,"state :"+state);
 
     @Override
     public void authorizationError(String reason) {
+
+    }
+
+    @Override
+    public void onConnected(Bundle bundle) {
+        Location mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
+                mGoogleApiClient);
+        if (mLastLocation != null) {
+           // mLatitudeText.setText(String.valueOf(mLastLocation.getLatitude()));
+            //mLongitudeText.setText(String.valueOf(mLastLocation.getLongitude()));
+        }
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+
+    }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult) {
 
     }
 }

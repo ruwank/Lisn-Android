@@ -81,6 +81,8 @@ dependencies {
     compile 'com.mani:ThinDownloadManager:1.2.0'
     compile 'com.github.aakira:expandable-layout:1.5.1@aar'
     compile 'de.hdodenhof:circleimageview:2.0.0'
-
+   // compile 'com.google.android.gms:play-services:+'
+    compile 'com.google.android.gms:play-services-gcm:8.3.0'
+    compile 'com.google.android.gms:play-services-location:8.3.0'
 
 }

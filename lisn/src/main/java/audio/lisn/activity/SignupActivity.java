@@ -150,6 +150,24 @@ public class SignupActivity extends AppCompatActivity {
                                     String userName = "";
                                     String type = "";
                                     String loginStatus = "";
+                                    for(int index=1; index<(separated.length); index++){
+                                      //  Log.v(TAG,"length"+separated.length);
+                                        //UID=&lt;NewUserId&gt;:USERNAME=&lt;Username&gt;:STATUS=&lt;pending|active&gt;:TYPE=&lt;fb|email&gt;
+                                        String[] separated2 = separated[index].split("=");
+                                        if (separated2[0] != null && separated2[0].trim().equalsIgnoreCase("UID")) {
+                                            uid = separated2[1].trim();
+                                        }
+                                        if (separated2[0] != null && separated2[0].trim().equalsIgnoreCase("USERNAME")) {
+                                            userName = separated2[1].trim();
+                                        }
+                                        if (separated2[0] != null && separated2[0].trim().equalsIgnoreCase("STATUS")) {
+                                            loginStatus = separated2[1].trim();
+                                        }
+                                        if (separated2[0] != null && separated2[0].trim().equalsIgnoreCase("TYPE")) {
+                                            type = separated2[1].trim();
+                                        }
+                                    }
+                                    /*
                                     String[] separated2 = separated[1].split("=");
                                     if (separated2[1] != null) {
                                         uid = separated2[1].trim();
@@ -173,6 +191,7 @@ public class SignupActivity extends AppCompatActivity {
                                             type = separated5[1].trim();
                                         }
                                     }
+                                    */
 
                                     userAddedSuccess(status,uid, userName,type,loginStatus);
 

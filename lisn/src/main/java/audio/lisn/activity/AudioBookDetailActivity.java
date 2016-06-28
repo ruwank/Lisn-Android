@@ -93,6 +93,7 @@ import audio.lisn.model.AudioBook.ServiceProvider;
 import audio.lisn.model.BookChapter;
 import audio.lisn.model.BookReview;
 import audio.lisn.model.DownloadedAudioBook;
+import audio.lisn.util.Analytic;
 import audio.lisn.util.AppUtils;
 import audio.lisn.util.AudioPlayerService;
 import audio.lisn.util.ConnectionDetector;
@@ -161,6 +162,8 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
         selectedChapterIndex=index;
 
         if(action == AudioBook.SelectedAction.ACTION_PURCHASE){
+            new Analytic().analyticEvent(4, audioBook.getBook_id(), ""+selectedChapter.getChapter_id());
+
             playGetButtonPressed();
         }else if(action == AudioBook.SelectedAction.ACTION_PLAY){
             PlayerControllerActivity.navigate(AudioBookDetailActivity.this, bookCoverImage, audioBook,index);
@@ -274,6 +277,9 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
         progressDialog = new ProgressDialog(AudioBookDetailActivity.this);
         progressDialog.setIndeterminate(true);
         progressDialog.setMessage("Publishing...");
+
+        //Analytic activity
+        new Analytic().analyticEvent(3, audioBook.getBook_id(), "");
 
     }
     @Override
@@ -1006,6 +1012,8 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
 
     }
     private void showSimilarBook(){
+        new Analytic().analyticEvent(5, audioBook.getBook_id(), "");
+
         Intent intent = new Intent(this,
                 CategoryBookActivity.class);
         Log.v(TAG,audioBook.getCategory());
@@ -1439,6 +1447,8 @@ Log.v(TAG,"maxValue :"+maxValue);
 
     }
     private void shareBook() {
+        new Analytic().analyticEvent(6, audioBook.getBook_id(), "");
+
         String shareUrl=getString(R.string.play_store_url);
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_SEND);
@@ -1574,6 +1584,9 @@ Log.v(TAG,"maxValue :"+maxValue);
                     intent.putExtra("isSelectChapterBuyOption", isSelectChapterBuyOption);
                     intent.putExtra("selectedChapter", selectedChapter);
 
+                }else{
+                    new Analytic().analyticEvent(4, audioBook.getBook_id(), "0");
+
                 }
                 startActivityForResult(intent, 2);
 
@@ -1589,6 +1602,9 @@ Log.v(TAG,"maxValue :"+maxValue);
     }
 
     private void addToMyBillButtonPressed(){
+
+        if(!isSelectChapterBuyOption)
+        new Analytic().analyticEvent(4, audioBook.getBook_id(), "0");
 
         if(isMobileDataEnable()) {
             if (serviceProvider == ServiceProvider.PROVIDER_MOBITEL) {
@@ -1708,10 +1724,26 @@ if(subscriberId != null) {
                     public void onResponse(String response) {
                         Log.v("addToBillServerConnect", "addToBillServerConnect 2");
 
+                        String info="0";
+                        if(isSelectChapterBuyOption)
+                            info=""+selectedChapter.getChapter_id();
+                        if(paymentOption == PaymentOption.OPTION_MOBITEL){
+                            info=info+",mobitel";
 
+                        }else if(paymentOption == PaymentOption.OPTION_ETISALAT){
+                            info=info+",etisalat";
+
+                        }else if(paymentOption == PaymentOption.OPTION_DIALOG){
+                            info=info+",dialog";
+
+                        }
                         progressDialog.dismiss();
                         if (response.toUpperCase().contains("SUCCESS")) {
                             Log.v("addToBillServerConnect", "addToBillServerConnect 3");
+
+
+                                info=info+",success";
+                            new Analytic().analyticEvent(8, audioBook.getBook_id(), info);
 
                             updateAudioBookSuccessPayment();
                             AlertDialog.Builder builder = new AlertDialog.Builder(AudioBookDetailActivity.this);
@@ -1732,7 +1764,8 @@ if(subscriberId != null) {
                             dialog.show();
                         } else if (response.toUpperCase().contains("ALREADY_PAID")) {
                             Log.v("addToBillServerConnect", "addToBillServerConnect 3");
-
+                            info=info+",already_paid";
+                            new Analytic().analyticEvent(8, audioBook.getBook_id(), info);
                             //audioBook.setPurchase(true);
                            // updateAudioBook(0);
                             updateAudioBookSuccessPayment();
@@ -1756,6 +1789,9 @@ if(subscriberId != null) {
                             dialog.show();
                         }
                         else if (response.toUpperCase().contains("EMPTY_NUMBER")) {
+                            info=info+",number error";
+                            new Analytic().analyticEvent(8, audioBook.getBook_id(), info);
+
                             String title="";
                             String message="";
                             subscriberId="0";
@@ -1790,6 +1826,8 @@ if(subscriberId != null) {
                             dialog.show();
                         } else{
                             Log.v("addToBillServerConnect","addToBillServerConnect 4");
+                            info=info+",error";
+                            new Analytic().analyticEvent(8, audioBook.getBook_id(), info);
 
                             AlertDialog.Builder builder = new AlertDialog.Builder(AudioBookDetailActivity.this);
                             builder.setTitle(getString(R.string.SERVER_ERROR_TITLE)).setMessage(getString(R.string.SERVER_ERROR_MESSAGE)).setPositiveButton(
@@ -1808,7 +1846,24 @@ if(subscriberId != null) {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                String info="0";
+                if(isSelectChapterBuyOption)
+                    info=""+selectedChapter.getChapter_id();
+                if(paymentOption == PaymentOption.OPTION_MOBITEL){
+                    info=info+",mobitel";
+
+                }else if(paymentOption == PaymentOption.OPTION_ETISALAT){
+                    info=info+",etisalat";
+
+                }else if(paymentOption == PaymentOption.OPTION_DIALOG){
+                    info=info+",dialog";
+
+                }
+                info=info+",failed";
+                new Analytic().analyticEvent(8, audioBook.getBook_id(), info);
+
                 progressDialog.dismiss();
+
                 Log.v("addToBillServerConnect", "addToBillServerConnect 6");
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(AudioBookDetailActivity.this);
@@ -2320,6 +2375,7 @@ if(subscriberId != null) {
         updateData();
     }
     private void publishUserReview( final float rate, final String title, final String comment){
+        new Analytic().analyticEvent(7, audioBook.getBook_id(), "");
 
 
         if (connectionDetector.isConnectingToInternet()) {
@@ -2418,6 +2474,12 @@ if(subscriberId != null) {
         }
         else if (requestCode == 2) {
             if(resultCode == Constants.RESULT_SUCCESS){
+                String info="0";
+                if(isSelectChapterBuyOption)
+                    info=""+selectedChapter.getChapter_id();
+                info=info+",card,success";
+                new Analytic().analyticEvent(8, audioBook.getBook_id(), info);
+
                 audioBook.setPurchase(true);
                 updateAudioBook(0);
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -2440,6 +2502,12 @@ if(subscriberId != null) {
             }else if (resultCode == Constants.RESULT_SUCCESS_ALREADY) {
                 Log.v("addToBillServerConnect","addToBillServerConnect 3");
 
+                String info="0";
+                if(isSelectChapterBuyOption)
+                    info=""+selectedChapter.getChapter_id();
+                info=info+",card,success";
+                new Analytic().analyticEvent(8, audioBook.getBook_id(), info);
+
                 audioBook.setPurchase(true);
                 updateAudioBook(0);
                 AlertDialog.Builder builder = new AlertDialog.Builder(AudioBookDetailActivity.this);
@@ -2460,6 +2528,12 @@ if(subscriberId != null) {
                 dialog.show();
             }
             if (resultCode == Constants.RESULT_ERROR) {
+                String info="0";
+                if(isSelectChapterBuyOption)
+                    info=""+selectedChapter.getChapter_id();
+                info=info+",card,failed";
+                new Analytic().analyticEvent(8, audioBook.getBook_id(), info);
+
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setTitle(R.string.SERVER_ERROR_TITLE).setMessage(getString(R.string.SERVER_ERROR_MESSAGE)).setPositiveButton(
                         getString(R.string.BUTTON_OK), new DialogInterface.OnClickListener() {

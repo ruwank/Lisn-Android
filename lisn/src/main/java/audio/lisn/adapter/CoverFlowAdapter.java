@@ -108,7 +108,7 @@ public class CoverFlowAdapter extends FancyCoverFlowAdapter {
         File file = new File(dirPath +(bookChapter.getChapter_id())+".lisn");
 
 
-        String buyButtonText="Get";
+        String buyButtonText="Download";
 
         if (file.exists()) {
             customViewGroup.getButton().setVisibility(View.GONE);

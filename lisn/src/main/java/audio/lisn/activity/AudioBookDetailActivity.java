@@ -843,24 +843,53 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
 
 
         btnPayFromCard.setText("Pay by Card (" + audioBook.getDiscount() + "% discount)");
+        btnDownload.setVisibility(View.GONE);
+        addToBillButton.setVisibility(View.GONE);
+        btnPayFromCard.setVisibility(View.GONE);
+
+        if(AppController.getInstance().isUserLogin() && audioBook.isTotalBookPurchased()){
+            //previewPlayButton.setVisibility(View.GONE);
+                btnDownload.setText("Download");
+                btnDownload.setVisibility(View.VISIBLE);
+                if (audioBook.getChapters().size() == audioBook.getDownloadedChapter().size()) {
+                    btnDownload.setText("Play");
+                }
+
+
+        }else{
+            if(Float.parseFloat(audioBook.getPrice())>0) {
+                btnPayFromCard.setVisibility(View.VISIBLE);
+
+                if (serviceProvider !=ServiceProvider.PROVIDER_NONE){
+                    addToBillButton.setVisibility(View.VISIBLE);
+                    if(serviceProvider ==ServiceProvider.PROVIDER_MOBITEL){
+                        addToBillButton.setText("Add to Mobitel bill");
+                    }
+                    else if(serviceProvider ==ServiceProvider.PROVIDER_DIALOG){
+                        addToBillButton.setText("Add to Dialog bill");
+
+                    }
+                    else if(serviceProvider ==ServiceProvider.PROVIDER_ETISALAT){
+                        addToBillButton.setText("Add to Etisalat bill");
+
+                    }
+
+                }
+
+
+            }else{
+                btnDownload.setText("Download");
+                btnDownload.setVisibility(View.VISIBLE);
+
+            }
+
+        }
+        rateLayout.setVisibility(View.GONE);
 
         if(AppController.getInstance().isUserLogin() && audioBook.isPurchase()){
-            //previewPlayButton.setVisibility(View.GONE);
-            btnDownload.setText("Download");
-            btnDownload.setVisibility(View.VISIBLE);
-            if(audioBook.getChapters().size() == audioBook.getDownloadedChapter().size()){
-                btnDownload.setText("Play");
-            }
-//To do
-//            if(audioBook.getAudioFileCount() == audioBook.getDownloadedChapter().size()){
-//                btnDownload.setText("Play");
-//            }
-           // separator_top_rateLayout.setVisibility(View.VISIBLE);
             rateLayout.setVisibility(View.VISIBLE);
-           // AppController.getInstance().
             userRatingBar.setRating(0);
-            addToBillButton.setVisibility(View.GONE);
-            btnPayFromCard.setVisibility(View.GONE);
+
             TextView user_name=(TextView)findViewById(R.id.user_name);
             user_name.setText(AppController.getInstance().getUserName());
 
@@ -881,36 +910,6 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
                         .placeholder(R.drawable.ic_profile_default)
                         .into(profileImage);
             }
-
-
-        }else{
-            if(Float.parseFloat(audioBook.getPrice())>0) {
-                btnDownload.setVisibility(View.GONE);
-
-                if (serviceProvider !=ServiceProvider.PROVIDER_NONE){
-                    addToBillButton.setVisibility(View.VISIBLE);
-                    if(serviceProvider ==ServiceProvider.PROVIDER_MOBITEL){
-                        addToBillButton.setText("Add to Mobitel bill");
-                    }
-                    else if(serviceProvider ==ServiceProvider.PROVIDER_DIALOG){
-                        addToBillButton.setText("Add to Dialog bill");
-
-                    }
-                    else if(serviceProvider ==ServiceProvider.PROVIDER_ETISALAT){
-                        addToBillButton.setText("Add to Etisalat bill");
-
-                    }
-
-                }
-                btnPayFromCard.setVisibility(View.VISIBLE);
-
-
-            }else{
-                btnDownload.setText("Download");
-                btnDownload.setVisibility(View.VISIBLE);
-
-            }
-
         }
 
        // LinearLayout  btnShare=(LinearLayout)findViewById(R.id.shareLayout);

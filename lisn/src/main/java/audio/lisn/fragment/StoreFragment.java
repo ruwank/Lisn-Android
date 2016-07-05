@@ -232,7 +232,7 @@ public class StoreFragment extends Fragment implements  StoreBookViewAdapter.Sto
         params.put("cat", "" + bookCategory);
 
         String url = getString(R.string.book_category_url);
-
+Log.v(TAG,"params :"+params);
 
         JsonUTF8ArrayRequest bookListReq = new JsonUTF8ArrayRequest(Request.Method.POST,url, params,
                 new Response.Listener<JSONArray>() {

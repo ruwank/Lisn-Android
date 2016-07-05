@@ -104,7 +104,7 @@ public class FeedBackActivity extends AppCompatActivity {
             }
         }else{
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle(R.string.NO_INTERNET_TITLE).setMessage(getString(R.string.NO_ENOUGH_SPACE_MESSAGE)).setPositiveButton(
+            builder.setTitle(R.string.NO_INTERNET_TITLE).setMessage(getString(R.string.NO_INTERNET_MESSAGE)).setPositiveButton(
                     getString(R.string.BUTTON_OK), new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             // FIRE ZE MISSILES!

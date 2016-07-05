@@ -29,7 +29,7 @@ public class BookChapterListAdapter extends BaseAdapter {
     private BookChapterSelectListener listener;
     LanguageCode lanCode;
     AudioBook audioBook;
-
+    SelectedAction action;
     public BookChapterListAdapter(Context context, AudioBook audioBook) {
         this.bookChapters = audioBook.getChapters();
         this.context = context;
@@ -73,7 +73,7 @@ public class BookChapterListAdapter extends BaseAdapter {
             chapterTitle.setTypeface(CustomTypeFace.getEnglishTypeFace(context));
 
         }
-        final BookChapter bookChapter = bookChapters.get(position);
+         BookChapter bookChapter = bookChapters.get(position);
 
         String priceText="Free";
         String buyButtonText="Download";
@@ -81,6 +81,7 @@ public class BookChapterListAdapter extends BaseAdapter {
         String dirPath = AppUtils.getDataDirectory(context)
                 + audioBook.getBook_id()+File.separator;
         File file = new File(dirPath + bookChapter.getChapter_id() + ".lisn");
+        
         if (file.exists() && (audioBook.getDownloadedChapter().contains(bookChapter.getChapter_id()))) {
             buyButtonText="Play";
             action=SelectedAction.ACTION_PLAY;
@@ -102,12 +103,13 @@ public class BookChapterListAdapter extends BaseAdapter {
         chapterTitle.setText(bookChapter.getTitle());
         chapterPrice.setText(priceText);
         final SelectedAction finalAction = action;
+        final BookChapter selectedChapter=bookChapter;
         buyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 if(listener != null){
-                    listener.onBookChapterSelect(bookChapter,position, finalAction);
+                    listener.onBookChapterSelect(selectedChapter,position, finalAction);
                 }
             }
         });

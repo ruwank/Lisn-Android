@@ -572,7 +572,7 @@ if(currentAudioBook != null){
         Intent intentAlarm = new Intent(getApplicationContext(), ReminderReceiver.class);
 
         //3 days
-        long time=System.currentTimeMillis()+(1000*60*60*24*3);
+        long time=System.currentTimeMillis()+(1000*60*60*24*1);
 
         alarmManager.set(AlarmManager.RTC_WAKEUP, time, PendingIntent.getBroadcast(getApplicationContext(), 1, intentAlarm, PendingIntent.FLAG_UPDATE_CURRENT));
 

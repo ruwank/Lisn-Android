@@ -292,6 +292,14 @@ public class PlayerControllerActivity extends AppCompatActivity implements FileD
 Log.v(TAG,"chapterIndex"+chapterIndex);
                 BookChapter selectedChapter=audioBook.getChapters().get(chapterIndex);
                 if(selectedChapter.isPurchased() || audioBook.isTotalBookPurchased()){
+
+                    Log.v(TAG,"downloadAudioFile"+chapterIndex);
+
+                    downloadAudioFile();
+
+
+                }else{
+
                     if (selectedChapter.getPrice() > 0) {
                         Log.v(TAG,"showPaymentOptionPopupWindow"+chapterIndex);
                         new Analytic().analyticEvent(4, audioBook.getBook_id(), "" + selectedChapter.getChapter_id());
@@ -303,11 +311,6 @@ Log.v(TAG,"chapterIndex"+chapterIndex);
 
                         logUserDownload();
                     }
-                }else{
-                    Log.v(TAG,"downloadAudioFile"+chapterIndex);
-
-                    downloadAudioFile();
-
                 }
 
                 //  setBookTitle(position);

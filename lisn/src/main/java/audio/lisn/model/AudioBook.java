@@ -230,6 +230,14 @@ public Map<Integer,Integer> getRatingMap(){
             if(obj.has("content_rate") && obj.getString("content_rate") !=null) {
                 this.content_rate = obj.getString("content_rate");
             }
+            if(obj.has("purchased") && obj.getString("purchased") !=null){
+                String purchased=obj.getString("purchased");
+                if(Integer.parseInt(purchased) == 1){
+                    this.isTotalBookPurchased=true;
+                }
+
+            }
+
 //            if(obj.getString("downloads") !=null)
 //                this.downloads = obj.getString("downloads");
 //            Log.v("audio_file",""+obj.getString("audio_file"));
@@ -435,6 +443,7 @@ public Map<Integer,Integer> getRatingMap(){
             if(this.chapters != null){
                 returnBook.chapters=this.chapters;
             }
+            this.isTotalBookPurchased=returnBook.isTotalBookPurchased;
            // this.chapters=returnBook.getChapters();
             returnBook.setIsAwarded(this.isAwarded);
             //returnBook.setChapters(this.chapters);

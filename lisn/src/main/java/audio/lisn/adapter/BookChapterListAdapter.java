@@ -90,7 +90,8 @@ public class BookChapterListAdapter extends BaseAdapter {
 
                 priceText="Rs. "+bookChapter.getPrice();
 
-                if(!bookChapter.isPurchased()){
+                if(!(audioBook.isTotalBookPurchased() || bookChapter.isPurchased())){
+
                     buyButtonText="Buy";
                     action=SelectedAction.ACTION_PURCHASE;
                 }

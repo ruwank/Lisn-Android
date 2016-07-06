@@ -156,7 +156,7 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
     @Override
     public void onBookChapterSelect(BookChapter bookChapter, int index,AudioBook.SelectedAction action) {
 
-       // onBookChapterSelect
+        // onBookChapterSelect
         isSelectChapterBuyOption=true;
         selectedChapter=bookChapter;
         selectedChapterIndex=index;
@@ -187,7 +187,7 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
 
             }
             */
-           // downloadAudioFileFromUrl(index+1);
+            // downloadAudioFileFromUrl(index+1);
         }
 
     }
@@ -335,7 +335,7 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
     private void setServiceProvider(){
         TelephonyManager m_telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
 
-         this.subscriberId = m_telephonyManager.getSubscriberId();
+        this.subscriberId = m_telephonyManager.getSubscriberId();
         if (subscriberId != null) {
             if (subscriberId.startsWith("41301")) {
                 serviceProvider = ServiceProvider.PROVIDER_MOBITEL;
@@ -438,34 +438,34 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
             if (connectionDetector.isConnectingToInternet()) {
 
 
-        progressDialog.setMessage("Payment Processing...");
-        progressDialog.show();
-        String openIDConnectScopes = "openid phone";
-        String returnUri = getString(R.string.dialog_pay_url);
+                progressDialog.setMessage("Payment Processing...");
+                progressDialog.show();
+                String openIDConnectScopes = "openid phone";
+                String returnUri = getString(R.string.dialog_pay_url);
 
-        String authUri=getString(R.string.mconnect_url);//"https://mconnect.dialog.lk/openidconnect/authorize";
-        String clientId="y0erf48J8J_JFKuCrNM4TKfLxnAa";
-        String clientSecret="Y1FMDA3wtPT6dfMebci9lWUudnMa";
+                String authUri=getString(R.string.mconnect_url);//"https://mconnect.dialog.lk/openidconnect/authorize";
+                String clientId="y0erf48J8J_JFKuCrNM4TKfLxnAa";
+                String clientSecret="Y1FMDA3wtPT6dfMebci9lWUudnMa";
 
-        String state= UUID.randomUUID().toString();
-        String nonce=UUID.randomUUID().toString();
-        int maxAge=0;
-        String acrValues="2";
+                String state= UUID.randomUUID().toString();
+                String nonce=UUID.randomUUID().toString();
+                int maxAge=0;
+                String acrValues="2";
 
-        Authorization authorization=new Authorization();
+                Authorization authorization=new Authorization();
 
-        AuthorizationOptions authorizationOptions=new AuthorizationOptions();
-        authorizationOptions.setClaimsLocales("en");
-        authorizationOptions.setUILocales("en");
-        authorizationOptions.setLoginHint("+44");
+                AuthorizationOptions authorizationOptions=new AuthorizationOptions();
+                authorizationOptions.setClaimsLocales("en");
+                authorizationOptions.setUILocales("en");
+                authorizationOptions.setLoginHint("+44");
 
-        Prompt prompt= Prompt.LOGIN;
+                Prompt prompt= Prompt.LOGIN;
 
-        //prompt=Prompt.NONE;
-        authorizationOptions.setUILocales("");
+                //prompt=Prompt.NONE;
+                authorizationOptions.setUILocales("");
 
-        authorization.authorize(authUri, ResponseType.CODE, clientId, clientSecret, openIDConnectScopes, returnUri, state, nonce, prompt,
-                maxAge, acrValues, authorizationOptions, this /* listener */, this /* activity */);
+                authorization.authorize(authUri, ResponseType.CODE, clientId, clientSecret, openIDConnectScopes, returnUri, state, nonce, prompt,
+                        maxAge, acrValues, authorizationOptions, this /* listener */, this /* activity */);
             }else{
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -487,9 +487,10 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
     }
 
     private void showAudioPlayer(){
-
-        if(AppController.getInstance().getCurrentAudioBook() !=null) {
-            PlayerControllerActivity.navigate(AudioBookDetailActivity.this, playerControllerView, null,-1);
+        AudioBook audioBook=AppController.getInstance().getCurrentAudioBook();
+        Log.v(TAG,"SeekPoint"+audioBook.getLastSeekPoint());
+        if(audioBook !=null) {
+            PlayerControllerActivity.navigate(AudioBookDetailActivity.this, playerControllerView, audioBook,audioBook.getLastPlayFileIndex());
         }
 
     }
@@ -661,13 +662,31 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
             rateValue2.setText(""+audioBook.getReviews().size());
 
             //  rateValue1.setText(audioBook.getReviews().size());
-         //   rateValue2.setText(audioBook.getReviews().size());
+            //   rateValue2.setText(audioBook.getReviews().size());
+
+        }
+        if(audioBook.getContent_rate() != null ){
+            //G, PG, M, MA15+, R18+
+            if(audioBook.getContent_rate().equalsIgnoreCase("G")){
+
+            }
+            else if(audioBook.getContent_rate().equalsIgnoreCase("PG")){
+
+            }
+            else if(audioBook.getContent_rate().equalsIgnoreCase("M")){
+
+            }
+            else if(audioBook.getContent_rate().equalsIgnoreCase("MA15+")){
+
+            }
+            else if(audioBook.getContent_rate().equalsIgnoreCase("R18+")){
+
+            }
 
         }
 
-
         RatingBar ratingBar = (RatingBar) findViewById(R.id.rating_bar);
-       // LayerDrawable stars1 = (LayerDrawable) ratingBar.getProgressDrawable();
+        // LayerDrawable stars1 = (LayerDrawable) ratingBar.getProgressDrawable();
         //stars1.getDrawable(2).setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary), PorterDuff.Mode.SRC_ATOP);
 
 
@@ -761,16 +780,16 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
             BookChapterListAdapter adapter = new BookChapterListAdapter(this, audioBook);
 
             adapter.bookChapterViewSelectListener(this);
-        // Assign adapter to ListView
+            // Assign adapter to ListView
             chapterListView.setAdapter(adapter);
             expandablePanel.setContentHeight(getListViewHeightBasedOnChildren(chapterListView));
             expandablePanel.requestLayout();
 
         }else
-    {
-        expandablePanel.setVisibility(View.GONE);
+        {
+            expandablePanel.setVisibility(View.GONE);
 
-    }
+        }
 
         spinner = (ProgressBar)findViewById(R.id.progressBar);
 
@@ -786,18 +805,18 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
             descriptionTextView.setTypeface(CustomTypeFace.getSinhalaTypeFace(getApplicationContext()));
             title.setTypeface(CustomTypeFace.getSinhalaTypeFace(getApplicationContext()));
             author.setTypeface(CustomTypeFace.getSinhalaTypeFace(getApplicationContext()));
-          //  category.setTypeface(CustomTypeFace.getSinhalaTypeFace(getApplicationContext()));
+            //  category.setTypeface(CustomTypeFace.getSinhalaTypeFace(getApplicationContext()));
             narrator.setTypeface(CustomTypeFace.getSinhalaTypeFace(getApplicationContext()));
-           // duration.setTypeface(CustomTypeFace.getSinhalaTypeFace(getApplicationContext()));
+            // duration.setTypeface(CustomTypeFace.getSinhalaTypeFace(getApplicationContext()));
             narratorText=getString(R.string.narrator_si);
             durationText=getString(R.string.duration_si);
         }else{
             descriptionTextView.setTypeface(CustomTypeFace.getEnglishTypeFace(getApplicationContext()));
             title.setTypeface(CustomTypeFace.getEnglishTypeFace(getApplicationContext()));
             author.setTypeface(CustomTypeFace.getEnglishTypeFace(getApplicationContext()));
-           // category.setTypeface(CustomTypeFace.getEnglishTypeFace(getApplicationContext()));
+            // category.setTypeface(CustomTypeFace.getEnglishTypeFace(getApplicationContext()));
             narrator.setTypeface(CustomTypeFace.getEnglishTypeFace(getApplicationContext()));
-          //  duration.setTypeface(CustomTypeFace.getEnglishTypeFace(getApplicationContext()));
+            //  duration.setTypeface(CustomTypeFace.getEnglishTypeFace(getApplicationContext()));
 
             narratorText=getString(R.string.narrator_en);
             durationText=getString(R.string.duration_en);
@@ -810,7 +829,7 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
 
         if(Float.parseFloat(audioBook.getRate())>-1){
             ratingBar.setRating(Float.parseFloat(audioBook.getRate()));
-           // ratingValue.setText(String.format("%.1f", Float.parseFloat(audioBook.getRate())));
+            // ratingValue.setText(String.format("%.1f", Float.parseFloat(audioBook.getRate())));
 
             reviewRatingBar.setRating(Float.parseFloat(audioBook.getRate()));
             reviewRatingValue.setText(String.format("%.1f", Float.parseFloat(audioBook.getRate())));
@@ -824,10 +843,10 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
         author.setText(audioBook.getAuthor());
         //category.setText(audioBook.getCategory());
         narrator.setText(narratorText);
-       // fileSize.setText(audioBook.getFileSize()+" Mb");
-       // price.setText(priceText);
+        // fileSize.setText(audioBook.getFileSize()+" Mb");
+        // price.setText(priceText);
         title.setText(audioBook.getTitle());
-       // duration.setText(durationText);
+        // duration.setText(durationText);
         if(audioBook.getDescription() !=null && audioBook.getDescription().length()>1){
             description.setText(audioBook.getDescription());
             description.setVisibility(View.VISIBLE);
@@ -849,11 +868,11 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
 
         if(AppController.getInstance().isUserLogin() && audioBook.isTotalBookPurchased()){
             //previewPlayButton.setVisibility(View.GONE);
-                btnDownload.setText("Download");
-                btnDownload.setVisibility(View.VISIBLE);
-                if (audioBook.getChapters().size() == audioBook.getDownloadedChapter().size()) {
-                    btnDownload.setText("Play");
-                }
+            btnDownload.setText("Download");
+            btnDownload.setVisibility(View.VISIBLE);
+            if (audioBook.getChapters().size() == audioBook.getDownloadedChapter().size()) {
+                btnDownload.setText("Play");
+            }
 
 
         }else{
@@ -912,10 +931,10 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
             }
         }
 
-       // LinearLayout  btnShare=(LinearLayout)findViewById(R.id.shareLayout);
+        // LinearLayout  btnShare=(LinearLayout)findViewById(R.id.shareLayout);
 
 
-       LinearLayout shareLayout=(LinearLayout)findViewById(R.id.shareLayout);
+        LinearLayout shareLayout=(LinearLayout)findViewById(R.id.shareLayout);
         shareLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -941,7 +960,7 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
 
 
 
-            int reviewsCount=0;
+        int reviewsCount=0;
 
         if(audioBook.getReviews() !=null)
             reviewsCount=audioBook.getReviews().size();
@@ -966,7 +985,7 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
         });
 
 
-       // btnReview.setText(""+reviewsCount);
+        // btnReview.setText(""+reviewsCount);
 
 
         TextView allReviews=(TextView)findViewById(R.id.all_reviews);
@@ -1003,8 +1022,8 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
 
 
 //for testing
-      //  addToBillButton.setVisibility(View.GONE);
-      //  btnPayFromCard.setVisibility(View.GONE);
+        //  addToBillButton.setVisibility(View.GONE);
+        //  btnPayFromCard.setVisibility(View.GONE);
 
 
 
@@ -1043,7 +1062,7 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
             }
         }
 
-       return totalHeight;
+        return totalHeight;
     }
     private void stopDownload(){
         for (int i = 0; i < downloadingList.size(); i++) {
@@ -1056,7 +1075,7 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
     private ValueBar setPropertyToValueBar(ValueBar valueBar){
 
         int maxValue =Collections.max(audioBook.getRatingMap().values());
-Log.v(TAG,"maxValue :"+maxValue);
+        Log.v(TAG,"maxValue :"+maxValue);
         valueBar.setMinMax(0, maxValue);
         valueBar.setInterval(1f); // interval in which can be selected
         valueBar.setDrawBorder(false);
@@ -1093,7 +1112,7 @@ Log.v(TAG,"maxValue :"+maxValue);
 //    }
 
 
-//    private void playPreviewButtonPressed(){
+    //    private void playPreviewButtonPressed(){
 //        if (audioBook.getPreview_audio() !=null && (audioBook.getPreview_audio().length()>0)) {
 //            boolean stopPlayer = false;
 //            if(isLoadingPreview || isPlayingPreview ){
@@ -1195,7 +1214,7 @@ Log.v(TAG,"maxValue :"+maxValue);
         }
         DownloadedAudioBook downloadedAudioBook = new DownloadedAudioBook(
                 getApplicationContext());
-       // downloadedAudioBook.readFileFromDisk(getApplicationContext());
+        // downloadedAudioBook.readFileFromDisk(getApplicationContext());
         downloadedAudioBook.addBookToList(getApplicationContext(),
                 audioBook.getBook_id(), audioBook);
 
@@ -1289,7 +1308,7 @@ Log.v(TAG,"maxValue :"+maxValue);
                     new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                     REQUEST_WRITE_STORAGE);
         }else {
-           // previousDownloadedFileCount = downloadedFileCount;
+            // previousDownloadedFileCount = downloadedFileCount;
             String dirPath = AppUtils.getDataDirectory(getApplicationContext())
                     + audioBook.getBook_id() + File.separator;
             File fileDir = new File(dirPath);
@@ -1301,8 +1320,8 @@ Log.v(TAG,"maxValue :"+maxValue);
             if (connectionDetector.isConnectingToInternet()) {
 
                 mProgressDialog.show();
-               // downloadedFileCount = 0;
-               // totalAudioFileCount = 0;
+                // downloadedFileCount = 0;
+                // totalAudioFileCount = 0;
                 downloadingList.clear();
                 boolean isDownloading=false;
                 String chapterName="";
@@ -1344,25 +1363,25 @@ Log.v(TAG,"maxValue :"+maxValue);
                         stopDownload();
 
 
-                                if (!isFinishing()) {
+                        if (!isFinishing()) {
 
-                                    AlertDialog.Builder builder = new AlertDialog.Builder(
-                                            this);
-                                    builder.setTitle(R.string.NO_ENOUGH_SPACE_TITLE).setMessage(R.string.NO_ENOUGH_SPACE_MESSAGE).setPositiveButton(
-                                            R.string.BUTTON_OK, new DialogInterface.OnClickListener() {
-                                                public void onClick(DialogInterface dialog, int id) {
-                                                    // FIRE ZE MISSILES!
-                                                }
-                                            });
-                                    AlertDialog dialog = builder.create();
-                                    dialog.show();
+                            AlertDialog.Builder builder = new AlertDialog.Builder(
+                                    this);
+                            builder.setTitle(R.string.NO_ENOUGH_SPACE_TITLE).setMessage(R.string.NO_ENOUGH_SPACE_MESSAGE).setPositiveButton(
+                                    R.string.BUTTON_OK, new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            // FIRE ZE MISSILES!
+                                        }
+                                    });
+                            AlertDialog dialog = builder.create();
+                            dialog.show();
 
-                                }
+                        }
 
 
                     } else {
 
-                       // mProgressDialog.setMessage("Downloading " + (audioBook.getDownloadedChapter().size() + 1) + " of " + audioBook.getChapters().size());
+                        // mProgressDialog.setMessage("Downloading " + (audioBook.getDownloadedChapter().size() + 1) + " of " + audioBook.getChapters().size());
                         mProgressDialog.setMessage("Downloading " +chapterName);
                     }
                 }
@@ -1603,7 +1622,7 @@ Log.v(TAG,"maxValue :"+maxValue);
     private void addToMyBillButtonPressed(){
 
         if(!isSelectChapterBuyOption)
-        new Analytic().analyticEvent(4, audioBook.getBook_id(), "0");
+            new Analytic().analyticEvent(4, audioBook.getBook_id(), "0");
 
         if(isMobileDataEnable()) {
             if (serviceProvider == ServiceProvider.PROVIDER_MOBITEL) {
@@ -1622,7 +1641,7 @@ Log.v(TAG,"maxValue :"+maxValue);
         }else{
 
             SharedPreferences sharedPref =getApplicationContext().getSharedPreferences(
-            getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+                    getString(R.string.preference_file_key), Context.MODE_PRIVATE);
             String provider = sharedPref.getString(getString(R.string.service_provider), "");
 
             if(provider.equalsIgnoreCase(subscriberId)) {
@@ -1655,14 +1674,14 @@ Log.v(TAG,"maxValue :"+maxValue);
     }
     private void updateServiceProviderData(){
 
-if(subscriberId != null) {
-    SharedPreferences sharedPref = getApplicationContext().getSharedPreferences(
-            getString(R.string.preference_file_key), Context.MODE_PRIVATE);
-    SharedPreferences.Editor editor = sharedPref.edit();
+        if(subscriberId != null) {
+            SharedPreferences sharedPref = getApplicationContext().getSharedPreferences(
+                    getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPref.edit();
 
-    editor.putString(getString(R.string.service_provider), subscriberId);
-    editor.commit();
-}
+            editor.putString(getString(R.string.service_provider), subscriberId);
+            editor.commit();
+        }
     }
     private boolean isMobileDataEnable(){
 
@@ -1741,7 +1760,7 @@ if(subscriberId != null) {
                             Log.v("addToBillServerConnect", "addToBillServerConnect 3");
 
 
-                                info=info+",success";
+                            info=info+",success";
                             new Analytic().analyticEvent(8, audioBook.getBook_id(), info);
 
                             updateAudioBookSuccessPayment();
@@ -1766,7 +1785,7 @@ if(subscriberId != null) {
                             info=info+",already_paid";
                             new Analytic().analyticEvent(8, audioBook.getBook_id(), info);
                             //audioBook.setPurchase(true);
-                           // updateAudioBook(0);
+                            // updateAudioBook(0);
                             updateAudioBookSuccessPayment();
 
                             AlertDialog.Builder builder = new AlertDialog.Builder(AudioBookDetailActivity.this);
@@ -2012,10 +2031,10 @@ if(subscriberId != null) {
                                     String provider = sharedPref.getString(getString(R.string.service_provider),"");
 
                                     if(provider.equalsIgnoreCase(subscriberId) || dialogNo.length()>10) {
-                                    addToBillServerConnect();
-                                }else{
-                                    getDialogMobileNumber();
-                                }
+                                        addToBillServerConnect();
+                                    }else{
+                                        getDialogMobileNumber();
+                                    }
                                 }
                             })
                             .setNegativeButton(getString(R.string.BUTTON_CANCEL), new DialogInterface.OnClickListener() {
@@ -2235,9 +2254,9 @@ if(subscriberId != null) {
                     downloadedFileCount++;
                     if (result == null) {
                         updateAudioBook(Integer.parseInt(file_name));
-                       // if (totalAudioFileCount == downloadedFileCount) {
-                            downloadAudioFile();
-                       // }
+                        // if (totalAudioFileCount == downloadedFileCount) {
+                        downloadAudioFile();
+                        // }
                     }
                 }
             }
@@ -2359,8 +2378,8 @@ if(subscriberId != null) {
         bookReview.setUserId(AppController.getInstance().getUserId());
         bookReview.setUserName(AppController.getInstance().getUserName());
 
-            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            Date date = new Date();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = new Date();
         bookReview.setTimeString(dateFormat.format(date));
 
 
@@ -2562,47 +2581,47 @@ if(subscriberId != null) {
 //            }
         }
     };
-/*
-    private class DownloadReceiver extends ResultReceiver {
-        public DownloadReceiver(Handler handler) {
-            super(handler);
-        }
+    /*
+        private class DownloadReceiver extends ResultReceiver {
+            public DownloadReceiver(Handler handler) {
+                super(handler);
+            }
 
-        @Override
-        protected void onReceiveResult(int resultCode, Bundle resultData) {
-            super.onReceiveResult(resultCode, resultData);
-            if (resultCode == DownloadService.UPDATE_PROGRESS) {
-                Log.v("DownloadService","DownloadService :"+resultData);
-                int progress = resultData.getInt("progress");
-
-
-                String result=resultData.getString("result");
-                String file_name=resultData.getString("file_name");
+            @Override
+            protected void onReceiveResult(int resultCode, Bundle resultData) {
+                super.onReceiveResult(resultCode, resultData);
+                if (resultCode == DownloadService.UPDATE_PROGRESS) {
+                    Log.v("DownloadService","DownloadService :"+resultData);
+                    int progress = resultData.getInt("progress");
 
 
-                    if (result != null && result.equalsIgnoreCase("UNAUTHORISED")){
-                        showMessage("UNAUTHORISED");
+                    String result=resultData.getString("result");
+                    String file_name=resultData.getString("file_name");
 
-                    }else if(result != null && result.equalsIgnoreCase("NOTFOUND")){
-                        showMessage("NOTFOUND");
 
-                    }else if(result != null && result.equalsIgnoreCase("OK")){
-                        Log.v("DownloadService","DownloadService getDownloadedChapter :"+audioBook.getDownloadedChapter().size());
+                        if (result != null && result.equalsIgnoreCase("UNAUTHORISED")){
+                            showMessage("UNAUTHORISED");
 
-                        mProgressDialog.setMessage("Downloading " + (audioBook.getDownloadedChapter().size() + 1) + " of " + audioBook.getChapters().size());
+                        }else if(result != null && result.equalsIgnoreCase("NOTFOUND")){
+                            showMessage("NOTFOUND");
 
-                        downloadedFileCount++;
-                            updateAudioBook(Integer.parseInt(file_name));
+                        }else if(result != null && result.equalsIgnoreCase("OK")){
+                            Log.v("DownloadService","DownloadService getDownloadedChapter :"+audioBook.getDownloadedChapter().size());
 
-                            if (totalAudioFileCount == downloadedFileCount) {
-                                updateData();
-                                downloadAudioFile();
-                            }
-                    }
+                            mProgressDialog.setMessage("Downloading " + (audioBook.getDownloadedChapter().size() + 1) + " of " + audioBook.getChapters().size());
+
+                            downloadedFileCount++;
+                                updateAudioBook(Integer.parseInt(file_name));
+
+                                if (totalAudioFileCount == downloadedFileCount) {
+                                    updateData();
+                                    downloadAudioFile();
+                                }
+                        }
+                }
             }
         }
-    }
-    */
+        */
 //    private void pausePlayer() {
 //        Intent intent = new Intent(Constants.PLAYER_STATE_CHANGE);
 //        intent.putExtra("state", "pause");

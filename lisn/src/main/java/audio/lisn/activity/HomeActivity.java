@@ -63,6 +63,7 @@ import audio.lisn.fragment.HomeFragment;
 import audio.lisn.fragment.MyBookFragment;
 import audio.lisn.fragment.StoreBaseFragment;
 import audio.lisn.fragment.StoreFragment;
+import audio.lisn.model.AudioBook;
 import audio.lisn.model.BookCategory;
 import audio.lisn.util.AudioPlayerService;
 import audio.lisn.util.Constants;
@@ -159,10 +160,14 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         }
     }
     private void showAudioPlayer(){
-        if(AppController.getInstance().getCurrentAudioBook() !=null) {
-
-            PlayerControllerActivity.navigate(this, playerControllerView, null,-1);
+        AudioBook audioBook=AppController.getInstance().getCurrentAudioBook();
+        if(audioBook !=null) {
+            PlayerControllerActivity.navigate(this, playerControllerView, audioBook,audioBook.getLastPlayFileIndex());
         }
+//        if(AppController.getInstance().getCurrentAudioBook() !=null) {
+//
+//            PlayerControllerActivity.navigate(this, playerControllerView, null,-1);
+//        }
 
     }
 

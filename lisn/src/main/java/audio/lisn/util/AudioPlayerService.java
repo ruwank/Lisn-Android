@@ -307,6 +307,10 @@ public class AudioPlayerService extends Service implements Runnable, OnCompletio
     }
     public  void setSeekPosition(int position){
         seekPosition=position;
+        if (mediaPlayer != null && mState != State.Stopped) {
+            Log.v(TAG,"seekPosition:"+seekPosition);
+                mediaPlayer.seekTo(seekPosition);
+            }
 
     }
 

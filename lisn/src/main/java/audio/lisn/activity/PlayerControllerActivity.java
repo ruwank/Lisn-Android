@@ -269,7 +269,7 @@ public class PlayerControllerActivity extends AppCompatActivity implements FileD
 
 
 
-        mAdapter = new CoverFlowAdapter(this,audioBook.getBook_id());
+        mAdapter = new CoverFlowAdapter(this,audioBook);
         mAdapter.setData(audioBook.getChapters());
         mCoverFlow = (FancyCoverFlow) findViewById(R.id.coverflow);
         mCoverFlow.setAdapter(mAdapter);

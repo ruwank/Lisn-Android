@@ -28,6 +28,7 @@ import java.util.List;
 import at.technikum.mti.fancycoverflow.FancyCoverFlow;
 import at.technikum.mti.fancycoverflow.FancyCoverFlowAdapter;
 import audio.lisn.R;
+import audio.lisn.model.AudioBook;
 import audio.lisn.model.BookChapter;
 import audio.lisn.util.AppUtils;
 import audio.lisn.util.Log;
@@ -39,11 +40,11 @@ public class CoverFlowAdapter extends FancyCoverFlowAdapter {
 	private Context mContext;
     int coverFlowWidth=0;
     int coverFlowHeight=0;
-    String bookId;
+    AudioBook audioBook;
 
-	public CoverFlowAdapter(Context context,String bookId) {
+	public CoverFlowAdapter(Context context,AudioBook audioBook) {
 		mContext = context;
-        this.bookId=bookId;
+        this.audioBook=audioBook;
         WindowManager wm = (WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE);
         Display display = wm.getDefaultDisplay();
         Point size = new Point();
@@ -90,7 +91,7 @@ public class CoverFlowAdapter extends FancyCoverFlowAdapter {
          customViewGroup.getImageView().setImageBitmap(null);
 
         String img_path = AppUtils.getDataDirectory(customViewGroup.getImageView().getContext())
-                + bookId+ File.separator+"book_cover.jpg";
+                + audioBook.getBook_id()+ File.separator+"book_cover.jpg";
 
 
         File imgFile = new  File(img_path);
@@ -104,7 +105,7 @@ public class CoverFlowAdapter extends FancyCoverFlowAdapter {
 
         }
         String dirPath = AppUtils.getDataDirectory(mContext)
-                + bookId+ File.separator;
+                + audioBook.getBook_id()+ File.separator;
         File file = new File(dirPath +(bookChapter.getChapter_id())+".lisn");
 
 
@@ -118,7 +119,7 @@ public class CoverFlowAdapter extends FancyCoverFlowAdapter {
 
             if( bookChapter.getPrice()>0 ){
 
-                if(!bookChapter.isPurchased()){
+                if(!(audioBook.isTotalBookPurchased() || bookChapter.isPurchased())){
                     buyButtonText="Buy";
                 }
 

@@ -143,23 +143,30 @@ public class PlayerControllerActivity extends AppCompatActivity implements FileD
 
         connectionDetector = new ConnectionDetector(getApplicationContext());
 
+        boolean reStartPlayer=true;
         if (this.getIntent().getExtras() != null && this.getIntent().getExtras().containsKey("audioBook")) {
             audioBook = (AudioBook) getIntent().getSerializableExtra("audioBook");
             Log.v(TAG, "if size: " + audioBook.getChapters().size());
-
+            reStartPlayer=false;
+            chapterIndex=getIntent().getIntExtra("chapterIndex",0);
+            updateAudioBook();
+            setupData();
+            downloadAudioFile();
             //updateAudioBook();
            // downloadAudioFile();
         }else{
             audioBook = AppController.getInstance().getCurrentAudioBook();
+            chapterIndex=audioBook.getLastPlayFileIndex();
+            setupData();
+            updateView();
             Log.v(TAG, "else size: " + audioBook.getChapters().size());
 
         }
-        chapterIndex=getIntent().getIntExtra("chapterIndex",0);
         Log.v(TAG, "chapterIndex " + chapterIndex);
-        setupData();
-        updateAudioBook();
-        downloadAudioFile();
-       // setBookTitle();
+
+       // mCoverFlow.setSelection(chapterIndex);
+
+        // setBookTitle();
         bookTitleView= (TextView) findViewById(R.id.book_title);
 
         if(audioBook.getLanguageCode() == AudioBook.LanguageCode.LAN_SI){
@@ -207,7 +214,6 @@ public class PlayerControllerActivity extends AppCompatActivity implements FileD
                 audioBook.setLastSeekPoint(0);
 
             }
-            mCoverFlow.setSelection(chapterIndex);
         }
     }
 

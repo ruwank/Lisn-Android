@@ -37,7 +37,7 @@ public class AudioPlayerService extends Service implements Runnable, OnCompletio
     public static int seekPosition;
     public static int audioDuration;
     Thread timerUpdateThread;
-
+    boolean keepRunning;
     private MediaNotificationManager mMediaNotificationManager;
 
     // indicates the state our service:
@@ -82,23 +82,23 @@ public class AudioPlayerService extends Service implements Runnable, OnCompletio
     }
 
 
-	  @Override
-	  public void onCreate() {
-		  if (mediaPlayer != null) {  
-			  mediaPlayer.reset();  
-			  mediaPlayer.release();
-			  mediaPlayer = null;
-	        }
-          createPlayer();
-          mAudioFocusHelper = new AudioFocusHelper(getApplicationContext(), this);
+    @Override
+    public void onCreate() {
+        if (mediaPlayer != null) {
+            mediaPlayer.reset();
+            mediaPlayer.release();
+            mediaPlayer = null;
+        }
+        createPlayer();
+        mAudioFocusHelper = new AudioFocusHelper(getApplicationContext(), this);
 
-          // Register mMessageReceiver to receive messages.
-          LocalBroadcastManager.getInstance(this).registerReceiver(mStateChangeReceiver,
-                  new IntentFilter(Constants.PLAYER_STATE_CHANGE));
-          mMediaNotificationManager = new MediaNotificationManager(this);
+        // Register mMessageReceiver to receive messages.
+        LocalBroadcastManager.getInstance(this).registerReceiver(mStateChangeReceiver,
+                new IntentFilter(Constants.PLAYER_STATE_CHANGE));
+        mMediaNotificationManager = new MediaNotificationManager(this);
 
 
-      }
+    }
     private void createPlayer(){
         mediaPlayer = new MediaPlayer();
 	        /*  */
@@ -108,66 +108,66 @@ public class AudioPlayerService extends Service implements Runnable, OnCompletio
 
         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
     }
-	  private void playDecodedAudioFile(byte[] mp3SoundByteArray) {
-		    try {
-        Log.v("playDecodedAudioFile","playDecodedAudioFile:");
-                //int fileIndex= AppController.getInstance().fileIndex;
-		        // create temp file that will hold byte array
-		        File tempMp3 = File.createTempFile("audiobook", "mp3", getCacheDir());
-		        tempMp3.deleteOnExit();
-		        FileOutputStream fos = new FileOutputStream(tempMp3);
-		        fos.write(mp3SoundByteArray);
-		        fos.close();
-		        
+    private void playDecodedAudioFile(byte[] mp3SoundByteArray) {
+        try {
+            Log.v(TAG,"playDecodedAudioFile:");
+            //int fileIndex= AppController.getInstance().fileIndex;
+            // create temp file that will hold byte array
+            File tempMp3 = File.createTempFile("audiobook", "mp3", getCacheDir());
+            tempMp3.deleteOnExit();
+            FileOutputStream fos = new FileOutputStream(tempMp3);
+            fos.write(mp3SoundByteArray);
+            fos.close();
 
-		        FileInputStream fis = new FileInputStream(tempMp3);
-		        mediaPlayer.setDataSource(fis.getFD());
-                mediaPlayer.prepareAsync();
 
-		    } catch (Exception ex) {
-                Log.v("playDecodedAudioFile","playDecodedAudioFile Exception: "+ex.toString());
+            FileInputStream fis = new FileInputStream(tempMp3);
+            mediaPlayer.setDataSource(fis.getFD());
+            mediaPlayer.prepareAsync();
 
-		        String s = ex.toString();
-		        ex.printStackTrace();
-                Log.v("play Exception", ex.toString());
+        } catch (Exception ex) {
+            Log.v(TAG,"playDecodedAudioFile Exception: "+ex.toString());
 
+            String s = ex.toString();
+            ex.printStackTrace();
+            Log.v(TAG, ex.toString());
+
+        }
+    }
+
+    private void playAudioBook(String filePath){
+        //String filePath=AppUtils.getDataDirectory(getApplicationContext())+audioBook.getISBN()+"/1.mp3";
+        hasStartedPlayer=true;
+        byte[] contents = null;
+
+        File file = new File(filePath);
+        int size = (int) file.length();
+        contents = new byte[size];
+        try {
+            BufferedInputStream buf = new BufferedInputStream(
+                    new FileInputStream(file));
+            try {
+                buf.read(contents);
+                buf.close();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-		}
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        try {
+            byte[] decodedData = AppUtils.decodeFile(contents);
+            playDecodedAudioFile(decodedData);
+        } catch (Exception e) {
+            Log.v(TAG, e.toString());
+            e.printStackTrace();
+        }
+    }
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
 
-	  private void playAudioBook(String filePath){
-			//String filePath=AppUtils.getDataDirectory(getApplicationContext())+audioBook.getISBN()+"/1.mp3";
-          hasStartedPlayer=true;
-			byte[] contents = null;
-			 
-	        File file = new File(filePath);
-	        int size = (int) file.length();
-	        contents = new byte[size];
-	        try {
-	            BufferedInputStream buf = new BufferedInputStream(
-	                    new FileInputStream(file));
-	            try {
-	                buf.read(contents);
-	                buf.close();
-	            } catch (IOException e) {
-	                e.printStackTrace();
-	            }
-	        } catch (FileNotFoundException e) {
-	            e.printStackTrace();
-	        }
-	        try {
-				byte[] decodedData = AppUtils.decodeFile(contents);
-                playDecodedAudioFile(decodedData);
-			} catch (Exception e) {
-                Log.v("playAudioBook Exception", e.toString());
-				e.printStackTrace();
-			}
-		}
-	  @Override
-	  public int onStartCommand(Intent intent, int flags, int startId) {
 
-	    
-	    return START_STICKY;
-	  }
+        return START_STICKY;
+    }
     void tryToGetAudioFocus() {
         if (mAudioFocus != AudioFocus.Focused && mAudioFocusHelper != null
                 && mAudioFocusHelper.requestFocus())
@@ -178,76 +178,71 @@ public class AudioPlayerService extends Service implements Runnable, OnCompletio
                 && mAudioFocusHelper.abandonFocus())
             mAudioFocus = AudioFocus.NoFocusNoDuck;
     }
-	  public void onDestroy() {
-	    if (mediaPlayer!=null  && mediaPlayer.isPlaying()) {
-	      mediaPlayer.stop();
-	      mediaPlayer.release();
-	    }
-          stopForeground(true);
-	    mediaPlayer=null;
-          giveUpAudioFocus();
-          mState = State.Stopped;
-          LocalBroadcastManager.getInstance(this).unregisterReceiver(mStateChangeReceiver);
-          if( timerUpdateThread != null ) {
-              timerUpdateThread.interrupt();
-          }
-      }
+    public void onDestroy() {
+        if (mediaPlayer!=null  && mediaPlayer.isPlaying()) {
+            mediaPlayer.stop();
+            mediaPlayer.release();
+        }
+        stopForeground(true);
+        mediaPlayer=null;
+        giveUpAudioFocus();
+        mState = State.Stopped;
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mStateChangeReceiver);
+        stopThread();
+    }
 
 
-	  @Override  
-	    public void run() {  
-	        int currentPosition = 0;//   
-	        while (mediaPlayer != null && currentPosition < mediaPlayer.getDuration()) {
-	            try {  
-	                Thread.sleep(1000);  
+    @Override
+    public void run() {
+        int currentPosition = 0;//
+        while (keepRunning && mediaPlayer != null && currentPosition < mediaPlayer.getDuration()) {
+            try {
+                Thread.sleep(1000);
 
-	            } catch (InterruptedException e) {  
-	                e.printStackTrace();  
-	            }
-                sendMessage();
-	        }
-	  
-	    }  
-	  
-	   
-	  public void onCompletion(MediaPlayer mp) {
-          mState = State.Stopped;
+            } catch (InterruptedException e) {
+                Log.v(TAG,"InterruptedException: "+e.getMessage());
+                e.printStackTrace();
+            }
+            sendMessage();
+        }
 
-          if( timerUpdateThread != null ) {
-              timerUpdateThread.interrupt();
-          }
+    }
 
-          if(mp.getCurrentPosition()>1){
-              AppController.getInstance().playNextFile();
-          }
-          updatePlaybackState();
-         Log.v("onCompletion", " position" + mp.getCurrentPosition());
 
-	  }
+    public void onCompletion(MediaPlayer mp) {
+        mState = State.Stopped;
 
-	@Override
-	public void onPrepared(MediaPlayer player) {
+        stopThread();
+
+        if(mp.getCurrentPosition()>1){
+            AppController.getInstance().playNextFile();
+        }
+        updatePlaybackState();
+        Log.v(TAG,"onCompletion position" + mp.getCurrentPosition());
+
+    }
+
+    @Override
+    public void onPrepared(MediaPlayer player) {
 
         if(player != null && player.getDuration()>0){
-            Log.v("onPrepared","player duration "+player.getDuration());
-            Log.v("onPrepared","seekPosition "+seekPosition);
+            Log.v(TAG,"onPrepared player duration "+player.getDuration());
+            Log.v(TAG, "onPrepared seekPosition "+seekPosition);
             hasStartedPlayer=true;
             audioDuration=player.getDuration();
             tryToGetAudioFocus();
             player.start();
             player.seekTo(seekPosition);
 
-            if( timerUpdateThread != null ) {
-                timerUpdateThread.interrupt();
-            }
-                timerUpdateThread = new Thread( this );
-                timerUpdateThread.start();
-
+            stopThread();
+            keepRunning=true;
+            timerUpdateThread = new Thread(this );
+            timerUpdateThread.start();
 
             mState = State.Playing;
 
         }else{
-            Log.v("onPrepared", "player");
+            Log.v(TAG, "onPrepared player");
         }
         updatePlaybackState();
 
@@ -258,9 +253,9 @@ public class AudioPlayerService extends Service implements Runnable, OnCompletio
 
     @Override
     public boolean onError(MediaPlayer mp, int what, int extra) {
-        Log.v("onError","onError");
-        Log.v("onError", "onError " + mp.getDuration());
-      //  mp.stop();
+        Log.v(TAG,"onError");
+        Log.v(TAG, "onError " + mp.getDuration());
+        //  mp.stop();
         updatePlaybackState();
         return false;
     }
@@ -269,7 +264,7 @@ public class AudioPlayerService extends Service implements Runnable, OnCompletio
 
     public void updatePlaybackState() {
         if (mState ==State.Playing || mState==State.Paused ){
-            Log.v("updatePlaybackState", "mState :" + mState);
+            Log.v(TAG,"updatePlaybackState mState :" + mState);
             mMediaNotificationManager.startNotification();
             sendMessage();
         }else{
@@ -280,18 +275,22 @@ public class AudioPlayerService extends Service implements Runnable, OnCompletio
     }
 
     @Override
-	public void onBufferingUpdate(MediaPlayer mp, int percent) {
+    public void onBufferingUpdate(MediaPlayer mp, int percent) {
 
-	}
-    public  void playAudioFile(String filePath){
-        Log.v("playAudioFile ","filePath: "+filePath);
+    }
+    public  void playAudioFile(String filePath, int seekPoint){
+        seekPosition=seekPoint;
+        Log.v(TAG,"playAudioFile filePath: "+filePath);
+        if( timerUpdateThread != null ) {
+            timerUpdateThread.interrupt();
+        }
         if (mediaPlayer != null) {
             mediaPlayer.reset();
             playAudioBook(filePath);
         }else {
             createPlayer();
             playAudioBook(filePath);
-            Log.v("playAudioFile ","filePath mediaPlayer null: "+filePath);
+            Log.v(TAG,"playAudioFile filePath mediaPlayer null: "+filePath);
 
         }
 
@@ -307,10 +306,11 @@ public class AudioPlayerService extends Service implements Runnable, OnCompletio
     }
     public  void setSeekPosition(int position){
         seekPosition=position;
-        if (mediaPlayer != null && mState != State.Stopped) {
-            Log.v(TAG,"seekPosition:"+seekPosition);
-                mediaPlayer.seekTo(seekPosition);
-            }
+        Log.v(TAG,"setSeekPosition seekPosition:"+seekPosition);
+//        if (mediaPlayer != null && mState != State.Stopped) {
+//            Log.v(TAG,"seekPosition:"+seekPosition);
+//                mediaPlayer.seekTo(seekPosition);
+//            }
 
     }
 
@@ -338,8 +338,36 @@ public class AudioPlayerService extends Service implements Runnable, OnCompletio
             Intent intent = new Intent(Constants.PLAYER_STATE_UPDATE);
             LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
         }else{
-          //  stopForeground(true);
+            //  stopForeground(true);
         }
+    }
+    private void stopThread(){
+        keepRunning=false;
+        if( timerUpdateThread != null ) {
+            timerUpdateThread.interrupt();
+            timerUpdateThread=null;
+        }
+    }
+    private  void startPlayer(){
+        Log.v(TAG,"startPlayer");
+
+        stopThread();
+        keepRunning=true;
+        timerUpdateThread = new Thread( this );
+        timerUpdateThread.start();
+        mediaPlayer.start();
+    }
+
+    private void pausePlayer(){
+        Log.v(TAG,"pausePlayer");
+        stopThread();
+        mediaPlayer.pause();
+    }
+    private void stopPlayer(){
+        Log.v(TAG,"stopPlayer");
+
+        stopThread();
+        mediaPlayer.stop();
     }
     private void configAndStartMediaPlayer() {
         if (mAudioFocus == AudioFocus.NoFocusNoDuck) {
@@ -350,18 +378,18 @@ public class AudioPlayerService extends Service implements Runnable, OnCompletio
             return;
         } else if (mAudioFocus == AudioFocus.NoFocusCanDuck) {
             if (mediaPlayer.isPlaying()){
-                mediaPlayer.pause();
+                pausePlayer();
 
-        }
-        else {
-            mediaPlayer.start();
-        }
-    }else{
+            }
+            else {
+                startPlayer();
+            }
+        }else{
             if (!mediaPlayer.isPlaying()) {
-                mediaPlayer.start();
+                startPlayer();
             }
         }
-           // mediaPlayer.setVolume(1.0f, 1.0f); // we can be loud
+        // mediaPlayer.setVolume(1.0f, 1.0f); // we can be loud
 
         updatePlaybackState();
     }
@@ -382,16 +410,16 @@ public class AudioPlayerService extends Service implements Runnable, OnCompletio
         if (mediaPlayer != null && mediaPlayer.isPlaying())
             configAndStartMediaPlayer();
     }
-public State getPlaybackState(){
-    return mState;
-}
+    public State getPlaybackState(){
+        return mState;
+    }
 
     public void changePlayerState(String state){
         if(state =="pause"){
             if (mediaPlayer!=null  && mediaPlayer.isPlaying()) {
                 seekPosition= mediaPlayer.getCurrentPosition();
 
-                mediaPlayer.pause();
+                pausePlayer();
             }
             mState = State.Paused;
         }
@@ -399,7 +427,7 @@ public State getPlaybackState(){
             if (mediaPlayer!=null  && mediaPlayer.isPlaying()) {
                 seekPosition= mediaPlayer.getCurrentPosition();
 
-                mediaPlayer.stop();
+                stopPlayer();
 
             }
             hasStartedPlayer=false;
@@ -409,7 +437,7 @@ public State getPlaybackState(){
         }
         else if(state =="start"){
             if (mediaPlayer!=null ) {
-                mediaPlayer.start();
+                startPlayer();
 
             }
             mState = State.Playing;
@@ -424,9 +452,9 @@ public State getPlaybackState(){
         public void onReceive(Context context, Intent intent) {
             // Extract data included in the Intent
             String state = intent.getStringExtra("state");
-             if(state =="start"){
+            if(state =="start"){
                 if (mediaPlayer!=null ) {
-                    mediaPlayer.start();
+                    startPlayer();
 
                 }
                 mState = State.Playing;
@@ -434,19 +462,18 @@ public State getPlaybackState(){
             else if(state =="pause"){
                 if (mediaPlayer!=null  && mediaPlayer.isPlaying()) {
                     seekPosition= mediaPlayer.getCurrentPosition();
-
-                    mediaPlayer.pause();
+                    pausePlayer();
                     AppController.getInstance().bookmarkAudioBook();
 
                 }
-                    mState = State.Paused;
+                mState = State.Paused;
             }
             else if(state =="stop"){
                 if (mediaPlayer!=null  && mediaPlayer.isPlaying()) {
                     seekPosition= mediaPlayer.getCurrentPosition();
 
                     AppController.getInstance().bookmarkAudioBook();
-                    mediaPlayer.stop();
+                    stopPlayer();
 
                 }
                 hasStartedPlayer=false;

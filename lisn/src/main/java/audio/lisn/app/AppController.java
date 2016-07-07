@@ -273,13 +273,13 @@ public class AppController extends Application  {
 
                 if(file.exists()) {
 
-                    mService.playAudioFile(fileName);
+                    int seekPoint=0;
                     if (currentAudioBook.getLastPlayFileIndex() == fileIndex) {
-                        mService.setSeekPosition(currentAudioBook.getLastSeekPoint());
-                    } else {
-                        mService.setSeekPosition(0);
-
+                        seekPoint=currentAudioBook.getLastSeekPoint();
                     }
+                    mService.playAudioFile(fileName,seekPoint);
+
+
                 }
 
             }else{

@@ -109,15 +109,25 @@
                             android:textSize="@dimen/common_textSize_medium"
                             android:layout_centerHorizontal="true"
                             />
+                        <TextView
+                            android:id="@+id/book_price"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/narrator"
+                            android:textColor="@color/whiteColor"
+                            android:layout_marginTop="@dimen/spacing_medium"
+                            android:textSize="@dimen/common_textSize_medium"
+                            android:layout_centerHorizontal="true"
+                            />
+                        <!--android:layout_alignParentBottom="true"-->
 
                         <LinearLayout
                             android:id="@+id/button_layout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_below="@+id/title"
+                            android:layout_below="@+id/book_price"
                             android:layout_margin="@dimen/spacing_large"
                             android:orientation="horizontal"
-                            android:layout_alignParentBottom="true"
                             android:weightSum="2"
                             >
                             <RelativeLayout
@@ -125,7 +135,6 @@
                                 android:layout_height="40dp"
                                 android:layout_marginRight="@dimen/spacing_medium"
                                 android:layout_weight="1"
-                                android:layout_marginBottom="@dimen/spacing_large"
                                 >
                                 <Button
                                     android:id="@+id/addToBillButton"
@@ -142,7 +151,6 @@
                                 android:layout_height="40dp"
                                 android:layout_marginLeft="@dimen/spacing_medium"
                                 android:layout_weight="1"
-                                android:layout_marginBottom="@dimen/spacing_large"
                                 >
                                 <Button
                                     android:id="@+id/buyFromCardButton"

@@ -208,7 +208,9 @@ public class AppController extends Application  {
         String title="";
         if(currentAudioBook != null) {
             if (fileIndex >= 0 && fileIndex < (currentAudioBook.getChapters().size())) {
-                title=  "[ " + (fileIndex + 1) + " / " + currentAudioBook.getChapters().size() + " ]";
+                BookChapter bookChapter=currentAudioBook.getChapters().get(fileIndex);
+                title=bookChapter.getEnglish_title();
+               // title=  "[ " + (fileIndex + 1) + " / " + currentAudioBook.getChapters().size() + " ]";
             }
         }
         return title;
@@ -277,8 +279,7 @@ public class AppController extends Application  {
                     if (currentAudioBook.getLastPlayFileIndex() == fileIndex) {
                         seekPoint=currentAudioBook.getLastSeekPoint();
                     }
-                    mService.playAudioFile(fileName,seekPoint);
-
+                    mService.playAudioFile(fileName,seekPoint,fileIndex);
 
                 }
 

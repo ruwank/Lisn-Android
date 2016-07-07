@@ -39,6 +39,7 @@ public class AudioPlayerService extends Service implements Runnable, OnCompletio
     Thread timerUpdateThread;
     boolean keepRunning;
     private MediaNotificationManager mMediaNotificationManager;
+    public static int fileIndex;
 
     // indicates the state our service:
     enum State {
@@ -278,7 +279,8 @@ public class AudioPlayerService extends Service implements Runnable, OnCompletio
     public void onBufferingUpdate(MediaPlayer mp, int percent) {
 
     }
-    public  void playAudioFile(String filePath, int seekPoint){
+    public  void playAudioFile(String filePath, int seekPoint,int thefileIndex){
+        fileIndex=thefileIndex;
         seekPosition=seekPoint;
         Log.v(TAG,"playAudioFile filePath: "+filePath);
         if( timerUpdateThread != null ) {
@@ -356,6 +358,7 @@ public class AudioPlayerService extends Service implements Runnable, OnCompletio
         timerUpdateThread = new Thread( this );
         timerUpdateThread.start();
         mediaPlayer.start();
+        AppController.getInstance().fileIndex=fileIndex;
     }
 
     private void pausePlayer(){

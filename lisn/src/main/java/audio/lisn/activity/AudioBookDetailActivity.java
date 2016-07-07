@@ -42,6 +42,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -127,7 +128,9 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
     ImageView bookCoverImageBack;
     private PopupWindow pwindo,paymentOptionView;
     int previousDownloadedFileCount;
+    Button btnDownload;
     PlayerControllerView playerControllerView;
+    View topOverLayView;
     private static final int REQUEST_WRITE_STORAGE = 112;
     private static final int PERMISSIONS_REQUEST_READ_PHONE_STATE=101;
 
@@ -253,6 +256,40 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
         progressDialog = new ProgressDialog(AudioBookDetailActivity.this);
         progressDialog.setIndeterminate(true);
         progressDialog.setMessage("Publishing...");
+
+
+        WindowManager wm = (WindowManager) getApplicationContext().getSystemService(Context.WINDOW_SERVICE);
+        Display display = wm.getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+
+        btnDownload = (Button) findViewById(R.id.btnDownload);
+
+        bookCoverImage = (ImageView) findViewById(R.id.bookCoverImage);
+        RelativeLayout.LayoutParams bookCoverImageLayoutParams =
+                (RelativeLayout.LayoutParams) bookCoverImage.getLayoutParams();
+        bookCoverImageLayoutParams.width = (int) ((size.x - 60) / 3);
+
+        bookCoverImage.setLayoutParams(bookCoverImageLayoutParams);
+        topOverLayView = (View) findViewById(R.id.topOverLayView);
+
+        bookCoverImageBack = (ImageView) findViewById(R.id.bookCoverImageBack);
+
+        btnDownload.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            public void onGlobalLayout() {
+                btnDownload.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+
+                int[] loc = new int[2];
+                btnDownload.getLocationOnScreen(loc);
+
+                final int viewHeight = loc[1];
+                RelativeLayout.LayoutParams bookCoverImageBackLayoutParams =
+                        (RelativeLayout.LayoutParams) bookCoverImageBack.getLayoutParams();
+                bookCoverImageBackLayoutParams.height = viewHeight;
+                bookCoverImageBack.setLayoutParams(bookCoverImageBackLayoutParams);
+                topOverLayView.setLayoutParams(bookCoverImageBackLayoutParams);
+            }
+        });
 
         //Analytic activity
         new Analytic().analyticEvent(3, audioBook.getBook_id(), "");
@@ -474,26 +511,12 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
     }
     private void updateData() {
 
-        WindowManager wm = (WindowManager) getApplicationContext().getSystemService(Context.WINDOW_SERVICE);
-        Display display = wm.getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
 
-        bookCoverImage = (ImageView) findViewById(R.id.bookCoverImage);
-        RelativeLayout.LayoutParams bookCoverImageLayoutParams =
-                (RelativeLayout.LayoutParams) bookCoverImage.getLayoutParams();
-        bookCoverImageLayoutParams.width = (int) ((size.x - 60) / 3);
 
-        bookCoverImage.setLayoutParams(bookCoverImageLayoutParams);
-        View topOverLayView = (View) findViewById(R.id.topOverLayView);
+        Button addToBillButton = (Button) findViewById(R.id.addToBillButton);
+        Button btnPayFromCard = (Button) findViewById(R.id.buyFromCardButton);
 
-        bookCoverImageBack = (ImageView) findViewById(R.id.bookCoverImageBack);
-        RelativeLayout.LayoutParams bookCoverImageBackLayoutParams =
-                (RelativeLayout.LayoutParams) bookCoverImageBack.getLayoutParams();
-        bookCoverImageBackLayoutParams.height = size.x;
 
-        bookCoverImageBack.setLayoutParams(bookCoverImageBackLayoutParams);
-        topOverLayView.setLayoutParams(bookCoverImageBackLayoutParams);
 
         String img_path = AppUtils.getDataDirectory(this)
                 + audioBook.getBook_id()+File.separator+"book_cover.jpg";
@@ -555,11 +578,12 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
 
         TextView author = (TextView) findViewById(R.id.author);
         TextView narrator = (TextView) findViewById(R.id.narrator);
+        TextView bookPrice = (TextView) findViewById(R.id.book_price);
+
         LinearLayout rateLayout = (LinearLayout) findViewById(R.id.app_rate_layout);
 
         View separator_top_description = (View) findViewById(R.id.separator_top_description);
 
-        Button btnDownload = (Button) findViewById(R.id.btnDownload);
         btnDownload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -569,7 +593,8 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
             }
         });
 
-        Button addToBillButton = (Button) findViewById(R.id.addToBillButton);
+
+
         addToBillButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -578,7 +603,6 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
             }
         });
 
-        Button btnPayFromCard = (Button) findViewById(R.id.buyFromCardButton);
         btnPayFromCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -587,6 +611,7 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
                 buyFromCardButtonPressed();
             }
         });
+
 
         TextView rateValue1=(TextView)findViewById(R.id.rateValue1);
         TextView rateValue2=(TextView)findViewById(R.id.rateValue2);
@@ -751,7 +776,7 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
         if( Float.parseFloat(audioBook.getPrice())>0 ){
             priceText="Rs. "+audioBook.getPrice();
         }
-
+        bookPrice.setText(priceText);
         if(Float.parseFloat(audioBook.getRate())>-1){
             ratingBar.setRating(Float.parseFloat(audioBook.getRate()));
             // ratingValue.setText(String.format("%.1f", Float.parseFloat(audioBook.getRate())));

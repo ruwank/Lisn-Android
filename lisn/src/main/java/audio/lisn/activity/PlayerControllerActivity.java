@@ -164,7 +164,7 @@ public class PlayerControllerActivity extends AppCompatActivity implements FileD
         }
         Log.v(TAG, "chapterIndex " + chapterIndex);
 
-       // mCoverFlow.setSelection(chapterIndex);
+        mCoverFlow.setSelection(chapterIndex);
 
         // setBookTitle();
         bookTitleView= (TextView) findViewById(R.id.book_title);
@@ -454,8 +454,10 @@ private void setBookTitle(){
 
     if(audioBook.getLanguageCode() == AudioBook.LanguageCode.LAN_SI){
         bookTitleView.setTypeface(CustomTypeFace.getSinhalaTypeFace(this));
+       // audioTitle.setTypeface(CustomTypeFace.getSinhalaTypeFace(this));
     }else{
         bookTitleView.setTypeface(CustomTypeFace.getEnglishTypeFace(this));
+       // audioTitle.setTypeface(CustomTypeFace.getEnglishTypeFace(this));
     }
     bookTitleView.setText(audioBook.getTitle());
 
@@ -804,6 +806,10 @@ private void setBookTitle(){
             musicDuration.setText(milliSecondsToTimer(AudioPlayerService.audioDuration));
 
             if(AudioPlayerService.mediaPlayer.isPlaying()){
+                if(chapterIndex != AudioPlayerService.fileIndex){
+                    chapterIndex=AudioPlayerService.fileIndex;
+                    mCoverFlow.setSelection(chapterIndex);
+                }
                 playPauseButton.setImageResource(R.drawable.btn_play_pause);
 
             }else {
@@ -813,7 +819,7 @@ private void setBookTitle(){
             }
         }
 
-        audioTitle.setText(AppController.getInstance().getPlayerControllerTitle());
+       // audioTitle.setText(AppController.getInstance().getPlayerControllerTitle());
     }
 
     public String milliSecondsToTimer(long milliseconds){

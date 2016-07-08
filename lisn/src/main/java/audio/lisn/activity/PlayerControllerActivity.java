@@ -221,14 +221,16 @@ public class PlayerControllerActivity extends AppCompatActivity implements FileD
     protected void onResume() {
         super.onResume();
         registerBroadcastReceiver();
-
+        registerPlayerStopBroadcastReceiver();
 
     }
 
     @Override
     protected void onPause() {
         super.onPause();
+
         LocalBroadcastManager.getInstance(this).unregisterReceiver(mPlayerUpdateReceiver);
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mPlayerUpdateStopReceiver);
     }
 
     private void setCoverFlowPosition(){
@@ -295,30 +297,7 @@ public class PlayerControllerActivity extends AppCompatActivity implements FileD
                // audioBook = bookList.get(position);
                 chapterIndex=position;
                 stopAudioPlayer();
-Log.v(TAG,"chapterIndex"+chapterIndex);
-                BookChapter selectedChapter=audioBook.getChapters().get(chapterIndex);
-                if(selectedChapter.isPurchased() || audioBook.isTotalBookPurchased()){
-
-                    Log.v(TAG,"downloadAudioFile"+chapterIndex);
-
-                    downloadAudioFile();
-
-
-                }else{
-
-                    if (selectedChapter.getPrice() > 0) {
-                        Log.v(TAG,"showPaymentOptionPopupWindow"+chapterIndex);
-                        new Analytic().analyticEvent(4, audioBook.getBook_id(), "" + selectedChapter.getChapter_id());
-
-                        showPaymentOptionPopupWindow();
-
-                    }else{
-                        Log.v(TAG,"logUserDownload"+chapterIndex);
-
-                        logUserDownload();
-                    }
-                }
-
+                playSelectedChapter();
                 //  setBookTitle(position);
 
 
@@ -409,7 +388,31 @@ Log.v(TAG,"chapterIndex"+chapterIndex);
 
 
     }
+private void playSelectedChapter(){
+    BookChapter selectedChapter=audioBook.getChapters().get(chapterIndex);
+    if(selectedChapter.isPurchased() || audioBook.isTotalBookPurchased()){
 
+        Log.v(TAG,"downloadAudioFile"+chapterIndex);
+
+        downloadAudioFile();
+
+
+    }else{
+
+        if (selectedChapter.getPrice() > 0) {
+            Log.v(TAG,"showPaymentOptionPopupWindow"+chapterIndex);
+            new Analytic().analyticEvent(4, audioBook.getBook_id(), "" + selectedChapter.getChapter_id());
+
+            showPaymentOptionPopupWindow();
+
+        }else{
+            Log.v(TAG,"logUserDownload"+chapterIndex);
+
+            logUserDownload();
+        }
+    }
+
+}
     private void stopDownload(){
         for (int i = 0; i < downloadingList.size(); i++) {
             FileDownloadTask downloadTask = downloadingList.get(i);
@@ -729,6 +732,26 @@ private void setBookTitle(){
             updateView();
         }
     };
+    private void registerPlayerStopBroadcastReceiver(){
+        // Register mMessageReceiver to receive messages.
+        LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(mPlayerUpdateStopReceiver,
+                new IntentFilter(Constants.PLAYER_STATE_STOP));
+    }
+    private BroadcastReceiver mPlayerUpdateStopReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            // Extract data included in the Intent
+            playNextBook();
+        }
+    };
+    private void playNextBook(){
+//        int nextChapter=chapterIndex+1;
+//        if(nextChapter<audioBook.getChapters().size()){
+//            chapterIndex=nextChapter;
+//            playSelectedChapter();
+//        }
+
+    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -798,18 +821,21 @@ private void setBookTitle(){
     public void updateView(){
         audioTitle.setText(AppController.getInstance().getPlayerControllerTitle());
         if(AudioPlayerService.mediaPlayer!=null){
-            Log.v(TAG,"updateView getCurrentPosition: "+AudioPlayerService.mediaPlayer.getCurrentPosition());
+            Log.v(TAG, "updateView getCurrentPosition: " + AudioPlayerService.mediaPlayer.getCurrentPosition());
 
             musicSeekBar.setMax(AudioPlayerService.audioDuration);
             musicSeekBar.setProgress(AudioPlayerService.mediaPlayer.getCurrentPosition());
-            musicCurrentLoc.setText(milliSecondsToTimer(AudioPlayerService.mediaPlayer.getCurrentPosition()));
-            musicDuration.setText(milliSecondsToTimer(AudioPlayerService.audioDuration));
+            if(AudioPlayerService.mediaPlayer.getCurrentPosition()<=AudioPlayerService.audioDuration){
+                musicCurrentLoc.setText(milliSecondsToTimer(AudioPlayerService.mediaPlayer.getCurrentPosition()));
+                musicDuration.setText(milliSecondsToTimer(AudioPlayerService.audioDuration));
+            }else{
+                musicCurrentLoc.setText("");
+                musicDuration.setText("");
+            }
+
 
             if(AudioPlayerService.mediaPlayer.isPlaying()){
-                if(chapterIndex != AudioPlayerService.fileIndex){
-                    chapterIndex=AudioPlayerService.fileIndex;
-                    mCoverFlow.setSelection(chapterIndex);
-                }
+
                 playPauseButton.setImageResource(R.drawable.btn_play_pause);
 
             }else {
@@ -817,6 +843,11 @@ private void setBookTitle(){
 
 
             }
+        }
+
+        if(chapterIndex != AudioPlayerService.fileIndex){
+            chapterIndex=AudioPlayerService.fileIndex;
+            mCoverFlow.setSelection(chapterIndex);
         }
 
        // audioTitle.setText(AppController.getInstance().getPlayerControllerTitle());

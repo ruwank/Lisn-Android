@@ -217,6 +217,8 @@ public class AudioPlayerService extends Service implements Runnable, OnCompletio
 
         if(mp.getCurrentPosition()>1){
             AppController.getInstance().playNextFile();
+            Intent intent = new Intent(Constants.PLAYER_STATE_STOP);
+            LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
         }
         updatePlaybackState();
         Log.v(TAG,"onCompletion position" + mp.getCurrentPosition());

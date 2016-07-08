@@ -111,8 +111,10 @@ public class CoverFlowAdapter extends FancyCoverFlowAdapter {
 
         String buyButtonText="Download";
 
-        if (file.exists()) {
-            customViewGroup.getButton().setVisibility(View.GONE);
+        //if (file.exists()) {
+        if (file.exists() && (audioBook.getDownloadedChapter().contains(bookChapter.getChapter_id()))) {
+
+                customViewGroup.getButton().setVisibility(View.GONE);
 
         }else{
             customViewGroup.getButton().setVisibility(View.VISIBLE);

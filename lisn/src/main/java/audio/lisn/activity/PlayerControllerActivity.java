@@ -107,6 +107,7 @@ public class PlayerControllerActivity extends AppCompatActivity implements FileD
     ServiceProvider  serviceProvider;
     PaymentOption  paymentOption;
     String subscriberId;
+    boolean autoSelectChapter;
 
 
     public static void navigate(AppCompatActivity activity, View transitionView, AudioBook audioBook,int chapterIndex) {
@@ -294,6 +295,7 @@ public class PlayerControllerActivity extends AppCompatActivity implements FileD
                 if(infoToast !=null){
                     infoToast.cancel();
                 }
+                autoSelectChapter=false;
                // audioBook = bookList.get(position);
                 chapterIndex=position;
                 stopAudioPlayer();
@@ -389,18 +391,35 @@ public class PlayerControllerActivity extends AppCompatActivity implements FileD
 
     }
 private void playSelectedChapter(){
+    //autoSelectChapter=true;
     BookChapter selectedChapter=audioBook.getChapters().get(chapterIndex);
     if(selectedChapter.isPurchased() || audioBook.isTotalBookPurchased()){
 
         Log.v(TAG,"downloadAudioFile"+chapterIndex);
-
-        downloadAudioFile();
+        if(autoSelectChapter) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle(getString(R.string.DOWNLOAD_START_TITLE)).
+                    setMessage(getString(R.string.DOWNLOAD_START_MESSAGE)).setPositiveButton(
+                    getString(R.string.BUTTON_NOW), new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            downloadAudioFile();
+                        }
+                    })
+                    .setNegativeButton(getString(R.string.BUTTON_LATER), new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                        }
+                    });
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        }else {
+            downloadAudioFile();
+        }
 
 
     }else{
 
         if (selectedChapter.getPrice() > 0) {
-            Log.v(TAG,"showPaymentOptionPopupWindow"+chapterIndex);
+            Log.v(TAG, "showPaymentOptionPopupWindow" + chapterIndex);
             new Analytic().analyticEvent(4, audioBook.getBook_id(), "" + selectedChapter.getChapter_id());
 
             showPaymentOptionPopupWindow();
@@ -745,11 +764,11 @@ private void setBookTitle(){
         }
     };
     private void playNextBook(){
-//        int nextChapter=chapterIndex+1;
-//        if(nextChapter<audioBook.getChapters().size()){
-//            chapterIndex=nextChapter;
-//            playSelectedChapter();
-//        }
+        int nextChapter=chapterIndex+1;
+        if(nextChapter<audioBook.getChapters().size()){
+            chapterIndex=nextChapter;
+            playSelectedChapter();
+        }
 
     }
     @Override

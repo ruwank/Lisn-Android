@@ -12,6 +12,7 @@ import java.io.File;
 import java.util.ArrayList;
 
 import audio.lisn.R;
+import audio.lisn.app.AppController;
 import audio.lisn.model.AudioBook;
 import audio.lisn.model.AudioBook.SelectedAction;
 import audio.lisn.model.AudioBook.LanguageCode;
@@ -82,7 +83,7 @@ public class BookChapterListAdapter extends BaseAdapter {
                 + audioBook.getBook_id()+File.separator;
         File file = new File(dirPath + bookChapter.getChapter_id() + ".lisn");
         
-        if (file.exists() && (audioBook.getDownloadedChapter().contains(bookChapter.getChapter_id()))) {
+        if (AppController.getInstance().isUserLogin() && file.exists() && (audioBook.getDownloadedChapter().contains(bookChapter.getChapter_id()))) {
             buyButtonText="Play";
             action=SelectedAction.ACTION_PLAY;
         }else{

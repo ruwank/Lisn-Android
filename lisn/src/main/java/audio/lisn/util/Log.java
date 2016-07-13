@@ -4,7 +4,7 @@ package audio.lisn.util;
  * Created by Rasika on 1/30/16.
  */
 public class Log {
-    private static boolean TAG = false;
+    private static boolean TAG = true;
     public static void d(String enable_tag, String message,Object...args){
         if(TAG)
             android.util.Log.d(enable_tag, message+args);

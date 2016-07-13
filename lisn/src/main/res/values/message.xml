@@ -17,6 +17,9 @@
     <string name="PAYMENT_COMPLETE_TITLE">Payment Successful</string>
     <string name="PAYMENT_COMPLETE_MESSAGE">Payment successfully completed. Do you want to start downloading?</string>
 
+    <string name="DOWNLOAD_START_TITLE">Start Download</string>
+    <string name="DOWNLOAD_START_MESSAGE">Do you want to start downloading?</string>
+
     <string name="NO_ENOUGH_SPACE_TITLE">No Space</string>
     <string name="NO_ENOUGH_SPACE_MESSAGE">Not enough space to download this file. Please free up some space and try again.</string>
 

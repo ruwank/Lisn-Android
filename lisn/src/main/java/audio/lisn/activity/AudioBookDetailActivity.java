@@ -1082,6 +1082,9 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
             if(isSelectChapterBuyOption){
                 mProgressDialog.setMessage("Downloading " + selectedChapter.getEnglish_title());
 
+            }else{
+                mProgressDialog.setMessage("Downloading Chapter " + filePart);
+
             }
 
 
@@ -1136,7 +1139,7 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
                         BookChapter bookChapter=audioBook.getChapters().get(index);
                         File file = new File(dirPath + bookChapter.getChapter_id() + ".lisn");
 
-                        if (!file.exists() || !(audioBook.getDownloadedChapter().contains(bookChapter.getChapter_id()))) {
+                        if (!file.exists() && !(audioBook.getDownloadedChapter().contains(bookChapter.getChapter_id()))) {
                             downloadAudioFileFromUrl(bookChapter.getChapter_id());
                             isDownloading = true;
                             chapterName=bookChapter.getEnglish_title();
@@ -1194,7 +1197,9 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
                         BookChapter bookChapter = audioBook.getChapters().get(index);
 
                         File file = new File(dirPath + bookChapter.getChapter_id() + ".lisn");
-                        if (!file.exists()) {
+                        if (!file.exists() && !(audioBook.getDownloadedChapter().contains(bookChapter.getChapter_id()))) {
+
+                           // if (!file.exists()) {
                             needDownload = true;
                             break;
                         }
@@ -1287,7 +1292,7 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
                 }
 
             }else {
-                if (audioBook.isPurchase()) {
+                if (audioBook.isTotalBookPurchased()) {
                     downloadAudioFile();
 
                 } else {
@@ -1914,7 +1919,7 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
                     AlertDialog dialog = builder.create();
                     dialog.show();
                 }else {
-                    mProgressDialog.setMessage("Downloading " + (audioBook.getDownloadedChapter().size() + 1) + " of " + audioBook.getChapters().size());
+                   // mProgressDialog.setMessage("Downloading " + (audioBook.getDownloadedChapter().size() + 1) + " of " + audioBook.getChapters().size());
 
                     downloadedFileCount++;
                     if (result == null) {

@@ -22,15 +22,6 @@
             android:layout_margin="@dimen/layout_margin"
             android:background="@color/whiteColor">
 
-
-            <TextView
-                android:id="@+id/txtView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/layout_margin"
-                android:text="Buy Option"
-                android:layout_gravity="center_horizontal"
-                />
             <TextView
                 android:id="@+id/buy_label"
                 android:layout_width="wrap_content"

@@ -1965,7 +1965,7 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
 
             TextView buyLabel=(TextView)layout.findViewById(R.id.buy_label);
 
-            buyLabel.setText("Do you want to buy " + selectedChapter.getEnglish_title());
+            buyLabel.setText("Buy " + selectedChapter.getEnglish_title()+" for just Rs."+selectedChapter.getPrice());
 
             Button btn_addToBillButton = (Button) layout.findViewById(R.id.btn_addToBillButton);
             btn_addToBillButton.setOnClickListener(new View.OnClickListener() {

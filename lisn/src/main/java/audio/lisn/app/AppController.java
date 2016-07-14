@@ -101,6 +101,7 @@ public class AppController extends Application  {
         Fabric.with(this, new Crashlytics());
         mInstance = this;
         registerAppStateChangeBroadcastReceiver();
+        registerPlayerStopBroadcastReceiver();
         showQuotesEveryWeek();
         sessionId = String.valueOf(UUID.randomUUID());
 
@@ -562,8 +563,8 @@ if(currentAudioBook != null){
             alarmManagerRepeat = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
 
             alarmManagerRepeat.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
-                    SystemClock.elapsedRealtime()+AlarmManager.INTERVAL_DAY*6,
-                    AlarmManager.INTERVAL_DAY*7, PendingIntent.getBroadcast(getApplicationContext(), 1, intentAlarm, PendingIntent.FLAG_UPDATE_CURRENT));
+                    SystemClock.elapsedRealtime() + AlarmManager.INTERVAL_DAY * 6,
+                    AlarmManager.INTERVAL_DAY * 7, PendingIntent.getBroadcast(getApplicationContext(), 1, intentAlarm, PendingIntent.FLAG_UPDATE_CURRENT));
         }
     }
 
@@ -701,5 +702,35 @@ if(currentAudioBook != null){
 
     public void setLastLocation(Location mLastLocation) {
         this.lastLocation = mLastLocation;
+    }
+    private void registerPlayerStopBroadcastReceiver(){
+        // Register mMessageReceiver to receive messages.
+        LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(mPlayerUpdateStopReceiver,
+                new IntentFilter(Constants.PLAYER_STATE_STOP));
+    }
+    private BroadcastReceiver mPlayerUpdateStopReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            // Extract data included in the Intent
+            playNextChapter();
+        }
+    };
+    private void playNextChapter() {
+        BookChapter bookChapter = currentAudioBook.getChapters().get(fileIndex + 1);
+        String dirPath = AppUtils.getDataDirectory(getApplicationContext())
+                + currentAudioBook.getBook_id() + File.separator;
+        String fileName = dirPath + (bookChapter.getChapter_id()) + ".lisn";
+
+        File file = new File(fileName);
+        if ((fileIndex + 1)<currentAudioBook.getChapters().size()) {
+            if (file.exists() && currentAudioBook.getDownloadedChapter().contains(bookChapter.getChapter_id()) && file.length()>100) {
+                Log.v(TAG, "file.exists");
+                playNextFile();
+            } else {
+                Intent intent = new Intent(Constants.PLAYER_STATE_NEXT_CHAPTER);
+                intent.putExtra("chapterIndex", fileIndex + 1);
+                LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
+            }
+        }
     }
 }

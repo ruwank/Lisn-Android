@@ -595,7 +595,7 @@ private void setBookTitle(){
 
                                         AlertDialog.Builder builder = new AlertDialog.Builder(this);
                                         builder.setTitle(getString(R.string.DOWNLOAD_START_TITLE)).
-                                                setMessage("Do you want to start download "+bookChapter.getEnglish_title()).setPositiveButton(
+                                                setMessage("Do you want to start downloading "+bookChapter.getEnglish_title()+"?").setPositiveButton(
                                                 getString(R.string.BUTTON_NOW), new DialogInterface.OnClickListener() {
                                                     public void onClick(DialogInterface dialog, int id) {
                                                         BookChapter sBookChapter=audioBook.getChapters().get(chapterIndex);
@@ -765,24 +765,26 @@ private void setBookTitle(){
     private void registerPlayerStopBroadcastReceiver(){
         // Register mMessageReceiver to receive messages.
         LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(mPlayerUpdateStopReceiver,
-                new IntentFilter(Constants.PLAYER_STATE_STOP));
+                new IntentFilter(Constants.PLAYER_STATE_NEXT_CHAPTER));
+        //PLAYER_STATE_NEXT_CHAPTER
     }
     private BroadcastReceiver mPlayerUpdateStopReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             // Extract data included in the Intent
-            playNextBook();
+         int nextChapter=   intent.getIntExtra("chapterIndex", chapterIndex++);
+            playNextChapter(nextChapter);
         }
     };
-    private void playNextBook(){
-        if(!autoSelectChapter) {
+    private void playNextChapter(int nextChapter){
+        //if(!autoSelectChapter) {
             autoSelectChapter = true;
-             chapterIndex++;
+             chapterIndex=nextChapter;
             Log.v(TAG, "nextChapter:" + chapterIndex);
             if (chapterIndex < audioBook.getChapters().size()) {
                 playSelectedChapter();
             }
-        }
+       // }
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -877,7 +879,7 @@ private void setBookTitle(){
             }
         }
 
-        if(chapterIndex != AudioPlayerService.fileIndex){
+        if(!autoSelectChapter && chapterIndex != AudioPlayerService.fileIndex){
             chapterIndex=AudioPlayerService.fileIndex;
             mCoverFlow.setSelection(chapterIndex);
         }
@@ -1111,7 +1113,9 @@ private void setBookTitle(){
             TextView buyLabel=(TextView)layout.findViewById(R.id.buy_label);
             BookChapter selectedChapter=audioBook.getChapters().get(chapterIndex);
 
-            buyLabel.setText("Do you want to buy "+selectedChapter.getEnglish_title());
+           // buyLabel.setText("Do you want to buy "+selectedChapter.getEnglish_title());
+            buyLabel.setText("Buy " + selectedChapter.getEnglish_title()+" for just Rs."+selectedChapter.getPrice());
+
             Button btn_addToBillButton = (Button) layout.findViewById(R.id.btn_addToBillButton);
             btn_addToBillButton.setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -122,7 +122,7 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
     public ProgressBar spinner;
     ProgressDialog mProgressDialog;
     ProgressDialog progressDialog;
-    int totalAudioFileCount, downloadedFileCount;
+   // int totalAudioFileCount, downloadedFileCount;
     List<FileDownloadTask> downloadingList = new ArrayList<FileDownloadTask>();
     ImageView bookCoverImage;
     ImageView bookCoverImageBack;
@@ -154,7 +154,7 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
     String subscriberId;
     ListView chapterListView ;
     int selectedChapterIndex ;
-
+    BookChapterListAdapter bookChapterListAdapter;
     @Override
     public void onBookChapterSelect(BookChapter bookChapter, int index,AudioBook.SelectedAction action) {
 
@@ -199,7 +199,7 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
         findServiceProvider();
         callbackManager = CallbackManager.Factory.create();
         dialogNo="";
-        downloadedFileCount=0;
+        //downloadedFileCount=0;
         audioBook = (AudioBook) getIntent().getSerializableExtra("audioBook");
 
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
@@ -298,6 +298,14 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
     @Override
     protected void onResume() {
         super.onResume();
+        DownloadedAudioBook downloadedAudioBook = new DownloadedAudioBook(this);
+        HashMap<String, AudioBook> hashMap = downloadedAudioBook.getBookList(this);
+
+
+        AudioBook returnBook = hashMap.get(audioBook.getBook_id());
+        if(returnBook !=null && returnBook.getBook_id() !=null){
+             audioBook=returnBook;
+        }
         updateData();
 
         if((AudioPlayerService.mediaPlayer!=null) && AudioPlayerService.hasStartedPlayer){
@@ -309,6 +317,7 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
         playerControllerView.updateView();
         registerPlayerUpdateBroadcastReceiver();
         bookReviewViewAdapter.notifyDataSetChanged();
+        bookChapterListAdapter.notifyDataSetChanged();
     }
     @Override
     public void onPause() {
@@ -501,7 +510,7 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
         //AudioBook audioBook=AppController.getInstance().getCurrentAudioBook();
         Log.v(TAG,"SeekPoint"+audioBook.getLastSeekPoint());
         if(AppController.getInstance().getCurrentAudioBook() !=null) {
-            PlayerControllerActivity.navigate(AudioBookDetailActivity.this, playerControllerView, null,-1);
+            PlayerControllerActivity.navigate(AudioBookDetailActivity.this, playerControllerView, null, -1);
         }
 
     }
@@ -545,6 +554,9 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
                         public void onBitmapLoaded(final Bitmap bitmap, Picasso.LoadedFrom from) {
             /* Save the bitmap or do something with it here */
 
+                            if(audioBook.isPurchase()){
+                                saveCoverImage(bitmap);
+                            }
                             //Set it in the ImageView
                             bookCoverImageBack.setImageBitmap(bitmap);
                             bookCoverImage.setImageBitmap(bitmap);
@@ -588,6 +600,7 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
             @Override
             public void onClick(View v) {
                 paymentOption = PaymentOption.OPTION_NONE;
+                isSelectChapterBuyOption=false;
                 playGetButtonPressed();
 
             }
@@ -731,11 +744,11 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
         ExpandablePanel expandablePanel = (ExpandablePanel) findViewById(R.id.buy_chapter);
 
         if (audioBook.getChapters().size()>0){
-            BookChapterListAdapter adapter = new BookChapterListAdapter(this, audioBook);
+            bookChapterListAdapter = new BookChapterListAdapter(this, audioBook);
 
-            adapter.bookChapterViewSelectListener(this);
+            bookChapterListAdapter.bookChapterViewSelectListener(this);
             // Assign adapter to ListView
-            chapterListView.setAdapter(adapter);
+            chapterListView.setAdapter(bookChapterListAdapter);
             expandablePanel.setContentHeight(getListViewHeightBasedOnChildren(chapterListView));
             expandablePanel.requestLayout();
 
@@ -1139,12 +1152,14 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
                         BookChapter bookChapter=audioBook.getChapters().get(index);
                         File file = new File(dirPath + bookChapter.getChapter_id() + ".lisn");
 
-                        if (!file.exists() && !(audioBook.getDownloadedChapter().contains(bookChapter.getChapter_id()))) {
+                        if (AppController.getInstance().isUserLogin() && file.exists() && (audioBook.getDownloadedChapter().contains(bookChapter.getChapter_id()))) {
+                            isDownloading = false;
+                            // totalAudioFileCount++;
+                        }else{
                             downloadAudioFileFromUrl(bookChapter.getChapter_id());
                             isDownloading = true;
                             chapterName=bookChapter.getEnglish_title();
                             break;
-                            // totalAudioFileCount++;
                         }
 
                     }
@@ -1236,7 +1251,7 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
             if ( mProgressDialog!=null && mProgressDialog.isShowing() ){
                 mProgressDialog.dismiss();
             }
-            PlayerControllerActivity.navigate(AudioBookDetailActivity.this, bookCoverImage, audioBook,-1);
+            PlayerControllerActivity.navigate(AudioBookDetailActivity.this, bookCoverImage, audioBook, -1);
 
         } else {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -1849,12 +1864,17 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
         }
     }
     private void saveCoverImage() {
-        String dirPath = AppUtils.getDataDirectory(getApplicationContext())
-                + audioBook.getBook_id()+File.separator;
+
         bookCoverImage.buildDrawingCache();
         Bitmap bitmapImage=bookCoverImage.getDrawingCache();
+        saveCoverImage(bitmapImage);
         //Bitmap resized = Bitmap.createScaledBitmap(bitmapImage, (int)(160*2), (int)(240*2), true);
 
+
+    }
+    private void saveCoverImage(Bitmap bitmapImage){
+        String dirPath = AppUtils.getDataDirectory(getApplicationContext())
+                + audioBook.getBook_id()+File.separator;
         OutputStream fOut = null;
         Uri outputFileUri;
         try {
@@ -1880,7 +1900,6 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
 
@@ -1921,7 +1940,7 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
                 }else {
                    // mProgressDialog.setMessage("Downloading " + (audioBook.getDownloadedChapter().size() + 1) + " of " + audioBook.getChapters().size());
 
-                    downloadedFileCount++;
+                    //downloadedFileCount++;
                     if (result == null) {
                         updateAudioBook(Integer.parseInt(file_name));
                         // if (totalAudioFileCount == downloadedFileCount) {
@@ -1958,6 +1977,8 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
                     paymentOption = PaymentOption.OPTION_CARD;
                     isSelectChapterBuyOption=true;
                     buyFromCardButtonPressed();
+                    paymentOptionView.dismiss();
+
                 }
             });
 

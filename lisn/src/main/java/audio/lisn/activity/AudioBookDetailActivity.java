@@ -1945,6 +1945,7 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
                         updateAudioBook(Integer.parseInt(file_name));
                         // if (totalAudioFileCount == downloadedFileCount) {
                         downloadAudioFile();
+                        updateData();
                         // }
                     }
                 }
@@ -1961,6 +1962,10 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
             paymentOptionView = new PopupWindow(layout, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT,true);
 
             paymentOptionView.showAtLocation(layout, Gravity.CENTER, 0, 0);
+
+            TextView buyLabel=(TextView)layout.findViewById(R.id.buy_label);
+
+            buyLabel.setText("Do you want to buy " + selectedChapter.getEnglish_title());
 
             Button btn_addToBillButton = (Button) layout.findViewById(R.id.btn_addToBillButton);
             btn_addToBillButton.setOnClickListener(new View.OnClickListener() {

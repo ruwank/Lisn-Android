@@ -595,7 +595,7 @@ private void setBookTitle(){
 
                                         AlertDialog.Builder builder = new AlertDialog.Builder(this);
                                         builder.setTitle(getString(R.string.DOWNLOAD_START_TITLE)).
-                                                setMessage(getString(R.string.DOWNLOAD_START_MESSAGE)).setPositiveButton(
+                                                setMessage("Do you want to start download "+bookChapter.getEnglish_title()).setPositiveButton(
                                                 getString(R.string.BUTTON_NOW), new DialogInterface.OnClickListener() {
                                                     public void onClick(DialogInterface dialog, int id) {
                                                         BookChapter sBookChapter=audioBook.getChapters().get(chapterIndex);
@@ -1108,6 +1108,10 @@ private void setBookTitle(){
 
             paymentOptionView.showAtLocation(layout, Gravity.CENTER, 0, 0);
 
+            TextView buyLabel=(TextView)layout.findViewById(R.id.buy_label);
+            BookChapter selectedChapter=audioBook.getChapters().get(chapterIndex);
+
+            buyLabel.setText("Do you want to buy "+selectedChapter.getEnglish_title());
             Button btn_addToBillButton = (Button) layout.findViewById(R.id.btn_addToBillButton);
             btn_addToBillButton.setOnClickListener(new View.OnClickListener() {
                 @Override

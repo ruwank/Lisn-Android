@@ -358,13 +358,48 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
         this.subscriberId = m_telephonyManager.getSubscriberId();
         if (subscriberId != null) {
             if (subscriberId.startsWith("41301")) {
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(
+                        this);
+                builder.setTitle("Service Provider").setMessage("Mobitel").setPositiveButton(
+                        R.string.BUTTON_OK, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                // FIRE ZE MISSILES!
+                            }
+                        });
+                AlertDialog dialog = builder.create();
+                dialog.show();
+
                 serviceProvider = ServiceProvider.PROVIDER_MOBITEL;
             } else if (subscriberId.startsWith("41302")) {
                 serviceProvider = ServiceProvider.PROVIDER_DIALOG;
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(
+                        this);
+                builder.setTitle("Service Provider").setMessage("Dialog").setPositiveButton(
+                        R.string.BUTTON_OK, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                // FIRE ZE MISSILES!
+                            }
+                        });
+                AlertDialog dialog = builder.create();
+                dialog.show();
             }
 
 
+        }else {
+            AlertDialog.Builder builder = new AlertDialog.Builder(
+                    this);
+            builder.setTitle("Service Provider").setMessage("getSubscriber error").setPositiveButton(
+                    R.string.BUTTON_OK, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            // FIRE ZE MISSILES!
+                        }
+                    });
+            AlertDialog dialog = builder.create();
+            dialog.show();
         }
+
     }
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions,

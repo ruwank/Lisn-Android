@@ -49,5 +49,9 @@
             android:id="@+id/drawer_contact_us"
             android:icon="@drawable/ic_menu_contacts"
             android:title="@string/action_contact_us"/>
+        <item
+            android:id="@+id/drawer_app_tour"
+            android:icon="@drawable/ic_menu_contacts"
+            android:title="@string/action_app_tour"/>
 </group>
 </menu>

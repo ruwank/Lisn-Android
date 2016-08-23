@@ -1,10 +1,12 @@
 package audio.lisn.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.http.SslError;
 import android.os.Bundle;
 import android.support.v4.view.ViewCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -134,9 +136,27 @@ public class PurchaseActivity extends AppCompatActivity {
         }
 
         @Override
-        public void onReceivedSslError (WebView view, SslErrorHandler handler, SslError error) {
+        public void onReceivedSslError (WebView view, final SslErrorHandler handler, SslError error) {
+            final AlertDialog.Builder builder = new AlertDialog.Builder(PurchaseActivity.this);
+            builder.setMessage(R.string.notification_error_ssl_cert_invalid);
+            builder.setPositiveButton("continue", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    handler.proceed();
+                }
+            });
+            builder.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    handler.cancel();
+                }
+            });
+            final AlertDialog dialog = builder.create();
+            dialog.show();
             handler.proceed();
         }
+
+
     }
 
 }

@@ -84,6 +84,7 @@ public class MainActivity extends Activity {
 
 	}
 
+
     private void loadHome(){
         progressBar.setVisibility(View.INVISIBLE);
         Intent intent = new Intent(getApplicationContext(),

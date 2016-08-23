@@ -157,6 +157,13 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                     .addApi(LocationServices.API)
                     .build();
         }
+        loadTourScreen();
+
+    }
+    private void loadTourScreen(){
+        Intent intent = new Intent(getApplicationContext(),
+                AppTourActivity.class);
+        startActivity(intent);
     }
     private void showAudioPlayer(){
         if(AppController.getInstance().getCurrentAudioBook() !=null) {
@@ -372,6 +379,13 @@ private void setLayoutMargin(boolean setMargin){
 
             Intent intent = new Intent(this,
                     ContactusActivity.class);
+            startActivity(intent);
+
+        }
+        else if(menuItem.getItemId() ==R.id.drawer_app_tour){
+
+            Intent intent = new Intent(this,
+                    AppTourActivity.class);
             startActivity(intent);
 
         }

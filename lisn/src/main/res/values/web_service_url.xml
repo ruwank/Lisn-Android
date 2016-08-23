@@ -53,7 +53,7 @@
                     <string name="similar_book_url">http://app.lisn.audio/api/1.4/similarbooks.php</string>
                     <string name="analytics_url">http://app.lisn.audio/api/1.4/analytics.php</string>
 
-                    <string name="purchase_book_url">https://app.lisn.audio/spgw/1.5.6/payment/init.php</string>
+                    <string name="purchase_book_url">http://app.lisn.audio/spgw/1.5.6/payment/init.php</string>
                     <string name="purchase_success_url">https://app.lisn.audio/spgw/1.5.6/payment/success.php</string>
                     <string name="purchase_success_url_http">http://app.lisn.audio/spgw/1.5.6/payment/success.php</string>
                     <string name="purchase_failed_url">https://app.lisn.audio/spgw/1.5.6/payment/failed.php</string>

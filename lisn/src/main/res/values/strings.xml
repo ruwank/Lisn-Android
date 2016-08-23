@@ -19,6 +19,7 @@
     <string name="action_quick_tour">Quick Tour</string>
     <string name="action_about_us">About Us</string>
     <string name="action_contact_us">Contact Us</string>
+    <string name="action_app_tour">App Tour</string>
 
     <!-- pouup menu action data -->
     <string name="action_play">Play</string>
@@ -89,6 +90,8 @@
     <string name="title_activity_signup">SignupActivity</string>
     <string name="title_activity_forgot_password">ForgotPasswordActivity</string>
     <string name="title_activity_book_category">BookCategoryActivity</string>
+
+    <string name="notification_error_ssl_cert_invalid">Server SSL Certificate seems invalid. Do you want to continue ?</string>
 
     <string name="terms_accept">Accept</string>
     <string name="terms_condition">
@@ -288,6 +291,7 @@
 
 
     </string-array>
+    <string name="title_activity_app_tour">AppTourActivity</string>
 
 
 </resources>

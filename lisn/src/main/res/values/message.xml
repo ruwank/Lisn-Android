@@ -10,6 +10,7 @@
 
     <string name="SERVER_ERROR_TITLE">Internal Error</string>
     <string name="SERVER_ERROR_MESSAGE">Server error. Please try again later.</string>
+    <string name="SERVER_ERROR_MESSAGE_PAYMENT">Temporary error in processing the payment! Please try later.</string>
 
     <string name="DOWNLOAD_COMPLETE_TITLE">Download Completed</string>
     <string name="DOWNLOAD_COMPLETE_MESSAGE">Download completed. Do you want to start listening?</string>

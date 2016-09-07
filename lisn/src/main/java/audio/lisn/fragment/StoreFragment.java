@@ -538,10 +538,7 @@ Log.v(TAG,"params :"+params);
         switch (btnIndex){
             case ACTION_PURCHASE: {
                 Log.v(TAG,"onCreateView");
-
                 AudioBookDetailActivity.navigate((android.support.v7.app.AppCompatActivity) getActivity(), view.findViewById(R.id.book_cover_thumbnail), audioBook);
-
-
             }
                 break;
             case ACTION_DETAIL:

@@ -22,6 +22,7 @@ public class AudioBook implements Serializable{
     private String ISBN,book_id,duration,narrator,title, description, author, language, price, category,rate,
             cover_image,banner_image, preview_audio,english_title,english_description,downloads;
     private String content_rate;
+    private String author_in_english,narrator_in_english;
     private boolean isPurchase;
     private int lastPlayFileIndex;
     private int lastSeekPoint;
@@ -182,6 +183,22 @@ public Map<Integer,Integer> getRatingMap(){
         this.content_rate = content_rate;
     }
 
+    public String getAuthor_in_english() {
+        return author_in_english;
+    }
+
+    public void setAuthor_in_english(String author_in_english) {
+        this.author_in_english = author_in_english;
+    }
+
+    public String getNarrator_in_english() {
+        return narrator_in_english;
+    }
+
+    public void setNarrator_in_english(String narrator_in_english) {
+        this.narrator_in_english = narrator_in_english;
+    }
+
 
     public enum LanguageCode {
 		LAN_EN, LAN_SI
@@ -229,6 +246,12 @@ public Map<Integer,Integer> getRatingMap(){
                 this.narrator = obj.getString("narrator");
             if(obj.has("content_rate") && obj.getString("content_rate") !=null) {
                 this.content_rate = obj.getString("content_rate");
+            }
+            if(obj.has("english_narrator") && obj.getString("english_narrator") !=null) {
+                this.narrator_in_english = obj.getString("english_narrator");
+            }
+            if(obj.has("english_author") && obj.getString("english_author") !=null) {
+                this.author_in_english = obj.getString("english_author");
             }
             if(obj.has("purchased") && obj.getString("purchased") !=null){
                 String purchased=obj.getString("purchased");

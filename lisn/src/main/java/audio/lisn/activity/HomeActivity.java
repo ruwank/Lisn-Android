@@ -137,6 +137,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                         });
 
             }
+
             @Override
             public void onSingleTap() {
                 showAudioPlayer();
@@ -161,9 +162,21 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
     }
     private void loadTourScreen(){
-        Intent intent = new Intent(getApplicationContext(),
-                AppTourActivity.class);
-        startActivity(intent);
+
+        SharedPreferences sharedPref =getApplicationContext().getSharedPreferences(
+                getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+        boolean isFirstTime = sharedPref.getBoolean(getString(R.string.is_first_time), false);
+        if(!isFirstTime){
+            Intent intent = new Intent(getApplicationContext(),
+                    AppTourActivity.class);
+            startActivity(intent);
+
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putBoolean(getString(R.string.is_first_time), true);
+            editor.commit();
+        }
+
+
     }
     private void showAudioPlayer(){
         if(AppController.getInstance().getCurrentAudioBook() !=null) {

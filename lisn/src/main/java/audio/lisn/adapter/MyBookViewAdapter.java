@@ -125,6 +125,7 @@ public class MyBookViewAdapter extends RecyclerView.Adapter<MyBookViewAdapter.Vi
         holder.title.setText(book.getTitle());
         holder.author.setText(book.getAuthor());
         holder.title.setContentDescription(book.getEnglish_title());
+        holder.author.setContentDescription(book.getAuthor_in_english());
 
 
         holder.thumbNail.setImageBitmap(null);

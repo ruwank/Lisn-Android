@@ -359,45 +359,45 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
         if (subscriberId != null) {
             if (subscriberId.startsWith("41301")) {
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(
-                        this);
-                builder.setTitle("Service Provider").setMessage("Mobitel").setPositiveButton(
-                        R.string.BUTTON_OK, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                // FIRE ZE MISSILES!
-                            }
-                        });
-                AlertDialog dialog = builder.create();
-                dialog.show();
+//                AlertDialog.Builder builder = new AlertDialog.Builder(
+//                        this);
+//                builder.setTitle("Service Provider").setMessage("Mobitel").setPositiveButton(
+//                        R.string.BUTTON_OK, new DialogInterface.OnClickListener() {
+//                            public void onClick(DialogInterface dialog, int id) {
+//                                // FIRE ZE MISSILES!
+//                            }
+//                        });
+//                AlertDialog dialog = builder.create();
+//                dialog.show();
 
                 serviceProvider = ServiceProvider.PROVIDER_MOBITEL;
             } else if (subscriberId.startsWith("41302")) {
                 serviceProvider = ServiceProvider.PROVIDER_DIALOG;
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(
-                        this);
-                builder.setTitle("Service Provider").setMessage("Dialog").setPositiveButton(
-                        R.string.BUTTON_OK, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                // FIRE ZE MISSILES!
-                            }
-                        });
-                AlertDialog dialog = builder.create();
-                dialog.show();
+//                AlertDialog.Builder builder = new AlertDialog.Builder(
+//                        this);
+//                builder.setTitle("Service Provider").setMessage("Dialog").setPositiveButton(
+//                        R.string.BUTTON_OK, new DialogInterface.OnClickListener() {
+//                            public void onClick(DialogInterface dialog, int id) {
+//                                // FIRE ZE MISSILES!
+//                            }
+//                        });
+//                AlertDialog dialog = builder.create();
+//                dialog.show();
             }
 
 
         }else {
-            AlertDialog.Builder builder = new AlertDialog.Builder(
-                    this);
-            builder.setTitle("Service Provider").setMessage("getSubscriber error").setPositiveButton(
-                    R.string.BUTTON_OK, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            // FIRE ZE MISSILES!
-                        }
-                    });
-            AlertDialog dialog = builder.create();
-            dialog.show();
+//            AlertDialog.Builder builder = new AlertDialog.Builder(
+//                    this);
+//            builder.setTitle("Service Provider").setMessage("getSubscriber error").setPositiveButton(
+//                    R.string.BUTTON_OK, new DialogInterface.OnClickListener() {
+//                        public void onClick(DialogInterface dialog, int id) {
+//                            // FIRE ZE MISSILES!
+//                        }
+//                    });
+//            AlertDialog dialog = builder.create();
+//            dialog.show();
         }
 
     }
@@ -543,7 +543,7 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
 
     private void showAudioPlayer(){
         //AudioBook audioBook=AppController.getInstance().getCurrentAudioBook();
-        Log.v(TAG,"SeekPoint"+audioBook.getLastSeekPoint());
+        Log.v(TAG, "SeekPoint" + audioBook.getLastSeekPoint());
         if(AppController.getInstance().getCurrentAudioBook() !=null) {
             PlayerControllerActivity.navigate(AudioBookDetailActivity.this, playerControllerView, null, -1);
         }
@@ -801,7 +801,7 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
 
         TextView ratingValue2=(TextView)findViewById(R.id.ratingValue2);
         RatingBar ratingBar2=(RatingBar)findViewById(R.id.ratingBar2);
-
+String narratorContentDes="";
 
         if(audioBook.getLanguageCode()== AudioBook.LanguageCode.LAN_SI){
             descriptionTextView.setTypeface(CustomTypeFace.getSinhalaTypeFace(getApplicationContext()));
@@ -810,6 +810,7 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
             narrator.setTypeface(CustomTypeFace.getSinhalaTypeFace(getApplicationContext()));
             narratorText=getString(R.string.narrator_si);
             durationText=getString(R.string.duration_si);
+            narratorContentDes="Kiyaweema ";
         }else{
             descriptionTextView.setTypeface(CustomTypeFace.getEnglishTypeFace(getApplicationContext()));
             title.setTypeface(CustomTypeFace.getEnglishTypeFace(getApplicationContext()));
@@ -818,6 +819,8 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
 
             narratorText=getString(R.string.narrator_en);
             durationText=getString(R.string.duration_en);
+            narratorContentDes=getString(R.string.narrator_en);
+
         }
         title.setText(audioBook.getTitle());
         String priceText="Free";
@@ -839,7 +842,12 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
         narratorText=narratorText+" - "+audioBook.getNarrator();
         durationText=durationText+" - "+audioBook.getDuration();
         author.setText(audioBook.getAuthor());
+        narratorContentDes=narratorContentDes+" "+audioBook.getAuthor_in_english();
+        author.setContentDescription(narratorContentDes);
+
         narrator.setText(narratorText);
+        narrator.setContentDescription(audioBook.getNarrator_in_english());
+
         title.setText(audioBook.getTitle());
         if(audioBook.getDescription() !=null && audioBook.getDescription().length()>1){
             description.setText(audioBook.getDescription());
@@ -1614,12 +1622,21 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
                             AlertDialog dialog = builder.create();
                             dialog.show();
                         } else{
+
                             Log.v("addToBillServerConnect","addToBillServerConnect 4");
                             info=info+",error";
                             new Analytic().analyticEvent(8, audioBook.getBook_id(), info);
+                            String[] separated = response.split(":");
+                            String status=separated[0];
+                            String message=getString(R.string.SERVER_ERROR_MESSAGE_PAYMENT);
+                            if(separated.length>1){
+                                message=separated[1];
+                            }
+
+                            //FAILED:Insifficient credit! Please reload your mobitel account and try again!
 
                             AlertDialog.Builder builder = new AlertDialog.Builder(AudioBookDetailActivity.this);
-                            builder.setTitle(getString(R.string.SERVER_ERROR_TITLE)).setMessage(getString(R.string.SERVER_ERROR_MESSAGE)).setPositiveButton(
+                            builder.setTitle(status).setMessage(message).setPositiveButton(
                                     getString(R.string.BUTTON_OK), new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int id) {
                                             // FIRE ZE MISSILES!

@@ -64,6 +64,7 @@
     <string name="user_fb_id">user_fb_id</string>
     <string name="user_type">user_type</string>
     <string name="service_provider">service_provider</string>
+    <string name="is_first_time">is_first_time</string>
 
 
     <string name="narrator_en">Narrator</string>

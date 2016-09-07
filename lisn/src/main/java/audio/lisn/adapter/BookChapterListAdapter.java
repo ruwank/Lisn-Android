@@ -103,6 +103,7 @@ public class BookChapterListAdapter extends BaseAdapter {
 
 
         chapterTitle.setText(bookChapter.getTitle());
+        chapterTitle.setContentDescription(bookChapter.getEnglish_title());
         chapterPrice.setText(priceText);
         final SelectedAction finalAction = action;
         final BookChapter selectedChapter=bookChapter;

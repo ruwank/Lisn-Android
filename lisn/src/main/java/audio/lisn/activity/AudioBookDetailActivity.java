@@ -45,6 +45,7 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
@@ -128,7 +129,7 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
     ImageView bookCoverImageBack;
     private PopupWindow pwindo,paymentOptionView;
     int previousDownloadedFileCount;
-    Button btnDownload;
+    Button btnDownload,btnCoupon;
     PlayerControllerView playerControllerView;
     View topOverLayView;
     private static final int REQUEST_WRITE_STORAGE = 112;
@@ -176,12 +177,6 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
         }
 
     }
-
-
-
-
-
-
 
     public static void navigate(AppCompatActivity activity, View transitionImage, AudioBook audioBook) {
         Intent intent = new Intent(activity, AudioBookDetailActivity.class);
@@ -264,6 +259,7 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
         display.getSize(size);
 
         btnDownload = (Button) findViewById(R.id.btnDownload);
+         btnCoupon = (Button) findViewById(R.id.btnCoupon);
 
         bookCoverImage = (ImageView) findViewById(R.id.bookCoverImage);
         RelativeLayout.LayoutParams bookCoverImageLayoutParams =
@@ -275,12 +271,12 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
 
         bookCoverImageBack = (ImageView) findViewById(R.id.bookCoverImageBack);
 
-        btnDownload.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+        btnCoupon.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             public void onGlobalLayout() {
-                btnDownload.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                btnCoupon.getViewTreeObserver().removeGlobalOnLayoutListener(this);
 
                 int[] loc = new int[2];
-                btnDownload.getLocationOnScreen(loc);
+                btnCoupon.getLocationOnScreen(loc);
 
                 final int viewHeight = loc[1];
                 RelativeLayout.LayoutParams bookCoverImageBackLayoutParams =
@@ -659,6 +655,12 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
                 buyFromCardButtonPressed();
             }
         });
+        btnCoupon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                btnCouponClicked();
+            }
+        });
 
 
         TextView rateValue1=(TextView)findViewById(R.id.rateValue1);
@@ -842,11 +844,11 @@ String narratorContentDes="";
         narratorText=narratorText+" - "+audioBook.getNarrator();
         durationText=durationText+" - "+audioBook.getDuration();
         author.setText(audioBook.getAuthor());
-        narratorContentDes=narratorContentDes+" "+audioBook.getAuthor_in_english();
-        author.setContentDescription(narratorContentDes);
+        author.setContentDescription(audioBook.getAuthor_in_english());
 
         narrator.setText(narratorText);
-        narrator.setContentDescription(audioBook.getNarrator_in_english());
+        narratorContentDes=narratorContentDes+" "+audioBook.getNarrator_in_english();
+        narrator.setContentDescription(narratorContentDes);
 
         title.setText(audioBook.getTitle());
         if(audioBook.getDescription() !=null && audioBook.getDescription().length()>1){
@@ -1001,6 +1003,47 @@ String narratorContentDes="";
         bookReviewViewAdapter=new BookReviewViewAdapter(getApplicationContext(),reviews);
         reviewContainer.setAdapter(bookReviewViewAdapter);
 
+
+    }
+    private void btnCouponClicked(){
+        // get prompts.xml view
+        LayoutInflater li = LayoutInflater.from(this);
+        View promptsView = li.inflate(R.layout.custom_dialog_coupon, null);
+
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                this);
+
+        // set prompts.xml to alertdialog builder
+        alertDialogBuilder.setView(promptsView);
+
+        final EditText userInput = (EditText) promptsView
+                .findViewById(R.id.editTextDialogUserInput);
+
+        // set dialog message
+        alertDialogBuilder
+                .setCancelable(false)
+                .setPositiveButton("OK",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                // get user input and set it to result
+                                // edit text
+                                //result.setText(userInput.getText());
+                                String coupon =userInput.getText().toString();
+                                Log.v(TAG,"coupon :"+coupon);
+                            }
+                        })
+                .setNegativeButton("Cancel",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                dialog.cancel();
+                            }
+                        });
+
+        // create alert dialog
+        AlertDialog alertDialog = alertDialogBuilder.create();
+
+        // show it
+        alertDialog.show();
 
     }
     private void showSimilarBook(){

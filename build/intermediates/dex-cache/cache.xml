@@ -2,151 +2,304 @@
 <items version="2" >
 
     <item
-        jar="/Users/Rasika/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/23.1.1/support-annotations-23.1.1.jar"
+        is-multidex="false"
+        jar="/Users/rasikakumara/.gradle/caches/transforms-1/files-1.1/play-services-gcm-8.3.0.aar/b0f9a672a01368b626e3c82a59f77d08/jars/classes.jar"
         jumboMode="false"
-        revision="23.0.1"
-        sha1="8d680ba5a623724d1fb0e81c36a790f023a6cede">
-        <dex dex="/Users/Rasika/Documents/Project/Feelance/Lisn/src/1.1/Book/lisn/build/intermediates/pre-dexed/release/support-annotations-23.1.1-b807bb16f4b4eceb610d17fbe1b6453bf7c1eca5.jar" />
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="71eda10e33212e44245524b5087366ff8d805825">
+        <dex dex="/Users/rasikakumara/Documents/Project/Feelance/Lisn/Android/src/1.0/Lisn-Android/lisn/build/intermediates/transforms/preDex/release/17.jar" />
     </item>
     <item
-        jar="/Users/Rasika/Documents/Project/Feelance/Lisn/src/1.1/Book/lisn/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/jars/libs/internal_impl-23.1.1.jar"
+        is-multidex="false"
+        jar="/Users/rasikakumara/.gradle/caches/transforms-1/files-1.1/support-v4-23.1.1.aar/cb99e371be0cc6b7dd3055d59bb22780/jars/libs/internal_impl-23.1.1.jar"
         jumboMode="false"
-        revision="23.0.1"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
         sha1="a4de9c81ae239414e1ed0f86441b02abaf29bca9">
-        <dex dex="/Users/Rasika/Documents/Project/Feelance/Lisn/src/1.1/Book/lisn/build/intermediates/pre-dexed/release/internal_impl-23.1.1-80b9550b5a521ed27b6229a21989839bb960d3e1.jar" />
+        <dex dex="/Users/rasikakumara/Documents/Project/Feelance/Lisn/Android/src/1.0/Lisn-Android/lisn/build/intermediates/transforms/preDex/release/24.jar" />
     </item>
     <item
-        jar="/Users/Rasika/Documents/Project/Feelance/Lisn/src/1.1/Book/lisn/build/intermediates/exploded-aar/Book/CoverFlowLib/unspecified/jars/classes.jar"
+        is-multidex="false"
+        jar="/Users/rasikakumara/.gradle/caches/transforms-1/files-1.1/discrete-seekbar-1.0.0.aar/2f1454ef7f5cc12b3a46b1b570264608/jars/classes.jar"
         jumboMode="false"
-        revision="23.0.1"
-        sha1="b92ffb4d373be304bab4519f6e7e6dbfd0132876">
-        <dex dex="/Users/Rasika/Documents/Project/Feelance/Lisn/src/1.1/Book/lisn/build/intermediates/pre-dexed/release/classes-2eadc5ceb0562799f42bdc5b54767ac51e8aab55.jar" />
-    </item>
-    <item
-        jar="/Users/Rasika/Documents/Project/Feelance/Lisn/src/1.1/Book/lisn/build/intermediates/exploded-aar/org.adw.library/discrete-seekbar/1.0.0/jars/classes.jar"
-        jumboMode="false"
-        revision="23.0.1"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
         sha1="3e2965bae48affdd6dcd3f87cd525a988ade1250">
-        <dex dex="/Users/Rasika/Documents/Project/Feelance/Lisn/src/1.1/Book/lisn/build/intermediates/pre-dexed/release/classes-06c41d9f718642cc3757972f1a6442ce8d924313.jar" />
+        <dex dex="/Users/rasikakumara/Documents/Project/Feelance/Lisn/Android/src/1.0/Lisn-Android/lisn/build/intermediates/transforms/preDex/release/13.jar" />
     </item>
     <item
-        jar="/Users/Rasika/Documents/Project/Feelance/Lisn/src/1.1/Book/lisn/build/intermediates/exploded-aar/com.crashlytics.sdk.android/answers/1.1.2/jars/classes.jar"
+        is-multidex="false"
+        jar="/Users/rasikakumara/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/23.1.1/support-annotations-23.1.1.jar"
         jumboMode="false"
-        revision="23.0.1"
-        sha1="158555fbeff80e5a85464a818eadda8a448a1051">
-        <dex dex="/Users/Rasika/Documents/Project/Feelance/Lisn/src/1.1/Book/lisn/build/intermediates/pre-dexed/release/classes-0f6231c51bf76ed147a760843ae9e08790293c9a.jar" />
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="8d680ba5a623724d1fb0e81c36a790f023a6cede">
+        <dex dex="/Users/rasikakumara/Documents/Project/Feelance/Lisn/Android/src/1.0/Lisn-Android/lisn/build/intermediates/transforms/preDex/release/28.jar" />
     </item>
     <item
-        jar="/Users/Rasika/Documents/Project/Feelance/Lisn/src/1.1/Book/lisn/build/intermediates/exploded-aar/com.android.support/design/23.1.1/jars/classes.jar"
+        is-multidex="false"
+        jar="/Users/rasikakumara/.gradle/caches/transforms-1/files-1.1/cardview-v7-23.0.1.aar/32e52b67e88d080a7d5dae0c1697a970/jars/classes.jar"
         jumboMode="false"
-        revision="23.0.1"
-        sha1="379471b2bd17d9737c050345c08e8c7d16589784">
-        <dex dex="/Users/Rasika/Documents/Project/Feelance/Lisn/src/1.1/Book/lisn/build/intermediates/pre-dexed/release/classes-64f1ab67eb15638c3848f3abd9adf29dded82868.jar" />
-    </item>
-    <item
-        jar="/Users/Rasika/Documents/Project/Feelance/Lisn/src/1.1/Book/lisn/build/intermediates/exploded-aar/org.solovyev.android.views/linear-layout-manager/0.5/jars/classes.jar"
-        jumboMode="false"
-        revision="23.0.1"
-        sha1="d9e195d6fd00f4f938e173bfee6c621fb26480f5">
-        <dex dex="/Users/Rasika/Documents/Project/Feelance/Lisn/src/1.1/Book/lisn/build/intermediates/pre-dexed/release/classes-7394ed16940216569e71a287998bd59bf75a23c5.jar" />
-    </item>
-    <item
-        jar="/Users/Rasika/Documents/Project/Feelance/Lisn/src/1.1/Book/lisn/build/intermediates/exploded-aar/com.ms-square/expandableTextView/0.1.4/jars/classes.jar"
-        jumboMode="false"
-        revision="23.0.1"
-        sha1="b305cfd7ae732d7c146fe3046aea90f877c3892b">
-        <dex dex="/Users/Rasika/Documents/Project/Feelance/Lisn/src/1.1/Book/lisn/build/intermediates/pre-dexed/release/classes-ba4b4d5cf072dc1049b43a6a6c9d5a82597dc715.jar" />
-    </item>
-    <item
-        jar="/Users/Rasika/Documents/Project/Feelance/Lisn/src/1.1/Book/lisn/libs/volley.jar"
-        jumboMode="false"
-        revision="23.0.1"
-        sha1="d4aaa36e04ee71a83444f8367c97a46fda662d2c">
-        <dex dex="/Users/Rasika/Documents/Project/Feelance/Lisn/src/1.1/Book/lisn/build/intermediates/pre-dexed/release/volley-8337d0a7b6b4e9136ed5a10571d767c71458ffcd.jar" />
-    </item>
-    <item
-        jar="/Users/Rasika/Documents/Project/Feelance/Lisn/src/1.1/Book/lisn/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/jars/classes.jar"
-        jumboMode="false"
-        revision="23.0.1"
-        sha1="5c5699834e9722f1c288fea2de82725d078ba127">
-        <dex dex="/Users/Rasika/Documents/Project/Feelance/Lisn/src/1.1/Book/lisn/build/intermediates/pre-dexed/release/classes-5e9f2938c410afe699ff116d36eec18b431796a5.jar" />
-    </item>
-    <item
-        jar="/Users/Rasika/Documents/Project/Feelance/Lisn/src/1.1/Book/lisn/build/intermediates/exploded-aar/com.android.support/cardview-v7/23.0.1/jars/classes.jar"
-        jumboMode="false"
-        revision="23.0.1"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
         sha1="39ae02ce40c3ac828abbf780ce0ff5d7a28b7d6a">
-        <dex dex="/Users/Rasika/Documents/Project/Feelance/Lisn/src/1.1/Book/lisn/build/intermediates/pre-dexed/release/classes-815c42d846541f431a3805cc2075c4aed538c8e7.jar" />
+        <dex dex="/Users/rasikakumara/Documents/Project/Feelance/Lisn/Android/src/1.0/Lisn-Android/lisn/build/intermediates/transforms/preDex/release/8.jar" />
     </item>
     <item
-        jar="/Users/Rasika/Library/Android/sdk/build-tools/23.0.1/renderscript/lib/renderscript-v8.jar"
+        is-multidex="false"
+        jar="/Users/rasikakumara/.gradle/caches/transforms-1/files-1.1/support-v4-23.1.1.aar/cb99e371be0cc6b7dd3055d59bb22780/jars/classes.jar"
         jumboMode="false"
-        revision="23.0.1"
-        sha1="762016371811e15a66e97cf27f3e852bf287aaf3">
-        <dex dex="/Users/Rasika/Documents/Project/Feelance/Lisn/src/1.1/Book/lisn/build/intermediates/pre-dexed/release/renderscript-v8-37a53666f9abc0a51af516c2ad2ee83656827817.jar" />
-    </item>
-    <item
-        jar="/Users/Rasika/Documents/Project/Feelance/Lisn/src/1.1/Book/lisn/build/intermediates/exploded-aar/com.mani/ThinDownloadManager/1.2.0/jars/classes.jar"
-        jumboMode="false"
-        revision="23.0.1"
-        sha1="9439012f79c7d403c4366ffe8fa2c4fa9436b3c5">
-        <dex dex="/Users/Rasika/Documents/Project/Feelance/Lisn/src/1.1/Book/lisn/build/intermediates/pre-dexed/release/classes-d0a5cbfcbceb46224fb0f917d8f3161b7bc31b6e.jar" />
-    </item>
-    <item
-        jar="/Users/Rasika/Documents/Project/Feelance/Lisn/src/1.1/Book/lisn/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/jars/classes.jar"
-        jumboMode="false"
-        revision="23.0.1"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
         sha1="6cbc7773921fcfedbe55657578f0cbfe614778dc">
-        <dex dex="/Users/Rasika/Documents/Project/Feelance/Lisn/src/1.1/Book/lisn/build/intermediates/pre-dexed/release/classes-a2cce0d3f2023cbae3dd584b77cb204729e52e79.jar" />
+        <dex dex="/Users/rasikakumara/Documents/Project/Feelance/Lisn/Android/src/1.0/Lisn-Android/lisn/build/intermediates/transforms/preDex/release/23.jar" />
     </item>
     <item
-        jar="/Users/Rasika/Documents/Project/Feelance/Lisn/src/1.1/Book/lisn/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/23.1.1/jars/classes.jar"
+        is-multidex="false"
+        jar="/Users/rasikakumara/.gradle/caches/transforms-1/files-1.1/play-services-base-8.3.0.aar/7a981761e617cc98de6a4025dc1e8b6e/jars/classes.jar"
         jumboMode="false"
-        revision="23.0.1"
-        sha1="09c5e804bc67fc0580360043dff067df574a60d4">
-        <dex dex="/Users/Rasika/Documents/Project/Feelance/Lisn/src/1.1/Book/lisn/build/intermediates/pre-dexed/release/classes-c41ddeeb7a69669ee6ce99781c11b3c408c7dbdf.jar" />
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="01a90bbb9495a8bbf6f3cfdf12f1b35caaa9524b">
+        <dex dex="/Users/rasikakumara/Documents/Project/Feelance/Lisn/Android/src/1.0/Lisn-Android/lisn/build/intermediates/transforms/preDex/release/20.jar" />
     </item>
     <item
-        jar="/Users/Rasika/Documents/Project/Feelance/Lisn/src/1.1/Book/lisn/build/intermediates/exploded-aar/com.crashlytics.sdk.android/beta/1.1.2/jars/classes.jar"
+        is-multidex="false"
+        jar="/Users/rasikakumara/.gradle/caches/transforms-1/files-1.1/design-23.1.1.aar/e004bd6b2f361b84fd4f5a9f002240eb/jars/classes.jar"
         jumboMode="false"
-        revision="23.0.1"
-        sha1="0d6546c1c73cb64a6907f694e6c4bf4b50fefa70">
-        <dex dex="/Users/Rasika/Documents/Project/Feelance/Lisn/src/1.1/Book/lisn/build/intermediates/pre-dexed/release/classes-8aa7c0f5fe893b231f1ec0ee90a9de638d6ffc96.jar" />
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="379471b2bd17d9737c050345c08e8c7d16589784">
+        <dex dex="/Users/rasikakumara/Documents/Project/Feelance/Lisn/Android/src/1.0/Lisn-Android/lisn/build/intermediates/transforms/preDex/release/4.jar" />
     </item>
     <item
-        jar="/Users/Rasika/Documents/Project/Feelance/Lisn/src/1.1/Book/lisn/build/intermediates/exploded-aar/io.fabric.sdk.android/fabric/1.3.0/jars/classes.jar"
+        is-multidex="false"
+        jar="/Users/rasikakumara/.gradle/caches/transforms-1/files-1.1/play-services-location-8.3.0.aar/f75a5b9c4ec0ab8392704e75c4aa4def/jars/classes.jar"
         jumboMode="false"
-        revision="23.0.1"
-        sha1="7372378dec00f25c04714a058617e515858273c8">
-        <dex dex="/Users/Rasika/Documents/Project/Feelance/Lisn/src/1.1/Book/lisn/build/intermediates/pre-dexed/release/classes-e92c676307d5424e8616f5e541d99e72656e8639.jar" />
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="6d9ed9a288364688e7fcf6704776284dac1eb42e">
+        <dex dex="/Users/rasikakumara/Documents/Project/Feelance/Lisn/Android/src/1.0/Lisn-Android/lisn/build/intermediates/transforms/preDex/release/18.jar" />
     </item>
     <item
-        jar="/Users/Rasika/.gradle/caches/modules-2/files-2.1/com.parse.bolts/bolts-android/1.2.0/6ee2953ccf51ce72b6d548c30c4633b99eb4f9dd/bolts-android-1.2.0.jar"
+        is-multidex="false"
+        jar="/Users/rasikakumara/.gradle/caches/transforms-1/files-1.1/answers-1.1.2.aar/0afa964de1505ca84372bb9000ca5ef2/jars/classes.jar"
         jumboMode="false"
-        revision="23.0.1"
-        sha1="6ee2953ccf51ce72b6d548c30c4633b99eb4f9dd">
-        <dex dex="/Users/Rasika/Documents/Project/Feelance/Lisn/src/1.1/Book/lisn/build/intermediates/pre-dexed/release/bolts-android-1.2.0-91cc0eaed690d5c43963db59cf6c0c5790de2d35.jar" />
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="158555fbeff80e5a85464a818eadda8a448a1051">
+        <dex dex="/Users/rasikakumara/Documents/Project/Feelance/Lisn/Android/src/1.0/Lisn-Android/lisn/build/intermediates/transforms/preDex/release/25.jar" />
     </item>
     <item
-        jar="/Users/Rasika/Documents/Project/Feelance/Lisn/src/1.1/Book/lisn/build/intermediates/exploded-aar/com.crashlytics.sdk.android/crashlytics/2.2.3/jars/classes.jar"
+        is-multidex="false"
+        jar="/Users/rasikakumara/.gradle/caches/transforms-1/files-1.1/linear-layout-manager-0.5.aar/c08ec6c3ac0bee19ed35a58c34c66bd8/jars/classes.jar"
         jumboMode="false"
-        revision="23.0.1"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="d9e195d6fd00f4f938e173bfee6c621fb26480f5">
+        <dex dex="/Users/rasikakumara/Documents/Project/Feelance/Lisn/Android/src/1.0/Lisn-Android/lisn/build/intermediates/transforms/preDex/release/6.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/rasikakumara/Documents/Project/Feelance/Lisn/Android/src/1.0/Lisn-Android/lisn/libs/volley.jar"
+        jumboMode="false"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="d4aaa36e04ee71a83444f8367c97a46fda662d2c">
+        <dex dex="/Users/rasikakumara/Documents/Project/Feelance/Lisn/Android/src/1.0/Lisn-Android/lisn/build/intermediates/transforms/preDex/release/2.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/rasikakumara/.gradle/caches/transforms-1/files-1.1/crashlytics-2.2.3.aar/32140dec615ef9d8bd62497a6cb4b01b/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
         sha1="151dcc4be9b748290223c6bbf94bf8213181a971">
-        <dex dex="/Users/Rasika/Documents/Project/Feelance/Lisn/src/1.1/Book/lisn/build/intermediates/pre-dexed/release/classes-8924bf14c309e5a32ec05afafe3fbee473b718d7.jar" />
+        <dex dex="/Users/rasikakumara/Documents/Project/Feelance/Lisn/Android/src/1.0/Lisn-Android/lisn/build/intermediates/transforms/preDex/release/7.jar" />
     </item>
     <item
-        jar="/Users/Rasika/Documents/Project/Feelance/Lisn/src/1.1/Book/lisn/build/intermediates/exploded-aar/com.facebook.android/facebook-android-sdk/4.6.0/jars/classes.jar"
+        is-multidex="false"
+        jar="/Users/rasikakumara/.gradle/caches/modules-2/files-2.1/com.parse.bolts/bolts-android/1.2.0/6ee2953ccf51ce72b6d548c30c4633b99eb4f9dd/bolts-android-1.2.0.jar"
         jumboMode="false"
-        revision="23.0.1"
-        sha1="1c1afa0ab2a8197a5da1b36c4167a9e479cb74d9">
-        <dex dex="/Users/Rasika/Documents/Project/Feelance/Lisn/src/1.1/Book/lisn/build/intermediates/pre-dexed/release/classes-4331565947292cf66f72ca307a0406f4cea35b34.jar" />
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="6ee2953ccf51ce72b6d548c30c4633b99eb4f9dd">
+        <dex dex="/Users/rasikakumara/Documents/Project/Feelance/Lisn/Android/src/1.0/Lisn-Android/lisn/build/intermediates/transforms/preDex/release/29.jar" />
     </item>
     <item
-        jar="/Users/Rasika/.gradle/caches/modules-2/files-2.1/com.squareup.picasso/picasso/2.4.0/f36d2d4e3a36b3259aaf9d004d29b4cdc6c1bfb2/picasso-2.4.0.jar"
+        is-multidex="false"
+        jar="/Users/rasikakumara/.gradle/caches/transforms-1/files-1.1/fabric-1.3.0.aar/b0def35c56512314e412dcd0888d59ba/jars/classes.jar"
         jumboMode="false"
-        revision="23.0.1"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="7372378dec00f25c04714a058617e515858273c8">
+        <dex dex="/Users/rasikakumara/Documents/Project/Feelance/Lisn/Android/src/1.0/Lisn-Android/lisn/build/intermediates/transforms/preDex/release/27.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/rasikakumara/.gradle/caches/transforms-1/files-1.1/recyclerview-v7-23.1.1.aar/e6b112b9beeb3d763cbc1b4490aba14d/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="09c5e804bc67fc0580360043dff067df574a60d4">
+        <dex dex="/Users/rasikakumara/Documents/Project/Feelance/Lisn/Android/src/1.0/Lisn-Android/lisn/build/intermediates/transforms/preDex/release/9.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/rasikakumara/.gradle/caches/transforms-1/files-1.1/expandableTextView-0.1.4.aar/83079f731a7b8d22f213876d271e9f1c/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="b305cfd7ae732d7c146fe3046aea90f877c3892b">
+        <dex dex="/Users/rasikakumara/Documents/Project/Feelance/Lisn/Android/src/1.0/Lisn-Android/lisn/build/intermediates/transforms/preDex/release/10.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/rasikakumara/Library/Android/sdk/build-tools/26.0.2/renderscript/lib/renderscript-v8.jar"
+        jumboMode="false"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="215805fbe923c9b192d4a9a3d13a07c7fc1d3f53">
+        <dex dex="/Users/rasikakumara/Documents/Project/Feelance/Lisn/Android/src/1.0/Lisn-Android/lisn/build/intermediates/transforms/preDex/release/1.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/rasikakumara/.gradle/caches/transforms-1/files-1.1/beta-1.1.2.aar/a0a284a3cacf58f3355de0b1954df9c7/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="0d6546c1c73cb64a6907f694e6c4bf4b50fefa70">
+        <dex dex="/Users/rasikakumara/Documents/Project/Feelance/Lisn/Android/src/1.0/Lisn-Android/lisn/build/intermediates/transforms/preDex/release/26.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/rasikakumara/.gradle/caches/transforms-1/files-1.1/appcompat-v7-23.1.1.aar/b8e6e1a11d3430a676a466f98208bab5/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="5c5699834e9722f1c288fea2de82725d078ba127">
+        <dex dex="/Users/rasikakumara/Documents/Project/Feelance/Lisn/Android/src/1.0/Lisn-Android/lisn/build/intermediates/transforms/preDex/release/5.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/rasikakumara/Documents/Project/Feelance/Lisn/Android/src/1.0/Lisn-Android/CoverFlowLib/build/intermediates/intermediate-jars/release/classes.jar"
+        jumboMode="false"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="8c0bf42b42f450e4ae37611a41c67d2a81b8244e">
+        <dex dex="/Users/rasikakumara/Documents/Project/Feelance/Lisn/Android/src/1.0/Lisn-Android/lisn/build/intermediates/transforms/preDex/release/30.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/rasikakumara/.gradle/caches/modules-2/files-2.1/com.squareup.picasso/picasso/2.4.0/f36d2d4e3a36b3259aaf9d004d29b4cdc6c1bfb2/picasso-2.4.0.jar"
+        jumboMode="false"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
         sha1="f36d2d4e3a36b3259aaf9d004d29b4cdc6c1bfb2">
-        <dex dex="/Users/Rasika/Documents/Project/Feelance/Lisn/src/1.1/Book/lisn/build/intermediates/pre-dexed/release/picasso-2.4.0-6e8dcf6eb681106dfca182c0ebef2d8b051e0fe7.jar" />
+        <dex dex="/Users/rasikakumara/Documents/Project/Feelance/Lisn/Android/src/1.0/Lisn-Android/lisn/build/intermediates/transforms/preDex/release/11.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/rasikakumara/.gradle/caches/transforms-1/files-1.1/play-services-measurement-8.3.0.aar/b3546f37ae81830d8b1742306e03b184/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="b000ecceb9877fefcdc7ab1959ff03df91551656">
+        <dex dex="/Users/rasikakumara/Documents/Project/Feelance/Lisn/Android/src/1.0/Lisn-Android/lisn/build/intermediates/transforms/preDex/release/21.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/rasikakumara/.gradle/caches/transforms-1/files-1.1/circleimageview-2.0.0.aar/b4fa40b1c3a571356483f99d23a57c06/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="031e8b3ab2df4ab43b1017f84417d7e10dfbb8d2">
+        <dex dex="/Users/rasikakumara/Documents/Project/Feelance/Lisn/Android/src/1.0/Lisn-Android/lisn/build/intermediates/transforms/preDex/release/16.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/rasikakumara/.gradle/caches/transforms-1/files-1.1/expandable-layout-1.5.1.aar/1d953b3ec875b38610d9af18e581d517/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="4cf6ff414996005f936308df484b1e27f7d1592e">
+        <dex dex="/Users/rasikakumara/Documents/Project/Feelance/Lisn/Android/src/1.0/Lisn-Android/lisn/build/intermediates/transforms/preDex/release/15.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/rasikakumara/.gradle/caches/transforms-1/files-1.1/ThinDownloadManager-1.2.0.aar/e583fec5ccc008e2f9b3ec41a43e4878/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="9439012f79c7d403c4366ffe8fa2c4fa9436b3c5">
+        <dex dex="/Users/rasikakumara/Documents/Project/Feelance/Lisn/Android/src/1.0/Lisn-Android/lisn/build/intermediates/transforms/preDex/release/14.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/rasikakumara/.gradle/caches/transforms-1/files-1.1/play-services-maps-8.3.0.aar/e5dda35168147195070904cacf87ec10/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="77f9593d979f4347344be233bd0d888315f79517">
+        <dex dex="/Users/rasikakumara/Documents/Project/Feelance/Lisn/Android/src/1.0/Lisn-Android/lisn/build/intermediates/transforms/preDex/release/19.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/rasikakumara/.gradle/caches/transforms-1/files-1.1/play-services-basement-8.3.0.aar/a65395137364281f630e65089c432009/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="345a1b5cf5b144ce18ba6962bc66a7e2f26c1c1b">
+        <dex dex="/Users/rasikakumara/Documents/Project/Feelance/Lisn/Android/src/1.0/Lisn-Android/lisn/build/intermediates/transforms/preDex/release/22.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/rasikakumara/.gradle/caches/transforms-1/files-1.1/facebook-android-sdk-4.6.0.aar/c86fb208afd08ff0b30c7e663809f665/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="1c1afa0ab2a8197a5da1b36c4167a9e479cb74d9">
+        <dex dex="/Users/rasikakumara/Documents/Project/Feelance/Lisn/Android/src/1.0/Lisn-Android/lisn/build/intermediates/transforms/preDex/release/12.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/rasikakumara/Documents/Project/Feelance/Lisn/Android/src/1.0/Lisn-Android/lisn/libs/valuebarlibrary-1-0-2.jar"
+        jumboMode="false"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="226960f32a5f56f83f6e760dd1210b7ca0ef9d25">
+        <dex dex="/Users/rasikakumara/Documents/Project/Feelance/Lisn/Android/src/1.0/Lisn-Android/lisn/build/intermediates/transforms/preDex/release/3.jar" />
     </item>
 
 </items>

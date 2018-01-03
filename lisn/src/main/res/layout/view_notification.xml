@@ -46,6 +46,7 @@
         android:src="@drawable/btn_play_start"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
+        android:contentDescription="play pause"
         android:background="@android:color/transparent" >
     </ImageView>
 

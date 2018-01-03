@@ -53,7 +53,6 @@ import audio.lisn.util.AppUtils;
 import audio.lisn.util.AudioPlayerService;
 import audio.lisn.util.AudioPlayerService.AudioPlayerServiceBinder;
 import audio.lisn.util.Constants;
-import audio.lisn.util.DailyReminderReceiver;
 import audio.lisn.util.Foreground;
 import audio.lisn.util.Log;
 import audio.lisn.util.LruBitmapCache;
@@ -86,7 +85,7 @@ public class AppController extends Application  {
 
     private static final int NOTIFY_ID=158;
     AlarmManager alarmManager = null;
-    AlarmManager alarmManagerRepeat = null;
+   // AlarmManager alarmManagerRepeat = null;
     private BookCategory[] bookCategories;
     private String sessionId;
     private Location lastLocation;
@@ -102,11 +101,13 @@ public class AppController extends Application  {
         mInstance = this;
         registerAppStateChangeBroadcastReceiver();
         registerPlayerStopBroadcastReceiver();
-        showQuotesEveryWeek();
+       // showQuotesEveryWeek();
         sessionId = String.valueOf(UUID.randomUUID());
 
         //Analytic activity 1
         new Analytic().analyticEvent(1,"","");
+        showReminder();
+
 
     }
 
@@ -501,12 +502,11 @@ if(currentAudioBook != null){
 
             }
             sessionId = String.valueOf(UUID.randomUUID());
-            if (alarmManagerRepeat != null) {
-                Intent intentAlarm = new Intent(getApplicationContext(), ReminderReceiver.class);
-
-                alarmManagerRepeat.cancel(PendingIntent.getBroadcast(getApplicationContext(), 1, intentAlarm, PendingIntent.FLAG_UPDATE_CURRENT));
-                alarmManagerRepeat=null;
-            }
+//            if (alarmManagerRepeat != null) {
+//                Intent intentAlarm = new Intent(getApplicationContext(), ReminderReceiver.class);
+//                alarmManagerRepeat.cancel(PendingIntent.getBroadcast(getApplicationContext(), 1, intentAlarm, PendingIntent.FLAG_UPDATE_CURRENT));
+//                alarmManagerRepeat=null;
+//            }
         }
     }
     private void appEnterBackground(){
@@ -515,7 +515,7 @@ if(currentAudioBook != null){
             if (mBound)
                 mService.updatePlaybackState();
 
-            showReminder();
+           // showReminder();
         }
 
     }
@@ -552,6 +552,7 @@ if(currentAudioBook != null){
         }
         this.userId=null;
     }
+    /*
     private void showQuotesEveryWeek()
 
     {
@@ -567,20 +568,19 @@ if(currentAudioBook != null){
                     AlarmManager.INTERVAL_DAY * 7, PendingIntent.getBroadcast(getApplicationContext(), 1, intentAlarm, PendingIntent.FLAG_UPDATE_CURRENT));
         }
     }
-
+*/
     private void showReminder ()
     {
         if(alarmManager==null) {
             alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 
             // Log.v("showReminder","showReminder: "+SystemClock.elapsedRealtime()+5*1000);
-            Intent intentAlarm = new Intent(getApplicationContext(), DailyReminderReceiver.class);
-
+            Intent intentAlarm = new Intent(getApplicationContext(), ReminderReceiver.class);
             //3 days
            // long time = System.currentTimeMillis() + (1000 * 60 * 60 * 24 * 1);
             alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
-                    SystemClock.elapsedRealtime() + AlarmManager.INTERVAL_DAY,
-                    AlarmManager.INTERVAL_DAY, PendingIntent.getBroadcast(getApplicationContext(), 1, intentAlarm, PendingIntent.FLAG_UPDATE_CURRENT));
+                    SystemClock.elapsedRealtime() + AlarmManager.INTERVAL_DAY*6,
+                    AlarmManager.INTERVAL_DAY*7, PendingIntent.getBroadcast(getApplicationContext(),1, intentAlarm, PendingIntent.FLAG_UPDATE_CURRENT));
             // alarmManager.set(AlarmManager.RTC_WAKEUP, time, PendingIntent.getBroadcast(getApplicationContext(), 1, intentAlarm, PendingIntent.FLAG_UPDATE_CURRENT));
         }
 

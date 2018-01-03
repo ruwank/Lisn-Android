@@ -318,6 +318,8 @@ public class StoreBookViewAdapter extends RecyclerView.Adapter<StoreBookViewAdap
                     ContextCompat.getColor(itemView.getContext(), R.color.whiteColor),
                     android.graphics.PorterDuff.Mode.SRC_IN);
 
+            optionButton.setContentDescription("More");
+
 
 
         }

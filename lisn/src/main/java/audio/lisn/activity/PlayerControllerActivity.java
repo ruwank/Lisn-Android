@@ -387,6 +387,10 @@ public class PlayerControllerActivity extends AppCompatActivity implements FileD
                 stopDownload();
             }
         });
+        previousItemPlayButton.setContentDescription("30 seconds backward");
+        nextItemPlayButton.setContentDescription("30 seconds forward");
+        playStopButton.setContentDescription("play, pause");
+
 
 
     }

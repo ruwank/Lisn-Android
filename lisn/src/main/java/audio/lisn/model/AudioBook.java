@@ -35,6 +35,9 @@ public class AudioBook implements Serializable{
   //  private int audioFileCount;
     private int fileSize;
 
+    private boolean isApplyCoupon;
+    private double couponDiscount;
+
     private ArrayList<Integer> downloadedChapter = new ArrayList<Integer>();
     private ArrayList<BookReview> reviews=new ArrayList<>();
     private ArrayList<BookChapter> chapters=new ArrayList<>();
@@ -197,6 +200,22 @@ public Map<Integer,Integer> getRatingMap(){
 
     public void setNarrator_in_english(String narrator_in_english) {
         this.narrator_in_english = narrator_in_english;
+    }
+
+    public boolean isApplyCoupon() {
+        return isApplyCoupon;
+    }
+
+    public void setApplyCoupon(boolean applyCoupon) {
+        isApplyCoupon = applyCoupon;
+    }
+
+    public double getCouponDiscount() {
+        return couponDiscount;
+    }
+
+    public void setCouponDiscount(double couponDiscount) {
+        this.couponDiscount = couponDiscount;
     }
 
 

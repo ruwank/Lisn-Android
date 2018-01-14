@@ -59,6 +59,10 @@ public class PurchaseActivity extends AppCompatActivity {
             url=url+"&amount="+amount+"&chapid="+bookChapter.getChapter_id();
         }else{
             float amount= (float) ((Float.parseFloat(audioBook.getPrice())) * ((100.0-audioBook.getDiscount())/100.0));
+            if(audioBook.isApplyCoupon()) {
+                 amount = (float) ((Float.parseFloat(audioBook.getPrice())) * ((100.0 - audioBook.getCouponDiscount()) / 100.0));
+            }
+
             url=url+"&amount="+amount;
 
         }

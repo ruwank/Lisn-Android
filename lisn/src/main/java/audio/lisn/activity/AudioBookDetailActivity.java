@@ -1006,6 +1006,31 @@ String narratorContentDes="";
 
     }
     private void btnCouponClicked(){
+if(connectionDetector.isConnectingToInternet()){
+        if(AppController.getInstance().isUserLogin()){
+            showCouponEnterScreen();
+        }else{
+
+            Intent intent = new Intent(getApplicationContext(),
+                    LoginActivity.class);
+            startActivityForResult(intent, 3);
+
+        }
+    }else{
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(
+                this);
+        builder.setTitle(getString(R.string.NO_INTERNET_TITLE)).setMessage(getString(R.string.NO_INTERNET_MESSAGE)).setPositiveButton(
+                getString(R.string.BUTTON_OK), new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // FIRE ZE MISSILES!
+                    }
+                });
+        android.app.AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    }
+    private void showCouponEnterScreen(){
         // get prompts.xml view
         LayoutInflater li = LayoutInflater.from(this);
         View promptsView = li.inflate(R.layout.custom_dialog_coupon, null);
@@ -1028,8 +1053,11 @@ String narratorContentDes="";
                                 // get user input and set it to result
                                 // edit text
                                 //result.setText(userInput.getText());
-                                String coupon =userInput.getText().toString();
-                                Log.v(TAG,"coupon :"+coupon);
+                                if(userInput.getText() != null && userInput.getText().toString().length()>0) {
+                                    String coupon = userInput.getText().toString();
+                                    callCouponService(coupon);
+                                    dialog.cancel();
+                                }
                             }
                         })
                 .setNegativeButton("Cancel",
@@ -1044,7 +1072,75 @@ String narratorContentDes="";
 
         // show it
         alertDialog.show();
+    }
+    private void callCouponService(String code){
+        progressDialog.setMessage("Loading...");
+        progressDialog.show();
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("userid", AppController.getInstance().getUserId());
+        params.put("code", code);
 
+
+
+        String url = getResources().getString(R.string.coupon_service_url);
+
+        JsonUTF8StringRequest stringRequest = new JsonUTF8StringRequest(Request.Method.POST, url,params,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.v(TAG, " downloader response:" + response);
+
+                        progressDialog.dismiss();
+                        if (response.toUpperCase().contains("SUCCESS")) {
+
+                            String[] separated = response.split(":");
+                            String discountString = separated[1];
+                            if(separated[1] != null){
+                                String[] discountSeparated = discountString.split("=");
+                                if(discountSeparated[1] != null){
+                                    String discountValue = discountSeparated[1];
+                                    audioBook.setApplyCoupon(true);
+                                    audioBook.setCouponDiscount(Double.parseDouble(discountValue));
+
+                                }
+
+                            }
+                            showPaymentOptionPopupWindow();
+                        }else{
+                            AlertDialog.Builder builder = new AlertDialog.Builder(AudioBookDetailActivity.this);
+                            builder.setTitle(R.string.SERVER_ERROR_TITLE).setMessage(getString(R.string.SERVER_ERROR_MESSAGE)).setPositiveButton(
+                                    getString(R.string.BUTTON_OK), new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            // FIRE ZE MISSILES!
+                                        }
+                                    });
+                            AlertDialog dialog = builder.create();
+                            dialog.show();
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                progressDialog.dismiss();
+                AlertDialog.Builder builder = new AlertDialog.Builder(AudioBookDetailActivity.this);
+                builder.setTitle(R.string.SERVER_ERROR_TITLE).setMessage(getString(R.string.SERVER_ERROR_MESSAGE)).setPositiveButton(
+                        getString(R.string.BUTTON_OK), new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                // FIRE ZE MISSILES!
+                            }
+                        });
+                AlertDialog dialog = builder.create();
+                dialog.show();
+
+            }
+        });
+
+
+        AppController.getInstance().addToRequestQueue(stringRequest, "tag_download_book");
+
+        //http://app.lisn.audio/api/1.4/coupon.php?userid=1&amp;code=abc
     }
     private void showSimilarBook(){
         new Analytic().analyticEvent(5, audioBook.getBook_id(), "");
@@ -1554,7 +1650,13 @@ String narratorContentDes="";
             params.put("chapid", ""+selectedChapter.getChapter_id());
             params.put("amount", ""+selectedChapter.getPrice());
         }else {
-            params.put("amount", audioBook.getPrice());
+            String amount=audioBook.getPrice();
+            if(audioBook.isApplyCoupon()){
+                amount = ""+(float) ((Float.parseFloat(audioBook.getPrice())) * ((100.0 - audioBook.getCouponDiscount()) / 100.0));
+            }
+
+            params.put("amount", amount);
+
 
         }
 
@@ -1749,6 +1851,9 @@ String narratorContentDes="";
                     if(isSelectChapterBuyOption){
                         price=""+selectedChapter.getPrice();
                     }
+                    if(audioBook.isApplyCoupon()){
+                        price = ""+(float) ((Float.parseFloat(audioBook.getPrice())) * ((100.0 - audioBook.getCouponDiscount()) / 100.0));
+                    }
 
                     AlertDialog.Builder builder = new AlertDialog.Builder(AudioBookDetailActivity.this);
                     builder.setTitle("Confirm Payment").setMessage("Rs." + price + " will be added to your Mobitel bill. Continue?").setPositiveButton(
@@ -1800,6 +1905,9 @@ String narratorContentDes="";
                     String price= audioBook.getPrice();
                     if(isSelectChapterBuyOption){
                         price=""+selectedChapter.getPrice();
+                    }
+                    if(audioBook.isApplyCoupon()){
+                        price = ""+(float) ((Float.parseFloat(audioBook.getPrice())) * ((100.0 - audioBook.getCouponDiscount()) / 100.0));
                     }
                     builder.setTitle("Confirm Payment").setMessage("Rs." + price + " will be added to your Etisalat bill. Continue?").setPositiveButton(
                             getString(R.string.BUTTON_OK), new DialogInterface.OnClickListener() {
@@ -1853,6 +1961,9 @@ String narratorContentDes="";
                     String price= audioBook.getPrice();
                     if(isSelectChapterBuyOption){
                         price=""+selectedChapter.getPrice();
+                    }
+                    if(audioBook.isApplyCoupon()){
+                        price = ""+(float) ((Float.parseFloat(audioBook.getPrice())) * ((100.0 - audioBook.getCouponDiscount()) / 100.0));
                     }
                     builder.setTitle("Confirm Payment").setMessage("Rs." + price + " will be added to your Dialog bill. Continue?").setPositiveButton(
                             getString(R.string.BUTTON_OK), new DialogInterface.OnClickListener() {
@@ -2060,7 +2171,12 @@ String narratorContentDes="";
 
             TextView buyLabel=(TextView)layout.findViewById(R.id.buy_label);
 
-            buyLabel.setText("Buy " + selectedChapter.getEnglish_title()+" for just Rs."+selectedChapter.getPrice());
+            String buyLabelText="Buy " + selectedChapter.getEnglish_title()+" for just Rs."+selectedChapter.getPrice();
+
+            if(audioBook.isApplyCoupon()){
+                buyLabelText="Coupon discount "+audioBook.getCouponDiscount();
+            }
+            buyLabel.setText(buyLabelText);
 
             Button btn_addToBillButton = (Button) layout.findViewById(R.id.btn_addToBillButton);
             btn_addToBillButton.setOnClickListener(new View.OnClickListener() {
@@ -2343,6 +2459,23 @@ String narratorContentDes="";
                 info=info+",card,failed";
                 new Analytic().analyticEvent(8, audioBook.getBook_id(), info);
 
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle(R.string.SERVER_ERROR_TITLE).setMessage(getString(R.string.SERVER_ERROR_MESSAGE)).setPositiveButton(
+                        getString(R.string.BUTTON_OK), new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                // FIRE ZE MISSILES!
+                            }
+                        });
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
+        }
+        else if (requestCode == 3) {
+            if(resultCode == Constants.RESULT_SUCCESS){
+
+               showCouponEnterScreen();
+            }
+            if (resultCode == Constants.RESULT_ERROR) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setTitle(R.string.SERVER_ERROR_TITLE).setMessage(getString(R.string.SERVER_ERROR_MESSAGE)).setPositiveButton(
                         getString(R.string.BUTTON_OK), new DialogInterface.OnClickListener() {

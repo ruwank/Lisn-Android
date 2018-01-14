@@ -52,6 +52,7 @@
                     <string name="update_mobile_no_url">https://app.lisn.audio/api/1.4/updatemobile.php</string>
                     <string name="similar_book_url">http://app.lisn.audio/api/1.4/similarbooks.php</string>
                     <string name="analytics_url">http://app.lisn.audio/api/1.4/analytics.php</string>
+                    <string name="coupon_service_url">http://app.lisn.audio/api/1.4/coupon.php</string>
 
                     <string name="purchase_book_url">http://app.lisn.audio/spgw/1.5.6/payment/init.php</string>
                     <string name="purchase_success_url">https://app.lisn.audio/spgw/1.5.6/payment/success.php</string>
@@ -64,7 +65,6 @@
                     <string name="mobitel_pay_url">http://app.lisn.audio/cbgw/1.1/mobitel.php</string>
                     <string name="etisalat_pay_url">http://app.lisn.audio/cbgw/1.1/etisalat.php</string>
     <string name="dialog_pay_url">http://app.lisn.audio/cbgw/1.1/dialog.php</string>
-    <string name="coupon_service_url">http://app.lisn.audio/api/1.4/coupon.php</string>
 
                     <string name="support_url">info@lisn.audio</string>
                     <string name="mconnect_url">https://mconnect.dialog.lk/openidconnect/authorize</string>

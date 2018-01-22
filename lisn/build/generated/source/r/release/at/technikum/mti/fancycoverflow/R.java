@@ -19,7 +19,7 @@ public final class R {
         public static final int auto = 0x7f08002f;
     }
     public static final class string {
-        public static final int app_name = 0x7f0c0068;
+        public static final int app_name = 0x7f0c006c;
     }
     public static final class styleable {
         public static final int[] FancyCoverFlow = { 0x7f03000c, 0x7f0300eb, 0x7f030105, 0x7f030155, 0x7f030156, 0x7f030157 };

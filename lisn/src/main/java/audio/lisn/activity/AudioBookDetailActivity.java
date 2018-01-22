@@ -147,24 +147,24 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
 
     CallbackManager callbackManager;
 
-    boolean isSelectChapterBuyOption;
-    BookChapter selectedChapter;
+   // boolean isSelectChapterBuyOption;
+   // BookChapter selectedChapter;
     ServiceProvider  serviceProvider;
     PaymentOption  paymentOption;
     Thread timerUpdateThread;
     String subscriberId;
-    ListView chapterListView ;
-    int selectedChapterIndex ;
-    BookChapterListAdapter bookChapterListAdapter;
+   // ListView chapterListView ;
+   // int selectedChapterIndex ;
+    //BookChapterListAdapter bookChapterListAdapter;
     @Override
     public void onBookChapterSelect(BookChapter bookChapter, int index,AudioBook.SelectedAction action) {
 
-        isSelectChapterBuyOption=true;
-        selectedChapter=bookChapter;
-        selectedChapterIndex=index;
+       // isSelectChapterBuyOption=true;
+       // selectedChapter=bookChapter;
+       // selectedChapterIndex=index;
 
         if(action == AudioBook.SelectedAction.ACTION_PURCHASE){
-            new Analytic().analyticEvent(4, audioBook.getBook_id(), ""+selectedChapter.getChapter_id());
+           // new Analytic().analyticEvent(4, audioBook.getBook_id(), ""+selectedChapter.getChapter_id());
 
             playGetButtonPressed();
         }else if(action == AudioBook.SelectedAction.ACTION_PLAY){
@@ -313,7 +313,7 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
         playerControllerView.updateView();
         registerPlayerUpdateBroadcastReceiver();
         bookReviewViewAdapter.notifyDataSetChanged();
-        bookChapterListAdapter.notifyDataSetChanged();
+       // bookChapterListAdapter.notifyDataSetChanged();
     }
     @Override
     public void onPause() {
@@ -631,7 +631,7 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
             @Override
             public void onClick(View v) {
                 paymentOption = PaymentOption.OPTION_NONE;
-                isSelectChapterBuyOption=false;
+               // isSelectChapterBuyOption=false;
                 playGetButtonPressed();
 
             }
@@ -642,7 +642,7 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
         addToBillButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                isSelectChapterBuyOption=false;
+               // isSelectChapterBuyOption=false;
                 addToMyBillButtonPressed();
             }
         });
@@ -651,7 +651,7 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
             @Override
             public void onClick(View v) {
                 paymentOption = PaymentOption.OPTION_CARD;
-                isSelectChapterBuyOption=false;
+              //  isSelectChapterBuyOption=false;
                 buyFromCardButtonPressed();
             }
         });
@@ -772,12 +772,14 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
             });
 
         }
-
+ /*
+        22/01/2018
         // Get ListView object from xml
         chapterListView = (ListView) findViewById(R.id.chapter_list);
 
 
         Log.v(TAG, "" + audioBook.getChapters().size());
+
         ExpandablePanel expandablePanel = (ExpandablePanel) findViewById(R.id.buy_chapter);
 
         if (audioBook.getChapters().size()>0){
@@ -794,6 +796,7 @@ public class AudioBookDetailActivity extends  AppCompatActivity implements FileD
             expandablePanel.setVisibility(View.GONE);
 
         }
+        */
 
         spinner = (ProgressBar)findViewById(R.id.progressBar);
 
@@ -1081,7 +1084,6 @@ if(connectionDetector.isConnectingToInternet()){
         params.put("code", code);
 
 
-
         String url = getResources().getString(R.string.coupon_service_url);
 
         JsonUTF8StringRequest stringRequest = new JsonUTF8StringRequest(Request.Method.POST, url,params,
@@ -1098,7 +1100,10 @@ if(connectionDetector.isConnectingToInternet()){
                             if(separated[1] != null){
                                 String[] discountSeparated = discountString.split("=");
                                 if(discountSeparated[1] != null){
+
                                     String discountValue = discountSeparated[1];
+                                    Log.v(TAG, " downloader discountValue:" + discountValue);
+
                                     audioBook.setApplyCoupon(true);
                                     audioBook.setCouponDiscount(Double.parseDouble(discountValue));
 
@@ -1106,9 +1111,37 @@ if(connectionDetector.isConnectingToInternet()){
 
                             }
                             showPaymentOptionPopupWindow();
-                        }else{
+
+
+                        }
+                        else if (response.toUpperCase().contains("USED")) {
                             AlertDialog.Builder builder = new AlertDialog.Builder(AudioBookDetailActivity.this);
-                            builder.setTitle(R.string.SERVER_ERROR_TITLE).setMessage(getString(R.string.SERVER_ERROR_MESSAGE)).setPositiveButton(
+                            builder.setTitle(R.string.COUPON_USED_TITLE).setMessage(getString(R.string.COUPON_USED_MESSAGE)).setPositiveButton(
+                                    getString(R.string.BUTTON_OK), new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            // FIRE ZE MISSILES!
+                                        }
+                                    });
+                            AlertDialog dialog = builder.create();
+                            dialog.show();
+                        }
+                        else if (response.toUpperCase().contains("INVALID")) {
+                            AlertDialog.Builder builder = new AlertDialog.Builder(AudioBookDetailActivity.this);
+                            builder.setTitle(R.string.COUPON_INVALID_TITLE).setMessage(getString(R.string.COUPON_INVALID_MESSAGE)).setPositiveButton(
+                                    getString(R.string.BUTTON_OK), new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            // FIRE ZE MISSILES!
+                                        }
+                                    });
+                            AlertDialog dialog = builder.create();
+                            dialog.show();
+                        }
+
+
+                        else{
+                            AlertDialog.Builder builder = new AlertDialog.Builder(AudioBookDetailActivity.this);
+                           // builder.setTitle(R.string.SERVER_ERROR_TITLE).setMessage(getString(R.string.SERVER_ERROR_MESSAGE)).setPositiveButton(
+                                    builder.setTitle(R.string.SERVER_ERROR_TITLE).setMessage(response).setPositiveButton(
                                     getString(R.string.BUTTON_OK), new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int id) {
                                             // FIRE ZE MISSILES!
@@ -1219,12 +1252,13 @@ if(connectionDetector.isConnectingToInternet()){
         Map<String, String> params = new HashMap<String, String>();
         params.put("userid", AppController.getInstance().getUserId());
         params.put("bookid", audioBook.getBook_id());
+        params.put("chapid", "0");
 
-        if(isSelectChapterBuyOption){
-            params.put("chapid", ""+selectedChapter.getChapter_id());
-        }else{
-            params.put("chapid", "0");
-        }
+//        if(isSelectChapterBuyOption){
+//            params.put("chapid", ""+selectedChapter.getChapter_id());
+//        }else{
+//            params.put("chapid", "0");
+//        }
 
         String url = getResources().getString(R.string.user_download_activity_url);
 
@@ -1235,11 +1269,13 @@ if(connectionDetector.isConnectingToInternet()){
                         Log.v(TAG, " downloader response:" + response);
 
                         audioBook.setPurchase(true);
-                        if(isSelectChapterBuyOption){
-                            selectedChapter.setIsPurchased(true);
-                        }else{
-                            audioBook.setIsTotalBookPurchased(true);
-                        }
+//                        if(isSelectChapterBuyOption){
+//                            selectedChapter.setIsPurchased(true);
+//                        }else{
+//                            audioBook.setIsTotalBookPurchased(true);
+//                        }
+                        audioBook.setIsTotalBookPurchased(true);
+
                         updateAudioBook(0);
                         progressDialog.dismiss();
                         updateData();
@@ -1274,13 +1310,14 @@ if(connectionDetector.isConnectingToInternet()){
             FileDownloadTask downloadTask =  new FileDownloadTask(this,this,audioBook.getBook_id());
             downloadTask.execute(dirPath, "" + filePart);
             downloadingList.add(downloadTask);
-            if(isSelectChapterBuyOption){
-                mProgressDialog.setMessage("Downloading " + selectedChapter.getEnglish_title());
-
-            }else{
-                mProgressDialog.setMessage("Downloading Chapter " + filePart);
-
-            }
+//            if(isSelectChapterBuyOption){
+//                mProgressDialog.setMessage("Downloading " + selectedChapter.getEnglish_title());
+//
+//            }else{
+//                mProgressDialog.setMessage("Downloading Chapter " + filePart);
+//
+//            }
+            mProgressDialog.setMessage("Downloading Chapter " + filePart);
 
 
         }else{
@@ -1321,15 +1358,15 @@ if(connectionDetector.isConnectingToInternet()){
                 String chapterName="";
 
 
-                if(isSelectChapterBuyOption){
-                    File file = new File(dirPath + selectedChapter.getChapter_id() + ".lisn");
-
-                    if (!file.exists() || !(audioBook.getDownloadedChapter().contains(selectedChapter.getChapter_id()))) {
-                        downloadAudioFileFromUrl(selectedChapter.getChapter_id());
-                        isDownloading = true;
-                        chapterName=selectedChapter.getEnglish_title();
-                    }
-                }else {
+//                if(isSelectChapterBuyOption){
+//                    File file = new File(dirPath + selectedChapter.getChapter_id() + ".lisn");
+//
+//                    if (!file.exists() || !(audioBook.getDownloadedChapter().contains(selectedChapter.getChapter_id()))) {
+//                        downloadAudioFileFromUrl(selectedChapter.getChapter_id());
+//                        isDownloading = true;
+//                        chapterName=selectedChapter.getEnglish_title();
+//                    }
+//                }else {
                     for (int index = 0; index < (audioBook.getChapters().size()); index++) {
                         BookChapter bookChapter=audioBook.getChapters().get(index);
                         File file = new File(dirPath + bookChapter.getChapter_id() + ".lisn");
@@ -1345,7 +1382,7 @@ if(connectionDetector.isConnectingToInternet()){
                         }
 
                     }
-                }
+
                 if (!isDownloading) {
                     if ( mProgressDialog!=null && mProgressDialog.isShowing() ){
                         mProgressDialog.dismiss();
@@ -1383,13 +1420,13 @@ if(connectionDetector.isConnectingToInternet()){
             } else {
 
                 boolean needDownload=false;
-                if(isSelectChapterBuyOption){
-                    File file = new File(dirPath + selectedChapter.getChapter_id() + ".lisn");
-
-                    if (!file.exists() || !(audioBook.getDownloadedChapter().contains(selectedChapter.getChapter_id()))) {
-                        needDownload=true;
-                    }
-                }else {
+//                if(isSelectChapterBuyOption){
+//                    File file = new File(dirPath + selectedChapter.getChapter_id() + ".lisn");
+//
+//                    if (!file.exists() || !(audioBook.getDownloadedChapter().contains(selectedChapter.getChapter_id()))) {
+//                        needDownload=true;
+//                    }
+//                }else {
                     for (int index = 0; index < (audioBook.getChapters().size()); index++) {
                         BookChapter bookChapter = audioBook.getChapters().get(index);
 
@@ -1403,7 +1440,7 @@ if(connectionDetector.isConnectingToInternet()){
 
 
                     }
-                }
+                //}
                 if (!needDownload) {
                     if ( mProgressDialog!=null && mProgressDialog.isShowing() ){
                         mProgressDialog.dismiss();
@@ -1476,19 +1513,19 @@ if(connectionDetector.isConnectingToInternet()){
         if(AppController.getInstance().isUserLogin()){
 
 
-            if(isSelectChapterBuyOption){
-                if(selectedChapter.isPurchased()){
-                    downloadAudioFile();
-
-                }else{
-                    if(selectedChapter.getPrice()>0){
-                        showPaymentOptionPopupWindow();
-                    }else{
-                        logUserDownload();
-                    }
-                }
-
-            }else {
+//            if(isSelectChapterBuyOption){
+//                if(selectedChapter.isPurchased()){
+//                    downloadAudioFile();
+//
+//                }else{
+//                    if(selectedChapter.getPrice()>0){
+//                        showPaymentOptionPopupWindow();
+//                    }else{
+//                        logUserDownload();
+//                    }
+//                }
+//
+//            }else {
                 if (audioBook.isTotalBookPurchased()) {
                     downloadAudioFile();
 
@@ -1503,7 +1540,7 @@ if(connectionDetector.isConnectingToInternet()){
                         logUserDownload();
                     }
                 }
-            }
+            //}
         }else{
             Intent intent = new Intent(getApplicationContext(),
                     LoginActivity.class);
@@ -1518,14 +1555,15 @@ if(connectionDetector.isConnectingToInternet()){
                 Intent intent = new Intent(this,
                         PurchaseActivity.class);
                 intent.putExtra("audioBook", audioBook);
-                if(isSelectChapterBuyOption){
-                    intent.putExtra("isSelectChapterBuyOption", isSelectChapterBuyOption);
-                    intent.putExtra("selectedChapter", selectedChapter);
-
-                }else{
+//                if(isSelectChapterBuyOption && !audioBook.isApplyCoupon()){
+//                    intent.putExtra("isSelectChapterBuyOption", isSelectChapterBuyOption);
+//                    intent.putExtra("selectedChapter", selectedChapter);
+//
+//                }
+//                else{
                     new Analytic().analyticEvent(4, audioBook.getBook_id(), "0");
 
-                }
+                //}
                 startActivityForResult(intent, 2);
 
             }else {
@@ -1541,7 +1579,6 @@ if(connectionDetector.isConnectingToInternet()){
 
     private void addToMyBillButtonPressed(){
 
-        if(!isSelectChapterBuyOption)
             new Analytic().analyticEvent(4, audioBook.getBook_id(), "0");
 
         if(isMobileDataEnable()) {
@@ -1646,10 +1683,10 @@ if(connectionDetector.isConnectingToInternet()){
         }else{
             params.put("action", "charge");
         }
-        if(isSelectChapterBuyOption){
-            params.put("chapid", ""+selectedChapter.getChapter_id());
-            params.put("amount", ""+selectedChapter.getPrice());
-        }else {
+//        if(isSelectChapterBuyOption){
+//            params.put("chapid", ""+selectedChapter.getChapter_id());
+//            params.put("amount", ""+selectedChapter.getPrice());
+//        }else {
             String amount=audioBook.getPrice();
             if(audioBook.isApplyCoupon()){
                 amount = ""+(float) ((Float.parseFloat(audioBook.getPrice())) * ((100.0 - audioBook.getCouponDiscount()) / 100.0));
@@ -1658,7 +1695,7 @@ if(connectionDetector.isConnectingToInternet()){
             params.put("amount", amount);
 
 
-        }
+       // }
 
 
 
@@ -1669,8 +1706,8 @@ if(connectionDetector.isConnectingToInternet()){
                         Log.v("addToBillServerConnect", "addToBillServerConnect 2");
 
                         String info="0";
-                        if(isSelectChapterBuyOption)
-                            info=""+selectedChapter.getChapter_id();
+//                        if(isSelectChapterBuyOption)
+//                            info=""+selectedChapter.getChapter_id();
                         if(paymentOption == PaymentOption.OPTION_MOBITEL){
                             info=info+",mobitel";
 
@@ -1798,8 +1835,8 @@ if(connectionDetector.isConnectingToInternet()){
             @Override
             public void onErrorResponse(VolleyError error) {
                 String info="0";
-                if(isSelectChapterBuyOption)
-                    info=""+selectedChapter.getChapter_id();
+//                if(isSelectChapterBuyOption)
+//                    info=""+selectedChapter.getChapter_id();
                 if(paymentOption == PaymentOption.OPTION_MOBITEL){
                     info=info+",mobitel";
 
@@ -1848,9 +1885,9 @@ if(connectionDetector.isConnectingToInternet()){
                 if(prefs.getBoolean(KEY_TERMS_ACCEPTED_FOR_MOBITEL, false)) {
                     Log.v("addToMobitelBill","addToMobitelBill 4");
                     String price= audioBook.getPrice();
-                    if(isSelectChapterBuyOption){
-                        price=""+selectedChapter.getPrice();
-                    }
+//                    if(isSelectChapterBuyOption){
+//                        price=""+selectedChapter.getPrice();
+//                    }
                     if(audioBook.isApplyCoupon()){
                         price = ""+(float) ((Float.parseFloat(audioBook.getPrice())) * ((100.0 - audioBook.getCouponDiscount()) / 100.0));
                     }
@@ -1903,9 +1940,9 @@ if(connectionDetector.isConnectingToInternet()){
                     AlertDialog.Builder builder = new AlertDialog.Builder(AudioBookDetailActivity.this);
                     //Confirm Payment
                     String price= audioBook.getPrice();
-                    if(isSelectChapterBuyOption){
-                        price=""+selectedChapter.getPrice();
-                    }
+//                    if(isSelectChapterBuyOption){
+//                        price=""+selectedChapter.getPrice();
+//                    }
                     if(audioBook.isApplyCoupon()){
                         price = ""+(float) ((Float.parseFloat(audioBook.getPrice())) * ((100.0 - audioBook.getCouponDiscount()) / 100.0));
                     }
@@ -1959,9 +1996,9 @@ if(connectionDetector.isConnectingToInternet()){
                     AlertDialog.Builder builder = new AlertDialog.Builder(AudioBookDetailActivity.this);
                     //Confirm Payment
                     String price= audioBook.getPrice();
-                    if(isSelectChapterBuyOption){
-                        price=""+selectedChapter.getPrice();
-                    }
+//                    if(isSelectChapterBuyOption){
+//                        price=""+selectedChapter.getPrice();
+//                    }
                     if(audioBook.isApplyCoupon()){
                         price = ""+(float) ((Float.parseFloat(audioBook.getPrice())) * ((100.0 - audioBook.getCouponDiscount()) / 100.0));
                     }
@@ -2015,20 +2052,20 @@ if(connectionDetector.isConnectingToInternet()){
         updateServiceProviderData();
 
         audioBook.setPurchase(true);
-        if(isSelectChapterBuyOption){
-            selectedChapter.setIsPurchased(true);
-            for (int i = 0; i <audioBook.getChapters().size() ; i++) {
-                BookChapter bookChapter=audioBook.getChapters().get(i);
-                if(bookChapter.getChapter_id() == selectedChapter.getChapter_id()){
-                    bookChapter.setIsPurchased(true);
-                    break;
-                }
-            }
-
-
-        }else {
+//        if(isSelectChapterBuyOption){
+//            selectedChapter.setIsPurchased(true);
+//            for (int i = 0; i <audioBook.getChapters().size() ; i++) {
+//                BookChapter bookChapter=audioBook.getChapters().get(i);
+//                if(bookChapter.getChapter_id() == selectedChapter.getChapter_id()){
+//                    bookChapter.setIsPurchased(true);
+//                    break;
+//                }
+//            }
+//
+//
+//        }else {
             audioBook.setIsTotalBookPurchased(true);
-        }
+        //}
         updateAudioBook(0);
 
     }
@@ -2121,29 +2158,29 @@ if(connectionDetector.isConnectingToInternet()){
                 showMessage("NOTFOUND");
 
             } else {
-                if(isSelectChapterBuyOption){
-                    selectedChapter.setIsPurchased(true);
-                    updateAudioBook(Integer.parseInt(file_name));
-                    if ( mProgressDialog!=null && mProgressDialog.isShowing() ){
-                        mProgressDialog.dismiss();
-                    }
-                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                    builder.setTitle(R.string.DOWNLOAD_COMPLETE_TITLE).setMessage(getString(R.string.DOWNLOAD_COMPLETE_MESSAGE)).setPositiveButton(
-                            R.string.BUTTON_YES, new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    PlayerControllerActivity.navigate(AudioBookDetailActivity.this, bookCoverImage, audioBook,selectedChapterIndex);
-
-                                }
-                            })
-                            .setNegativeButton(R.string.BUTTON_NO, new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    // FIRE ZE MISSILES!
-                                    updateData();
-                                }
-                            });
-                    AlertDialog dialog = builder.create();
-                    dialog.show();
-                }else {
+//                if(isSelectChapterBuyOption){
+//                    selectedChapter.setIsPurchased(true);
+//                    updateAudioBook(Integer.parseInt(file_name));
+//                    if ( mProgressDialog!=null && mProgressDialog.isShowing() ){
+//                        mProgressDialog.dismiss();
+//                    }
+//                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//                    builder.setTitle(R.string.DOWNLOAD_COMPLETE_TITLE).setMessage(getString(R.string.DOWNLOAD_COMPLETE_MESSAGE)).setPositiveButton(
+//                            R.string.BUTTON_YES, new DialogInterface.OnClickListener() {
+//                                public void onClick(DialogInterface dialog, int id) {
+//                                    PlayerControllerActivity.navigate(AudioBookDetailActivity.this, bookCoverImage, audioBook,selectedChapterIndex);
+//
+//                                }
+//                            })
+//                            .setNegativeButton(R.string.BUTTON_NO, new DialogInterface.OnClickListener() {
+//                                public void onClick(DialogInterface dialog, int id) {
+//                                    // FIRE ZE MISSILES!
+//                                    updateData();
+//                                }
+//                            });
+//                    AlertDialog dialog = builder.create();
+//                    dialog.show();
+//                }else {
                    // mProgressDialog.setMessage("Downloading " + (audioBook.getDownloadedChapter().size() + 1) + " of " + audioBook.getChapters().size());
 
                     //downloadedFileCount++;
@@ -2154,7 +2191,7 @@ if(connectionDetector.isConnectingToInternet()){
                         updateData();
                         // }
                     }
-                }
+                //}
             }
         }
     }
@@ -2171,11 +2208,15 @@ if(connectionDetector.isConnectingToInternet()){
 
             TextView buyLabel=(TextView)layout.findViewById(R.id.buy_label);
 
-            String buyLabelText="Buy " + selectedChapter.getEnglish_title()+" for just Rs."+selectedChapter.getPrice();
+            //String buyLabelText="Buy " + selectedChapter.getEnglish_title()+" for just Rs."+selectedChapter.getPrice();
+            String buyLabelText="";
 
             if(audioBook.isApplyCoupon()){
                 buyLabelText="Coupon discount "+audioBook.getCouponDiscount();
+            }else{
+                buyLabelText="else";
             }
+
             buyLabel.setText(buyLabelText);
 
             Button btn_addToBillButton = (Button) layout.findViewById(R.id.btn_addToBillButton);
@@ -2191,7 +2232,7 @@ if(connectionDetector.isConnectingToInternet()){
                 @Override
                 public void onClick(View view) {
                     paymentOption = PaymentOption.OPTION_CARD;
-                    isSelectChapterBuyOption=true;
+                    //isSelectChapterBuyOption=true;
                     buyFromCardButtonPressed();
                     paymentOptionView.dismiss();
 
@@ -2400,8 +2441,8 @@ if(connectionDetector.isConnectingToInternet()){
         else if (requestCode == 2) {
             if(resultCode == Constants.RESULT_SUCCESS){
                 String info="0";
-                if(isSelectChapterBuyOption)
-                    info=""+selectedChapter.getChapter_id();
+//                if(isSelectChapterBuyOption)
+//                    info=""+selectedChapter.getChapter_id();
                 info=info+",card,success";
                 new Analytic().analyticEvent(8, audioBook.getBook_id(), info);
 
@@ -2428,8 +2469,8 @@ if(connectionDetector.isConnectingToInternet()){
                 Log.v("addToBillServerConnect","addToBillServerConnect 3");
 
                 String info="0";
-                if(isSelectChapterBuyOption)
-                    info=""+selectedChapter.getChapter_id();
+//                if(isSelectChapterBuyOption)
+//                    info=""+selectedChapter.getChapter_id();
                 info=info+",card,success";
                 new Analytic().analyticEvent(8, audioBook.getBook_id(), info);
 
@@ -2454,8 +2495,8 @@ if(connectionDetector.isConnectingToInternet()){
             }
             if (resultCode == Constants.RESULT_ERROR) {
                 String info="0";
-                if(isSelectChapterBuyOption)
-                    info=""+selectedChapter.getChapter_id();
+//                if(isSelectChapterBuyOption)
+//                    info=""+selectedChapter.getChapter_id();
                 info=info+",card,failed";
                 new Analytic().analyticEvent(8, audioBook.getBook_id(), info);
 

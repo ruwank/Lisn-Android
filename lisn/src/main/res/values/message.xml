@@ -89,4 +89,9 @@
     <string name="SHARE_ERROR_TITLE">Error</string>
     <string name="SHARE_ERROR_MESSAGE">Post was not published. </string>
 
+    <string name="COUPON_USED_TITLE">Error</string>
+    <string name="COUPON_USED_MESSAGE">Already used. </string>
+    <string name="COUPON_INVALID_TITLE">Error</string>
+    <string name="COUPON_INVALID_MESSAGE">Invalid Coupon.</string>
+
 </resources>

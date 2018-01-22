@@ -186,43 +186,44 @@
                             android:text="I Have Coupon"
                             />
                     </RelativeLayout>
-                    <audio.lisn.view.ExpandablePanel
-                        android:id="@+id/buy_chapter"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_below="@+id/top_layout"
-                        android:orientation="vertical"
-                        app:animationDuration="500"
-                        app:collapsedHeight="120dip"
-                        app:content="@+id/chapter_list"
-                        app:handle="@+id/expand">
+                    <!---->
+                    <!--<audio.lisn.view.ExpandablePanel-->
+                        <!--android:id="@+id/buy_chapter"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="match_parent"-->
+                        <!--android:layout_below="@+id/top_layout"-->
+                        <!--android:orientation="vertical"-->
+                        <!--app:animationDuration="500"-->
+                        <!--app:collapsedHeight="120dip"-->
+                        <!--app:content="@+id/chapter_list"-->
+                        <!--app:handle="@+id/expand">-->
 
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent" >
-                            <ListView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:id="@id/chapter_list"
-                                android:dividerHeight="0dp"
-                                android:divider="@null"
-                                />
+                        <!--<RelativeLayout-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="match_parent" >-->
+                            <!--<ListView-->
+                                <!--android:layout_width="match_parent"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:id="@id/chapter_list"-->
+                                <!--android:dividerHeight="0dp"-->
+                                <!--android:divider="@null"-->
+                                <!--/>-->
 
-                            <ToggleButton
-                                android:id="@id/expand"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerHorizontal="true"
-                                android:layout_below="@id/chapter_list"
-                                android:textOn="View Less"
-                                android:textOff="View All"
-                                android:focusable="false"
-                                android:focusableInTouchMode="false"
-                                android:textColor="@color/colorPrimary"
-                                android:background="@android:color/transparent"
-                                />
-                        </RelativeLayout>
-                    </audio.lisn.view.ExpandablePanel>
+                            <!--<ToggleButton-->
+                                <!--android:id="@id/expand"-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:layout_centerHorizontal="true"-->
+                                <!--android:layout_below="@id/chapter_list"-->
+                                <!--android:textOn="View Less"-->
+                                <!--android:textOff="View All"-->
+                                <!--android:focusable="false"-->
+                                <!--android:focusableInTouchMode="false"-->
+                                <!--android:textColor="@color/colorPrimary"-->
+                                <!--android:background="@android:color/transparent"-->
+                                <!--/>-->
+                        <!--</RelativeLayout>-->
+                    <!--</audio.lisn.view.ExpandablePanel>-->
 
                     <View
                         android:id="@+id/separator_1"
@@ -230,7 +231,7 @@
                         android:layout_height="1dp"
                         android:background="@android:color/darker_gray"
                         android:layout_marginTop="@dimen/spacing_large"
-                        android:layout_below="@+id/buy_chapter"
+                        android:layout_below="@+id/top_layout"
                         />
 
                     <HorizontalScrollView
